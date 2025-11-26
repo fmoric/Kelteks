@@ -7,6 +7,16 @@ codeunit 50150 "KLT API Auth BC27"
     var
         TokenCache: Text;
         TokenExpiry: DateTime;
+        FailedToConnectAuthServiceErr: Label 'Failed to connect to authentication service.';
+        AuthFailedStatusCodeErr: Label 'Authentication failed with status code: %1';
+        FailedExtractTokenErr: Label 'Failed to extract access token from response.';
+        UsernamePasswordRequiredErr: Label 'Username and password are required for Basic Authentication.';
+        CertThumbprintRequiredErr: Label 'Certificate thumbprint is required for Certificate Authentication.';
+        CertNotFoundErr: Label 'Certificate with thumbprint %1 not found in certificate store.';
+        OAuthTokenUrlTxt: Label 'https://login.microsoftonline.com/%1/oauth2/v2.0/token', Locked = true;
+        OAuthRequestBodyTxt: Label 'grant_type=client_credentials&client_id=%1&client_secret=%2&scope=https://api.businesscentral.dynamics.com/.default', Locked = true;
+        CredentialsFormatTxt: Label '%1:%2', Locked = true;
+        CompaniesApiPathTxt: Label '/api/v2.0/companies', Locked = true;
 
     procedure GetBC17AccessToken(): Text
     var
@@ -41,9 +51,8 @@ codeunit 50150 "KLT API Auth BC27"
         TokenUrl: Text;
         RequestBody: Text;
     begin
-        TokenUrl := StrSubstNo('https://login.microsoftonline.com/%1/oauth2/v2.0/token', TenantId);
-        RequestBody := StrSubstNo('grant_type=client_credentials&client_id=%1&client_secret=%2&scope=https://api.businesscentral.dynamics.com/.default',
-            ClientId, ClientSecret);
+        TokenUrl := StrSubstNo(OAuthTokenUrlTxt, TenantId);
+        RequestBody := StrSubstNo(OAuthRequestBodyTxt, ClientId, ClientSecret);
 
         Content.WriteFrom(RequestBody);
         Content.GetHeaders(Headers);
@@ -55,16 +64,16 @@ codeunit 50150 "KLT API Auth BC27"
         RequestMessage.Content := Content;
 
         if not Client.Send(RequestMessage, ResponseMessage) then
-            Error('Failed to connect to authentication service.');
+            Error(FailedToConnectAuthServiceErr);
 
         if not ResponseMessage.IsSuccessStatusCode() then
-            Error('Authentication failed with status code: %1', ResponseMessage.HttpStatusCode());
+            Error(AuthFailedStatusCodeErr, ResponseMessage.HttpStatusCode());
 
         ResponseMessage.Content.ReadAs(ResponseText);
         AccessToken := ExtractAccessTokenFromJson(ResponseText);
         
         if AccessToken = '' then
-            Error('Failed to extract access token from response.');
+            Error(FailedExtractTokenErr);
 
         exit(AccessToken);
     end;
@@ -155,24 +164,23 @@ codeunit 50150 "KLT API Auth BC27"
         Credentials: Text;
     begin
         if (Username = '') or (Password = '') then
-            Error('Username and password are required for Basic Authentication.');
+            Error(UsernamePasswordRequiredErr);
         
-        Credentials := StrSubstNo('%1:%2', Username, Password);
+        Credentials := StrSubstNo(CredentialsFormatTxt, Username, Password);
         exit(Base64Convert.ToBase64(Credentials));
     end;
 
     local procedure AddCertificate(var Client: HttpClient; CertThumbprint: Text)
     var
-        CertificateMgt: Codeunit "Certificate Management";
         IsolatedCertificate: Record "Isolated Certificate";
     begin
         if CertThumbprint = '' then
-            Error('Certificate thumbprint is required for Certificate Authentication.');
+            Error(CertThumbprintRequiredErr);
         
         // Look up certificate by thumbprint
         IsolatedCertificate.SetRange(Thumbprint, CertThumbprint);
         if not IsolatedCertificate.FindFirst() then
-            Error('Certificate with thumbprint %1 not found in certificate store.', CertThumbprint);
+            Error(CertNotFoundErr, CertThumbprint);
         
         // Add certificate to HTTP client
         Client.AddCertificate(IsolatedCertificate."Certificate Value");
@@ -184,7 +192,7 @@ codeunit 50150 "KLT API Auth BC27"
             exit('');
         
         // Return a simple test URL to verify connectivity
-        exit(APIConfig."BC17 Base URL" + '/api/v2.0/companies');
+        exit(APIConfig."BC17 Base URL" + CompaniesApiPathTxt);
     end;
 
     /// <summary>

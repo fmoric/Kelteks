@@ -7,6 +7,12 @@ codeunit 50103 "KLT Purchase Doc Sync BC17"
     var
         APIHelper: Codeunit "KLT API Helper BC17";
         Validator: Codeunit "KLT Document Validator BC17";
+        FailedBuildJSONErr: Label 'Failed to build JSON request';
+        APIRequestFailedErr: Label 'API request failed';
+        VendorNotFoundErr: Label VendorNotFoundErr;
+        PurchInvLinesNotArrayErr: Label PurchInvLinesNotArrayErr;
+        PurchCrMemoLinesNotArrayErr: Label PurchCrMemoLinesNotArrayErr;
+        InvalidLineTypeErr: Label InvalidLineTypeErr;
 
     /// <summary>
     /// Retrieves and creates Purchase Invoices from BC27
@@ -186,7 +192,7 @@ codeunit 50103 "KLT Purchase Doc Sync BC17"
         VendorNo := CopyStr(APIHelper.GetJsonText(DocJson, 'vendorNumber'), 1, MaxStrLen(VendorNo));
         
         if not Vendor.Get(VendorNo) then begin
-            ErrorText := StrSubstNo('Vendor %1 not found', VendorNo);
+            ErrorText := StrSubstNo(VendorNotFoundErr, VendorNo);
             exit(false);
         end;
         
@@ -220,7 +226,7 @@ codeunit 50103 "KLT Purchase Doc Sync BC17"
         VendorNo := CopyStr(APIHelper.GetJsonText(DocJson, 'vendorNumber'), 1, MaxStrLen(VendorNo));
         
         if not Vendor.Get(VendorNo) then begin
-            ErrorText := StrSubstNo('Vendor %1 not found', VendorNo);
+            ErrorText := StrSubstNo(VendorNotFoundErr, VendorNo);
             exit(false);
         end;
         
@@ -260,7 +266,7 @@ codeunit 50103 "KLT Purchase Doc Sync BC17"
             exit(true); // No lines is valid
         
         if not LinesToken.IsArray() then begin
-            ErrorText := 'Purchase invoice lines is not an array';
+            ErrorText := PurchInvLinesNotArrayErr;
             exit(false);
         end;
         
@@ -296,7 +302,7 @@ codeunit 50103 "KLT Purchase Doc Sync BC17"
             exit(true); // No lines is valid
         
         if not LinesToken.IsArray() then begin
-            ErrorText := 'Purchase credit memo lines is not an array';
+            ErrorText := PurchCrMemoLinesNotArrayErr;
             exit(false);
         end;
         
@@ -331,7 +337,7 @@ codeunit 50103 "KLT Purchase Doc Sync BC17"
         // Parse line type
         LineTypeText := APIHelper.GetJsonText(LineJson, 'lineType');
         if not ParseLineType(LineTypeText, LineType) then begin
-            ErrorText := StrSubstNo('Invalid line type: %1', LineTypeText);
+            ErrorText := StrSubstNo(InvalidLineTypeErr, LineTypeText);
             exit(false);
         end;
         
@@ -427,13 +433,9 @@ codeunit 50103 "KLT Purchase Doc Sync BC17"
             SyncLog."Retry Count" := SyncLog."Retry Count" + 1;
             SyncLog.Modify(true);
             
-            // Log to Error Message table
-            ErrorMessage.Init();
-            ErrorMessage."Context Record ID" := SyncLog.RecordId;
-            ErrorMessage.Description := CopyStr(ErrorMsg, 1, MaxStrLen(ErrorMessage.Description));
-            ErrorMessage."Message" := CopyStr(ErrorMsg, 1, MaxStrLen(ErrorMessage."Message"));
-            ErrorMessage."Created On" := CurrentDateTime();
-            if ErrorMessage.Insert() then;
+            // Use Error Message built-in procedure with context
+            ErrorMessage.SetContext(SyncLog);
+            ErrorMessage.LogMessage(SyncLog, SyncLog.FieldNo("Last Error Message"), ErrorMsg);
         end;
     end;
 }

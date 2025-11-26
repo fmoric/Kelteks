@@ -7,6 +7,8 @@ codeunit 50105 "KLT Sync Engine BC17"
     var
         SalesDocSync: Codeunit "KLT Sales Doc Sync BC17";
         PurchaseDocSync: Codeunit "KLT Purchase Doc Sync BC17";
+        SourceDocNotFoundErr: Label SourceDocNotFoundErr;
+        SyncFailedErr: Label SyncFailedErr;
 
     /// <summary>
     /// Main entry point for scheduled synchronization
@@ -161,7 +163,7 @@ codeunit 50105 "KLT Sync Engine BC17"
         SalesInvHeader: Record "Sales Invoice Header";
     begin
         if not SalesInvHeader.Get(SyncQueue."Source Document No.") then begin
-            MarkQueueItemFailed(SyncQueue, 'Source document not found');
+            MarkQueueItemFailed(SyncQueue, SourceDocNotFoundErr);
             exit(false);
         end;
         
@@ -176,7 +178,7 @@ codeunit 50105 "KLT Sync Engine BC17"
             MarkQueueItemCompleted(SyncQueue);
             exit(true);
         end else begin
-            MarkQueueItemFailed(SyncQueue, 'Sync failed');
+            MarkQueueItemFailed(SyncQueue, SyncFailedErr);
             exit(false);
         end;
     end;
@@ -186,7 +188,7 @@ codeunit 50105 "KLT Sync Engine BC17"
         SalesCrMemoHeader: Record "Sales Cr.Memo Header";
     begin
         if not SalesCrMemoHeader.Get(SyncQueue."Source Document No.") then begin
-            MarkQueueItemFailed(SyncQueue, 'Source document not found');
+            MarkQueueItemFailed(SyncQueue, SourceDocNotFoundErr);
             exit(false);
         end;
         
@@ -201,7 +203,7 @@ codeunit 50105 "KLT Sync Engine BC17"
             MarkQueueItemCompleted(SyncQueue);
             exit(true);
         end else begin
-            MarkQueueItemFailed(SyncQueue, 'Sync failed');
+            MarkQueueItemFailed(SyncQueue, SyncFailedErr);
             exit(false);
         end;
     end;

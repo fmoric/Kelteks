@@ -7,6 +7,8 @@ codeunit 50102 "KLT Sales Doc Sync BC17"
     var
         APIHelper: Codeunit "KLT API Helper BC17";
         Validator: Codeunit "KLT Document Validator BC17";
+        FailedBuildJSONErr: Label FailedBuildJSONErr;
+        APIRequestFailedErr: Label APIRequestFailedErr;
 
     /// <summary>
     /// Synchronizes a Posted Sales Invoice to BC27
@@ -35,14 +37,14 @@ codeunit 50102 "KLT Sales Doc Sync BC17"
         
         // Build JSON request
         if not BuildSalesInvoiceJson(SalesInvHeader, RequestJson) then begin
-            UpdateSyncLogError(SyncLogEntryNo, 'Failed to build JSON request', "KLT Error Category"::DataValidation);
+            UpdateSyncLogError(SyncLogEntryNo, FailedBuildJSONErr, "KLT Error Category"::DataValidation);
             exit(false);
         end;
         
         // Send to BC27
         Endpoint := APIHelper.GetSalesInvoiceEndpoint(APIConfig."BC27 Company ID");
         if not APIHelper.SendPostRequest(Endpoint, RequestJson, ResponseJson) then begin
-            UpdateSyncLogError(SyncLogEntryNo, 'API request failed', "KLT Error Category"::APICommunication);
+            UpdateSyncLogError(SyncLogEntryNo, APIRequestFailedErr, "KLT Error Category"::APICommunication);
             exit(false);
         end;
         
@@ -78,14 +80,14 @@ codeunit 50102 "KLT Sales Doc Sync BC17"
         
         // Build JSON request
         if not BuildSalesCreditMemoJson(SalesCrMemoHeader, RequestJson) then begin
-            UpdateSyncLogError(SyncLogEntryNo, 'Failed to build JSON request', "KLT Error Category"::DataValidation);
+            UpdateSyncLogError(SyncLogEntryNo, FailedBuildJSONErr, "KLT Error Category"::DataValidation);
             exit(false);
         end;
         
         // Send to BC27
         Endpoint := APIHelper.GetSalesCreditMemoEndpoint(APIConfig."BC27 Company ID");
         if not APIHelper.SendPostRequest(Endpoint, RequestJson, ResponseJson) then begin
-            UpdateSyncLogError(SyncLogEntryNo, 'API request failed', "KLT Error Category"::APICommunication);
+            UpdateSyncLogError(SyncLogEntryNo, APIRequestFailedErr, "KLT Error Category"::APICommunication);
             exit(false);
         end;
         
@@ -290,13 +292,9 @@ codeunit 50102 "KLT Sales Doc Sync BC17"
             SyncLog."Retry Count" := SyncLog."Retry Count" + 1;
             SyncLog.Modify(true);
             
-            // Log to Error Message table
-            ErrorMessage.Init();
-            ErrorMessage."Context Record ID" := SyncLog.RecordId;
-            ErrorMessage.Description := CopyStr(ErrorMsg, 1, MaxStrLen(ErrorMessage.Description));
-            ErrorMessage."Message" := CopyStr(ErrorMsg, 1, MaxStrLen(ErrorMessage."Message"));
-            ErrorMessage."Created On" := CurrentDateTime();
-            if ErrorMessage.Insert() then;
+            // Use Error Message built-in procedure with context
+            ErrorMessage.SetContext(SyncLog);
+            ErrorMessage.LogMessage(SyncLog, SyncLog.FieldNo("Last Error Message"), ErrorMsg);
         end;
     end;
 

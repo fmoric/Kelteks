@@ -6,6 +6,19 @@ codeunit 50101 "KLT API Helper BC17"
 {
     var
         APIAuth: Codeunit "KLT API Auth BC17";
+        HTTPGetFailedConnErr: Label 'HTTP GET request failed: Connection error';
+        HTTPGetFailedStatusErr: Label 'HTTP GET failed with status %1';
+        FailedParseJSONErr: Label 'Failed to parse JSON response';
+        HTTPPostFailedConnErr: Label 'HTTP POST request failed: Connection error';
+        HTTPPostFailedStatusErr: Label 'HTTP POST failed with status %1: %2';
+        HTTPPatchFailedConnErr: Label 'HTTP PATCH request failed: Connection error';
+        HTTPPatchFailedStatusErr: Label 'HTTP PATCH failed with status %1: %2';
+        SalesInvoicesEndpointTxt: Label '/api/v2.0/companies(%1)/salesInvoices', Locked = true;
+        SalesCreditMemosEndpointTxt: Label '/api/v2.0/companies(%1)/salesCreditMemos', Locked = true;
+        PurchaseInvoicesEndpointTxt: Label '/api/v2.0/companies(%1)/purchaseInvoices', Locked = true;
+        PurchaseCreditMemosEndpointTxt: Label '/api/v2.0/companies(%1)/purchaseCreditMemos', Locked = true;
+        CompaniesEndpointTxt: Label '/api/v2.0/companies', Locked = true;
+        ErrorContextTxt: Label '%1 - Context: %2', Locked = true;
 
     /// <summary>
     /// Sends HTTP GET request to BC27 API
@@ -31,20 +44,20 @@ codeunit 50101 "KLT API Helper BC17"
         
         // Send request
         if not Client.Get(FullUrl, Response) then begin
-            LogError('HTTP GET request failed: Connection error', Endpoint);
+            LogError(HTTPGetFailedConnErr, Endpoint);
             exit(false);
         end;
         
         // Check status
         if not Response.IsSuccessStatusCode() then begin
-            LogError(StrSubstNo('HTTP GET failed with status %1', Response.HttpStatusCode()), Endpoint);
+            LogError(StrSubstNo(HTTPGetFailedStatusErr, Response.HttpStatusCode()), Endpoint);
             exit(false);
         end;
         
         // Parse response
         Response.Content.ReadAs(ResponseText);
         if not ResponseJson.ReadFrom(ResponseText) then begin
-            LogError('Failed to parse JSON response', Endpoint);
+            LogError(FailedParseJSONErr, Endpoint);
             exit(false);
         end;
         
@@ -90,14 +103,14 @@ codeunit 50101 "KLT API Helper BC17"
         
         // Send request
         if not Client.Send(Request, Response) then begin
-            LogError('HTTP POST request failed: Connection error', Endpoint);
+            LogError(HTTPPostFailedConnErr, Endpoint);
             exit(false);
         end;
         
         // Check status
         if not Response.IsSuccessStatusCode() then begin
             Response.Content.ReadAs(ResponseText);
-            LogError(StrSubstNo('HTTP POST failed with status %1: %2', Response.HttpStatusCode(), ResponseText), Endpoint);
+            LogError(StrSubstNo(HTTPPostFailedStatusErr, Response.HttpStatusCode(), ResponseText), Endpoint);
             exit(false);
         end;
         
@@ -105,7 +118,7 @@ codeunit 50101 "KLT API Helper BC17"
         Response.Content.ReadAs(ResponseText);
         if ResponseText <> '' then begin
             if not ResponseJson.ReadFrom(ResponseText) then begin
-                LogError('Failed to parse JSON response', Endpoint);
+                LogError(FailedParseJSONErr, Endpoint);
                 exit(false);
             end;
         end;
@@ -152,14 +165,14 @@ codeunit 50101 "KLT API Helper BC17"
         
         // Send request
         if not Client.Send(Request, Response) then begin
-            LogError('HTTP PATCH request failed: Connection error', Endpoint);
+            LogError(HTTPPatchFailedConnErr, Endpoint);
             exit(false);
         end;
         
         // Check status
         if not Response.IsSuccessStatusCode() then begin
             Response.Content.ReadAs(ResponseText);
-            LogError(StrSubstNo('HTTP PATCH failed with status %1: %2', Response.HttpStatusCode(), ResponseText), Endpoint);
+            LogError(StrSubstNo(HTTPPatchFailedStatusErr, Response.HttpStatusCode(), ResponseText), Endpoint);
             exit(false);
         end;
         
@@ -167,7 +180,7 @@ codeunit 50101 "KLT API Helper BC17"
         Response.Content.ReadAs(ResponseText);
         if ResponseText <> '' then begin
             if not ResponseJson.ReadFrom(ResponseText) then begin
-                LogError('Failed to parse JSON response', Endpoint);
+                LogError(FailedParseJSONErr, Endpoint);
                 exit(false);
             end;
         end;
@@ -199,7 +212,7 @@ codeunit 50101 "KLT API Helper BC17"
     /// </summary>
     procedure GetSalesInvoiceEndpoint(CompanyId: Guid): Text
     begin
-        exit(StrSubstNo('/api/v2.0/companies(%1)/salesInvoices', GetGuidText(CompanyId)));
+        exit(StrSubstNo(SalesInvoicesEndpointTxt, GetGuidText(CompanyId)));
     end;
 
     /// <summary>
@@ -207,7 +220,7 @@ codeunit 50101 "KLT API Helper BC17"
     /// </summary>
     procedure GetSalesCreditMemoEndpoint(CompanyId: Guid): Text
     begin
-        exit(StrSubstNo('/api/v2.0/companies(%1)/salesCreditMemos', GetGuidText(CompanyId)));
+        exit(StrSubstNo(SalesCreditMemosEndpointTxt, GetGuidText(CompanyId)));
     end;
 
     /// <summary>
@@ -215,7 +228,7 @@ codeunit 50101 "KLT API Helper BC17"
     /// </summary>
     procedure GetPurchaseInvoiceEndpoint(CompanyId: Guid): Text
     begin
-        exit(StrSubstNo('/api/v2.0/companies(%1)/purchaseInvoices', GetGuidText(CompanyId)));
+        exit(StrSubstNo(PurchaseInvoicesEndpointTxt, GetGuidText(CompanyId)));
     end;
 
     /// <summary>
@@ -223,7 +236,7 @@ codeunit 50101 "KLT API Helper BC17"
     /// </summary>
     procedure GetPurchaseCreditMemoEndpoint(CompanyId: Guid): Text
     begin
-        exit(StrSubstNo('/api/v2.0/companies(%1)/purchaseCreditMemos', GetGuidText(CompanyId)));
+        exit(StrSubstNo(PurchaseCreditMemosEndpointTxt, GetGuidText(CompanyId)));
     end;
 
     local procedure GetGuidText(GuidValue: Guid): Text
@@ -351,15 +364,10 @@ codeunit 50101 "KLT API Helper BC17"
 
     local procedure LogError(ErrorText: Text; Context: Text)
     var
-        SyncLog: Record "KLT Document Sync Log";
         ErrorMessage: Record "Error Message";
     begin
-        // Log to Error Message table
-        ErrorMessage.Init();
-        ErrorMessage.Description := CopyStr(ErrorText, 1, MaxStrLen(ErrorMessage.Description));
-        ErrorMessage."Message" := CopyStr(StrSubstNo('%1 - Context: %2', ErrorText, Context), 1, MaxStrLen(ErrorMessage."Message"));
-        ErrorMessage."Created On" := CurrentDateTime();
-        if ErrorMessage.Insert() then;
+        // Use Error Message built-in procedure
+        ErrorMessage.LogMessage(0, StrSubstNo(ErrorContextTxt, ErrorText, Context), ErrorText, Enum::"Error Msg. Fix Implementation"::None);
     end;
 
     /// <summary>
@@ -372,7 +380,7 @@ codeunit 50101 "KLT API Helper BC17"
         Endpoint: Text;
     begin
         APIConfig.GetInstance();
-        Endpoint := '/api/v2.0/companies';
+        Endpoint := CompaniesEndpointTxt;
         exit(SendGetRequest(Endpoint, ResponseJson));
     end;
 }

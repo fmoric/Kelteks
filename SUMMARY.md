@@ -396,8 +396,8 @@ if NextRetryTime > CurrentDateTime + 3600000 then
 **Main Documentation**:
 - `README.md` (BC17: 15 KB) - Complete user guide for BC17
 - `README.md` (BC27: 21 KB) - Complete user guide for BC27 with eRačun workflow
-- `README-SPLIT.md` - Split architecture overview
-- `SPLIT-ARCHITECTURE.md` - Technical architecture details
+- `ARCHITECTURE.md` - Split architecture overview
+- `ARCHITECTURE.md` - Technical architecture details
 
 ### Developer Documentation (17 KB)
 
@@ -499,8 +499,8 @@ Kelteks/
 │   ├── SETUP-WINDOWS.md
 │   └── SETUP-CERTIFICATE.md
 ├── QUICKSTART-ONPREMISE.md
-├── README-SPLIT.md
-├── SPLIT-ARCHITECTURE.md
+├── ARCHITECTURE.md
+├── ARCHITECTURE.md
 ├── COPILOT-GUIDE.md
 ├── IMPLEMENTATION-STATUS.md
 └── SUMMARY.md (this file)

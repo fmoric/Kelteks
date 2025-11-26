@@ -97,8 +97,8 @@ All 4 methods must be implemented:
 2. ✅ Technical strings marked `Locked = true`
 3. ✅ Error Message using built-in procedures (`LogMessage`, `SetContext`)
 4. ✅ Version suffixes removed from codeunit names
-5. ✅ Code analysis documented (CODE_ANALYSIS.md)
-6. ✅ Refactoring summary created (REFACTORING_SUMMARY.md)
+5. ✅ Code analysis documented (PROJECT-ANALYSIS-2025-11-26.md)
+6. ✅ Refactoring summary created (PROJECT-ANALYSIS-2025-11-26.md)
 7. ✅ Interface pattern started for BC27
 
 ### Code Quality Metrics

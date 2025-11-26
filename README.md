@@ -35,7 +35,7 @@ BC17 (v17)                          BC27 (v27)
 
 For detailed documentation:
 - 📖 [Complete Project Summary](SUMMARY.md)
-- 🏗️ [Architecture Details](SPLIT-ARCHITECTURE.md)
+- 🏗️ [Architecture Details](ARCHITECTURE.md)
 - 📋 [Implementation Status](IMPLEMENTATION-STATUS.md)
 - 🔧 [Setup Guides](KelteksAPIIntegrationBC17/README.md) (BC17) and [BC27](KelteksAPIIntegrationBC27/README.md)
 
@@ -121,7 +121,7 @@ See [detailed setup guides](KelteksAPIIntegrationBC17/README.md) for step-by-ste
 - [Quick Start Guide (On-Premise)](QUICKSTART-ONPREMISE.md) - 15-20 minute setup
 - [BC17 Setup Guides](KelteksAPIIntegrationBC17/) - OAuth, Basic, Windows, Certificate auth
 - [BC27 Setup Guides](KelteksAPIIntegrationBC27/) - OAuth, Basic, Windows, Certificate auth
-- [Architecture Overview](SPLIT-ARCHITECTURE.md)
+- [Architecture Overview](ARCHITECTURE.md)
 - [Upgrade Guide](UPGRADE-GUIDE.md) - BC17 to BC27 upgrade path
 
 ### Developer Documentation
@@ -139,7 +139,7 @@ See [detailed setup guides](KelteksAPIIntegrationBC17/README.md) for step-by-ste
 For issues or questions:
 1. Review [setup guides](KelteksAPIIntegrationBC17/README.md) for configuration help
 2. Check [Final Review Checklist](FINAL-REVIEW-CHECKLIST.md) for known issues
-3. See [Code Analysis](CODE_ANALYSIS.md) for technical details
+3. See [Code Analysis](PROJECT-ANALYSIS-2025-11-26.md) for technical details
 4. Contact: Ana Šetka (Consultant)
 
 ## License & Compliance

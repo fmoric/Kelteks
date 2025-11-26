@@ -340,8 +340,8 @@ If upgrade fails and you need to rollback:
 
 ## Additional Resources
 
-- **Technical Details**: See `UPGRADE-PATH-ANALYSIS.md`
-- **Architecture**: See `SPLIT-ARCHITECTURE.md`
+- **Technical Details**: See `UPGRADE-TECHNICAL-ANALYSIS.md`
+- **Architecture**: See `ARCHITECTURE.md`
 - **Setup Guides**: See `SETUP-*.md` files in each app folder
 
 ---

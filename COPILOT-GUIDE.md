@@ -97,7 +97,7 @@ Same structure with mirrored object IDs (50150-50199)
 - `TECHNICAL.md` - Architecture and API specs
 - `TROUBLESHOOTING.md` - Common issues and solutions
 - `OBJECTS.md` - Object inventory
-- `SPLIT-ARCHITECTURE.md` - Why split, how it works
+- `ARCHITECTURE.md` - Why split, how it works
 
 ### Internal (this file)
 - `COPILOT-GUIDE.md` - Quick reference for Copilot agents

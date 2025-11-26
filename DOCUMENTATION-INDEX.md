@@ -1,0 +1,178 @@
+# Documentation Index - Kelteks API Integration
+
+**Last Updated**: 2025-11-26  
+**Total Documents**: 13 (repository root) + 10 (extensions) = 23 files
+
+---
+
+## Quick Navigation
+
+### 🚀 Getting Started (Start Here)
+- **[README.md](README.md)** - Project overview and quick start
+- **[QUICKSTART-ONPREMISE.md](QUICKSTART-ONPREMISE.md)** - 15-20 minute setup guide
+
+### 📖 Core Documentation
+
+#### Project Overview
+- **[SUMMARY.md](SUMMARY.md)** - Complete project summary and technical specification
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Split architecture design and rationale
+- **[IMPLEMENTATION-STATUS.md](IMPLEMENTATION-STATUS.md)** - Current implementation status and features
+
+#### Quality & Analysis
+- **[PROJECT-ANALYSIS-2025-11-26.md](PROJECT-ANALYSIS-2025-11-26.md)** - Comprehensive project analysis
+  - Code quality assessment
+  - Documentation analysis
+  - Deployment readiness
+  - Recommendations
+- **[BC-BEST-PRACTICES-COMPLIANCE.md](BC-BEST-PRACTICES-COMPLIANCE.md)** - Best practices compliance report (10/10)
+
+#### Upgrade Path
+- **[UPGRADE-GUIDE.md](UPGRADE-GUIDE.md)** - User guide for upgrading from BC17 to BC27
+- **[UPGRADE-TECHNICAL-ANALYSIS.md](UPGRADE-TECHNICAL-ANALYSIS.md)** - Technical analysis of upgrade path
+
+#### Developer Resources
+- **[COPILOT-GUIDE.md](COPILOT-GUIDE.md)** - Developer guide and coding patterns
+- **[FINAL-REVIEW-CHECKLIST.md](FINAL-REVIEW-CHECKLIST.md)** - Pre-deployment checklist and TODO items
+
+### 📦 Extension-Specific Documentation
+
+#### BC17 Extension (KelteksAPIIntegrationBC17)
+- **[BC17/README.md](KelteksAPIIntegrationBC17/README.md)** - BC17 user guide
+- **[BC17/SETUP-OAUTH.md](KelteksAPIIntegrationBC17/SETUP-OAUTH.md)** - OAuth 2.0 setup
+- **[BC17/SETUP-BASIC.md](KelteksAPIIntegrationBC17/SETUP-BASIC.md)** - Basic authentication setup
+- **[BC17/SETUP-WINDOWS.md](KelteksAPIIntegrationBC17/SETUP-WINDOWS.md)** - Windows authentication setup
+- **[BC17/SETUP-CERTIFICATE.md](KelteksAPIIntegrationBC17/SETUP-CERTIFICATE.md)** - Certificate authentication setup
+
+#### BC27 Extension (KelteksAPIIntegrationBC27)
+- **[BC27/README.md](KelteksAPIIntegrationBC27/README.md)** - BC27 user guide
+- **[BC27/SETUP-OAUTH.md](KelteksAPIIntegrationBC27/SETUP-OAUTH.md)** - OAuth 2.0 setup
+- **[BC27/SETUP-BASIC.md](KelteksAPIIntegrationBC27/SETUP-BASIC.md)** - Basic authentication setup
+- **[BC27/SETUP-WINDOWS.md](KelteksAPIIntegrationBC27/SETUP-WINDOWS.md)** - Windows authentication setup
+- **[BC27/SETUP-CERTIFICATE.md](KelteksAPIIntegrationBC27/SETUP-CERTIFICATE.md)** - Certificate authentication setup
+
+### 📋 Supporting Documents
+- **[SECURITY.md](SECURITY.md)** - Security policy
+- **[SUPPORT.md](SUPPORT.md)** - Support information
+
+---
+
+## Documentation by Purpose
+
+### For End Users
+1. Start with [README.md](README.md) for project overview
+2. Use [QUICKSTART-ONPREMISE.md](QUICKSTART-ONPREMISE.md) for fastest setup
+3. Refer to extension-specific [BC17/README.md](KelteksAPIIntegrationBC17/README.md) or [BC27/README.md](KelteksAPIIntegrationBC27/README.md)
+4. Choose authentication setup guide from extension folders
+
+### For System Administrators
+1. Review [ARCHITECTURE.md](ARCHITECTURE.md) to understand design
+2. Read [UPGRADE-GUIDE.md](UPGRADE-GUIDE.md) if upgrading from BC17 to BC27
+3. Use [FINAL-REVIEW-CHECKLIST.md](FINAL-REVIEW-CHECKLIST.md) before deployment
+4. Monitor using instructions in extension READMEs
+
+### For Developers
+1. Start with [SUMMARY.md](SUMMARY.md) for complete technical specification
+2. Review [COPILOT-GUIDE.md](COPILOT-GUIDE.md) for coding patterns
+3. Check [PROJECT-ANALYSIS-2025-11-26.md](PROJECT-ANALYSIS-2025-11-26.md) for quality assessment
+4. Refer to [BC-BEST-PRACTICES-COMPLIANCE.md](BC-BEST-PRACTICES-COMPLIANCE.md) for standards
+5. See [IMPLEMENTATION-STATUS.md](IMPLEMENTATION-STATUS.md) for current status
+
+### For Project Managers
+1. Read [README.md](README.md) for executive overview
+2. Review [PROJECT-ANALYSIS-2025-11-26.md](PROJECT-ANALYSIS-2025-11-26.md) for status
+3. Check [IMPLEMENTATION-STATUS.md](IMPLEMENTATION-STATUS.md) for features
+4. Use [FINAL-REVIEW-CHECKLIST.md](FINAL-REVIEW-CHECKLIST.md) for go/no-go decision
+
+---
+
+## Document Types
+
+### Overview Documents (3)
+- README.md (main project page)
+- SUMMARY.md (complete technical summary)
+- ARCHITECTURE.md (design and rationale)
+
+### Setup Guides (11)
+- QUICKSTART-ONPREMISE.md (fastest path)
+- 5 BC17 setup guides (README + 4 auth methods)
+- 5 BC27 setup guides (README + 4 auth methods)
+
+### Quality & Status (3)
+- PROJECT-ANALYSIS-2025-11-26.md (comprehensive analysis)
+- BC-BEST-PRACTICES-COMPLIANCE.md (compliance report)
+- IMPLEMENTATION-STATUS.md (feature status)
+
+### Upgrade Documentation (2)
+- UPGRADE-GUIDE.md (user guide)
+- UPGRADE-TECHNICAL-ANALYSIS.md (technical details)
+
+### Developer Resources (2)
+- COPILOT-GUIDE.md (developer guide)
+- FINAL-REVIEW-CHECKLIST.md (pre-deployment)
+
+### Supporting (2)
+- SECURITY.md (security policy)
+- SUPPORT.md (support info)
+
+---
+
+## Document Change History
+
+### 2025-11-26 - Documentation Consolidation
+**Removed** (6 redundant files):
+- ARCHITECTURE.md → Content merged into ARCHITECTURE.md
+- PROJECT-ANALYSIS-2025-11-26.md → Consolidated into PROJECT-ANALYSIS-2025-11-26.md
+- PROJECT-ANALYSIS-2025-11-26.md → Consolidated into PROJECT-ANALYSIS-2025-11-26.md
+- PROJECT-ANALYSIS-2025-11-26.md → Consolidated into PROJECT-ANALYSIS-2025-11-26.md
+- UPGRADE-SUMMARY.md → Consolidated into UPGRADE-GUIDE.md and UPGRADE-TECHNICAL-ANALYSIS.md
+- UPGRADE-IMPLEMENTATION-SUMMARY.md → Consolidated into UPGRADE-TECHNICAL-ANALYSIS.md
+
+**Renamed** (2 files):
+- ARCHITECTURE.md → ARCHITECTURE.md (clearer name)
+- UPGRADE-TECHNICAL-ANALYSIS.md → UPGRADE-TECHNICAL-ANALYSIS.md (clearer name)
+
+**Created** (2 files):
+- PROJECT-ANALYSIS-2025-11-26.md (comprehensive project assessment)
+- DOCUMENTATION-INDEX.md (this file)
+
+**Updated** (1 file):
+- README.md (replaced AL-Go template with Kelteks project overview)
+
+**Result**: 31 → 23 files (26% reduction, better organization)
+
+---
+
+## Finding What You Need
+
+### "I want to set up the integration quickly"
+→ [QUICKSTART-ONPREMISE.md](QUICKSTART-ONPREMISE.md)
+
+### "I need to understand the architecture"
+→ [ARCHITECTURE.md](ARCHITECTURE.md)
+
+### "I want complete technical details"
+→ [SUMMARY.md](SUMMARY.md)
+
+### "I need to set up OAuth authentication"
+→ [BC17/SETUP-OAUTH.md](KelteksAPIIntegrationBC17/SETUP-OAUTH.md) or [BC27/SETUP-OAUTH.md](KelteksAPIIntegrationBC27/SETUP-OAUTH.md)
+
+### "I'm upgrading from BC17 to BC27"
+→ [UPGRADE-GUIDE.md](UPGRADE-GUIDE.md)
+
+### "I need to know if the code is production-ready"
+→ [PROJECT-ANALYSIS-2025-11-26.md](PROJECT-ANALYSIS-2025-11-26.md)
+
+### "I want to know what features are implemented"
+→ [IMPLEMENTATION-STATUS.md](IMPLEMENTATION-STATUS.md)
+
+### "I need coding guidelines for this project"
+→ [COPILOT-GUIDE.md](COPILOT-GUIDE.md)
+
+### "I'm preparing for deployment"
+→ [FINAL-REVIEW-CHECKLIST.md](FINAL-REVIEW-CHECKLIST.md)
+
+---
+
+**Maintained By**: Development Team  
+**Contact**: Ana Šetka (Consultant)  
+**Project**: Kelteks API Integration - Fiskalizacija 2.0

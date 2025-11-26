@@ -31,7 +31,12 @@ BC17 (v17)                          BC27 (v27)
 
 ## Quick Start
 
-⚡ **Fastest Setup (15-20 minutes)**: [On-Premise Quick Start Guide](QUICKSTART-ONPREMISE.md)
+🚀 **NEW: Guided Setup Wizard (5-10 minutes)**: [Guided Setup Wizard Guide](docs/guides/GUIDED-SETUP-WIZARD.md)
+- Step-by-step configuration with auto-detection
+- Pre-filled defaults for both on-premise and SaaS
+- Minimal manual input required
+
+⚡ **Alternative: Manual Setup (15-20 minutes)**: [On-Premise Quick Start Guide](QUICKSTART-ONPREMISE.md)
 
 For detailed documentation:
 - 📖 [Complete Project Summary](SUMMARY.md)
@@ -40,6 +45,13 @@ For detailed documentation:
 - 🔧 [Setup Guides](KelteksAPIIntegrationBC17/README.md) (BC17) and [BC27](KelteksAPIIntegrationBC27/README.md)
 
 ## Key Features
+
+✅ **Guided Setup Wizard** ⭐ NEW
+- 5-10 minute automated setup for both BC17 and BC27
+- Auto-detects environment and deployment type
+- Pre-fills configuration with sensible defaults
+- Step-by-step validation and guidance
+- Supports all authentication methods
 
 ✅ **4 Authentication Methods**
 - OAuth 2.0 (Azure AD) - For cloud/SaaS
@@ -123,6 +135,7 @@ See [detailed setup guides](KelteksAPIIntegrationBC17/README.md) for step-by-ste
 ### Quick Links by Purpose
 
 **🚀 Getting Started:**
+- [**Guided Setup Wizard**](docs/guides/GUIDED-SETUP-WIZARD.md) - ⭐ **NEW** 5-10 minute automated setup
 - [Quick Start Guide](docs/guides/QUICKSTART-ONPREMISE.md) - 15-20 minute setup (Basic Auth)
 - [BC17 Setup Guides](KelteksAPIIntegrationBC17/) - OAuth, Basic, Windows, Certificate
 - [BC27 Setup Guides](KelteksAPIIntegrationBC27/) - OAuth, Basic, Windows, Certificate

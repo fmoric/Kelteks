@@ -188,8 +188,10 @@ Once the wizard completes:
 
 **Can't find Company ID:**
 - In Business Central, search for "Company Information"
-- The Id field contains your Company ID (GUID format)
-- This is NOT the SystemId field
+- The **Id** field contains your Company ID (GUID format)
+- This is the unique identifier used in BC API v2.0 endpoints
+- Note: This is different from SystemId - use the "Id" field
+- Alternative: Navigate to Companies list and find the ID column
 
 **Connection test fails:**
 - Verify URL is accessible from current environment

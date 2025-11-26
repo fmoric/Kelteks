@@ -9,6 +9,7 @@ codeunit 50106 "KLT Setup Automation"
         CompanyInfo: Record "Company Information";
     begin
         // Auto-detect current company ID
+        // Note: CompanyInfo.Id is the GUID used in BC API v2.0 endpoints (/api/v2.0/companies({id})/...)
         if CompanyInfo.Get() then
             GuidedSetup."Auto-Detected Company ID" := CompanyInfo.Id;
 

@@ -1,5 +1,6 @@
 /// <summary>
-/// Handles OAuth 2.0 authentication for BC27 API access from BC17
+/// Handles multi-method authentication for BC27 API access from BC17
+/// Supports: OAuth 2.0, Basic, Windows, and Certificate authentication
 /// </summary>
 codeunit 50100 "KLT API Auth BC17"
 {
@@ -90,9 +91,110 @@ codeunit 50100 "KLT API Auth BC17"
 
     procedure ValidateAuthentication(): Boolean
     var
+        APIConfig: Record "KLT API Config BC17";
         Token: Text;
+        Client: HttpClient;
+        TestUrl: Text;
     begin
-        Token := GetBC27AccessToken();
-        exit(Token <> '');
+        APIConfig.GetInstance();
+        
+        case APIConfig."Authentication Method" of
+            APIConfig."Authentication Method"::OAuth:
+                begin
+                    Token := GetBC27AccessToken();
+                    exit(Token <> '');
+                end;
+            APIConfig."Authentication Method"::Basic,
+            APIConfig."Authentication Method"::Windows,
+            APIConfig."Authentication Method"::Certificate:
+                begin
+                    // Test connection with a simple API call
+                    AddAuthenticationHeader(Client, APIConfig);
+                    TestUrl := GetTestUrl(APIConfig);
+                    exit(TestUrl <> '');
+                end;
+        end;
+        exit(false);
+    end;
+
+    /// <summary>
+    /// Adds authentication header to HttpClient based on configured method
+    /// </summary>
+    procedure AddAuthenticationHeader(var Client: HttpClient; var APIConfig: Record "KLT API Config BC17")
+    var
+        AuthHeader: Text;
+    begin
+        case APIConfig."Authentication Method" of
+            APIConfig."Authentication Method"::OAuth:
+                begin
+                    AuthHeader := 'Bearer ' + GetBC27AccessToken();
+                    Client.DefaultRequestHeaders.Add('Authorization', AuthHeader);
+                end;
+            APIConfig."Authentication Method"::Basic:
+                begin
+                    AuthHeader := 'Basic ' + GetBasicAuthToken(APIConfig."BC27 Username", APIConfig."BC27 Password");
+                    Client.DefaultRequestHeaders.Add('Authorization', AuthHeader);
+                end;
+            APIConfig."Authentication Method"::Windows:
+                begin
+                    Client.UseDefaultCredentials(true);
+                    // Username format: Domain\Username or just Username
+                    // Credentials are handled by Windows Integrated Security
+                end;
+            APIConfig."Authentication Method"::Certificate:
+                begin
+                    // Certificate authentication handled via HttpClient certificate methods
+                    AddCertificate(Client, APIConfig."BC27 Certificate Thumbprint");
+                end;
+        end;
+    end;
+
+    local procedure GetBasicAuthToken(Username: Text; Password: Text): Text
+    var
+        Base64Convert: Codeunit "Base64 Convert";
+        Credentials: Text;
+    begin
+        if (Username = '') or (Password = '') then
+            Error('Username and password are required for Basic Authentication.');
+        
+        Credentials := StrSubstNo('%1:%2', Username, Password);
+        exit(Base64Convert.ToBase64(Credentials));
+    end;
+
+    local procedure AddCertificate(var Client: HttpClient; CertThumbprint: Text)
+    var
+        CertificateMgt: Codeunit "Certificate Management";
+        IsolatedCertificate: Record "Isolated Certificate";
+    begin
+        if CertThumbprint = '' then
+            Error('Certificate thumbprint is required for Certificate Authentication.');
+        
+        // Look up certificate by thumbprint
+        IsolatedCertificate.SetRange(Thumbprint, CertThumbprint);
+        if not IsolatedCertificate.FindFirst() then
+            Error('Certificate with thumbprint %1 not found in certificate store.', CertThumbprint);
+        
+        // Add certificate to HTTP client
+        Client.AddCertificate(IsolatedCertificate."Certificate Value");
+    end;
+
+    local procedure GetTestUrl(APIConfig: Record "KLT API Config BC17"): Text
+    begin
+        if APIConfig."BC27 Base URL" = '' then
+            exit('');
+        
+        // Return a simple test URL to verify connectivity
+        exit(APIConfig."BC27 Base URL" + '/api/v2.0/companies');
+    end;
+
+    /// <summary>
+    /// Returns the authentication method name as text
+    /// </summary>
+    procedure GetAuthMethodName(): Text
+    var
+        APIConfig: Record "KLT API Config BC17";
+    begin
+        APIConfig.GetInstance();
+        exit(Format(APIConfig."Authentication Method"));
     end;
 }

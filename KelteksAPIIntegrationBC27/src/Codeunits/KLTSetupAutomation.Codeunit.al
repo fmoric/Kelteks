@@ -10,10 +10,12 @@ codeunit 50106 "KLT Setup Automation"
     begin
         // Auto-detect current company ID
         // Note: CompanyInfo.Id is the GUID used in BC API v2.0 endpoints (/api/v2.0/companies({id})/...)
+        // Get() retrieves the single record in Company Information table
         if CompanyInfo.Get() then
             GuidedSetup."Auto-Detected Company ID" := CompanyInfo.Id;
 
         // Detect deployment type based on environment
+        // Note: Simplified logic - treats non-SaaS as on-premise (covers containers, local deployments)
         if IsServerOnPremise() then
             GuidedSetup."Deployment Type" := GuidedSetup."Deployment Type"::OnPremise
         else

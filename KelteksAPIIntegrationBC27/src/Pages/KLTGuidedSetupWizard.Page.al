@@ -248,7 +248,7 @@ page 50103 "KLT Guided Setup Wizard"
                     group(CertInfo)
                     {
                         Caption = 'Certificate Setup';
-                        InstructionalText = 'Ensure the certificate is installed on the BC27 server and configured for mutual TLS authentication.';
+                        InstructionalText = 'Ensure the client certificate is installed on this BC27 server for authenticating to BC17.';
                     }
                 }
             }

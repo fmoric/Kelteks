@@ -1,10 +1,10 @@
 /// <summary>
-/// Configuration table for BC17 - API connection to target
-/// Stores connection details for BC27 target environment
+/// Configuration table - API connection to target environment
+/// Stores connection details for target environment
 /// </summary>
-table 50100 "KLT API Config BC17"
+table 50100 "KLT API Config"
 {
-    Caption = 'API Configuration BC17';
+    Caption = 'API Configuration';
     DataClassification = CustomerContent;
 
     fields
@@ -154,7 +154,7 @@ table 50100 "KLT API Config BC17"
         }
     }
 
-    procedure GetInstance(): Record "KLT API Config BC17"
+    procedure GetInstance(): Record "KLT API Config"
     begin
         if not Get('') then begin
             Init();

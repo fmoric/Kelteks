@@ -19,7 +19,7 @@ codeunit 50103 "KLT Purchase Doc Sync"
     /// </summary>
     procedure SyncPurchaseInvoicesFromTarget(): Integer
     var
-        APIConfig: Record "KLT API Config BC17";
+        APIConfig: Record "KLT API Config";
         ResponseJson: JsonObject;
         ValueArray: JsonArray;
         Endpoint: Text;
@@ -53,7 +53,7 @@ codeunit 50103 "KLT Purchase Doc Sync"
     /// </summary>
     procedure SyncPurchaseCreditMemosFromTarget(): Integer
     var
-        APIConfig: Record "KLT API Config BC17";
+        APIConfig: Record "KLT API Config";
         ResponseJson: JsonObject;
         ValueArray: JsonArray;
         Endpoint: Text;

@@ -1,10 +1,10 @@
 /// <summary>
-/// Configuration table for BC27 - API connection to target
-/// Stores connection details for BC17 target environment
+/// Configuration table - API connection to target environment
+/// Stores connection details for target environment
 /// </summary>
-table 50150 "KLT API Config BC27"
+table 50100 "KLT API Config"
 {
-    Caption = 'API Configuration BC27';
+    Caption = 'API Configuration';
     DataClassification = CustomerContent;
 
     fields
@@ -138,6 +138,14 @@ table 50150 "KLT API Config BC27"
             MinValue = 0;
             MaxValue = 100;
         }
+        field(50; "Purchase No. Series"; Code[20])
+        {
+            Caption = 'Purchase No. Series';
+            DataClassification = CustomerContent;
+            TableRelation = "No. Series";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Not used in BC27 - kept for upgrade compatibility from BC17';
+        }
     }
 
     keys
@@ -148,7 +156,7 @@ table 50150 "KLT API Config BC27"
         }
     }
 
-    procedure GetInstance(): Record "KLT API Config BC27"
+    procedure GetInstance(): Record "KLT API Config"
     begin
         if not Get('') then begin
             Init();

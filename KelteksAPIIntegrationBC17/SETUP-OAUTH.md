@@ -168,7 +168,7 @@ For production use, create a dedicated service account:
 ## Step 5: Configure BC17 Extension
 
 ### 5.1 Open Configuration Page
-1. In BC17 Web Client, search for: `KLT API Configuration BC17`
+1. In BC17 Web Client, search for: `KLT API Configuration`
 2. Open the configuration page
 
 ### 5.2 Enter BC27 Connection Details
@@ -202,7 +202,7 @@ Fill in the following fields:
 ## Step 6: Test Connection
 
 ### 6.1 Run Connection Test
-1. In the **KLT API Configuration BC17** page
+1. In the **KLT API Configuration** page
 2. Click **Actions** > **Test Connection**
 3. Wait for the test to complete
 

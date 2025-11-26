@@ -2,7 +2,7 @@
 /// PageExtension KLT Purchase Invoice List BC27 (ID 50150) extends Record Purchase Invoices.
 /// Adds sync status indicators to Purchase Invoices list.
 /// </summary>
-pageextension 50150 "KLT Purchase Invoice List BC27" extends "Purchase Invoices"
+pageextension 50106 "KLT Purchase Invoice List" extends "Purchase Invoices"
 {
     layout
     {

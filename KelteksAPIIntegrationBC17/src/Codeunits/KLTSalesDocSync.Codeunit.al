@@ -15,7 +15,7 @@ codeunit 50102 "KLT Sales Doc Sync"
     /// </summary>
     procedure SyncPostedSalesInvoice(var SalesInvHeader: Record "Sales Invoice Header"): Boolean
     var
-        APIConfig: Record "KLT API Config BC17";
+        APIConfig: Record "KLT API Config";
         SyncLog: Record "KLT Document Sync Log";
         RequestJson: JsonObject;
         ResponseJson: JsonObject;
@@ -58,7 +58,7 @@ codeunit 50102 "KLT Sales Doc Sync"
     /// </summary>
     procedure SyncPostedSalesCreditMemo(var SalesCrMemoHeader: Record "Sales Cr.Memo Header"): Boolean
     var
-        APIConfig: Record "KLT API Config BC17";
+        APIConfig: Record "KLT API Config";
         SyncLog: Record "KLT Document Sync Log";
         RequestJson: JsonObject;
         ResponseJson: JsonObject;

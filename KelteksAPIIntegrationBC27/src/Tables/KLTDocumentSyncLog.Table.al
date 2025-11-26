@@ -2,7 +2,7 @@
 /// Log table for document synchronization history
 /// Tracks all document transfers between BC17 and BC27
 /// </summary>
-table 50151 "KLT Document Sync Log"
+table 50101 "KLT Document Sync Log"
 {
     Caption = 'Document Sync Log';
     DataClassification = CustomerContent;

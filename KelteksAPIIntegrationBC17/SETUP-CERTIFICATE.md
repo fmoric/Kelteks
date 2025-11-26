@@ -306,7 +306,7 @@ Set-Acl -Path $keyFile.FullName -AclObject $acl
 ## Step 8: Configure BC17 Extension
 
 ### 8.1 Open Configuration
-Search for: `KLT API Configuration BC17`
+Search for: `KLT API Configuration`
 
 ### 8.2 Enter Connection Details
 

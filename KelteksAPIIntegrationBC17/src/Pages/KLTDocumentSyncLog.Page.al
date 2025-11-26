@@ -1,14 +1,14 @@
 /// <summary>
-/// Page KLT Document Sync Log BC27 (ID 50151).
-/// List page showing sync history for BC27.
+/// Page KLT Document Sync Log BC17 (ID 50101).
+/// List page showing sync history for BC17.
 /// </summary>
-page 50151 "KLT Document Sync Log BC27"
+page 50101 "KLT Document Sync Log"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "KLT Document Sync Log";
-    Caption = 'Document Sync Log (BC27)';
+    Caption = 'Document Sync Log (BC17)';
     Editable = false;
     InsertAllowed = false;
     DeleteAllowed = true;
@@ -80,7 +80,7 @@ page 50151 "KLT Document Sync Log BC27"
         }
         area(FactBoxes)
         {
-            part(SyncStats; "KLT Sync Log FactBox BC27")
+            part(SyncStats; "KLT Sync Log FactBox BC17")
             {
                 ApplicationArea = All;
             }
@@ -137,6 +137,7 @@ page 50151 "KLT Document Sync Log BC27"
 
                 trigger OnAction()
                 var
+                    APIConfig: Record "KLT API Config BC17";
                     SyncLog: Record "KLT Document Sync Log";
                 begin
                     if not Confirm('Delete logs older than %1 days?', false, 365) then

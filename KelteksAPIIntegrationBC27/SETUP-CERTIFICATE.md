@@ -171,7 +171,7 @@ Set-Acl -Path $keyFile.FullName -AclObject $acl
 
 ## Step 8: Configure BC27 Extension
 
-Search: `KLT API Configuration BC27`
+Search: `KLT API Configuration`
 
 | Field | Value |
 |-------|-------|

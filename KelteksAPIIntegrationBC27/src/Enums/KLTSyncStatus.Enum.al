@@ -1,7 +1,7 @@
 /// <summary>
 /// Synchronization status for document transfer
 /// </summary>
-enum 50151 "KLT Sync Status"
+enum 50101 "KLT Sync Status"
 {
     Extensible = true;
 

@@ -20,7 +20,7 @@ codeunit 50100 "KLT API Auth"
 
     procedure GetTargetAccessToken(): Text
     var
-        APIConfig: Record "KLT API Config BC17";
+        APIConfig: Record "KLT API Config";
     begin
         APIConfig.GetInstance();
         exit(GetAccessToken(APIConfig."Target Tenant ID", APIConfig."Target Client ID", APIConfig."Target Client Secret"));
@@ -100,7 +100,7 @@ codeunit 50100 "KLT API Auth"
 
     procedure ValidateAuthentication(): Boolean
     var
-        APIConfig: Record "KLT API Config BC17";
+        APIConfig: Record "KLT API Config";
         Token: Text;
         Client: HttpClient;
         TestUrl: Text;
@@ -129,7 +129,7 @@ codeunit 50100 "KLT API Auth"
     /// <summary>
     /// Adds authentication header to HttpClient based on configured method
     /// </summary>
-    procedure AddAuthenticationHeader(var Client: HttpClient; var APIConfig: Record "KLT API Config BC17")
+    procedure AddAuthenticationHeader(var Client: HttpClient; var APIConfig: Record "KLT API Config")
     var
         AuthHeader: Text;
     begin
@@ -186,7 +186,7 @@ codeunit 50100 "KLT API Auth"
         Client.AddCertificate(IsolatedCertificate."Certificate Value");
     end;
 
-    local procedure GetTestUrl(APIConfig: Record "KLT API Config BC17"): Text
+    local procedure GetTestUrl(APIConfig: Record "KLT API Config"): Text
     begin
         if APIConfig."Target Base URL" = '' then
             exit('');
@@ -200,7 +200,7 @@ codeunit 50100 "KLT API Auth"
     /// </summary>
     procedure GetAuthMethodName(): Text
     var
-        APIConfig: Record "KLT API Config BC17";
+        APIConfig: Record "KLT API Config";
     begin
         APIConfig.GetInstance();
         exit(Format(APIConfig."Authentication Method"));

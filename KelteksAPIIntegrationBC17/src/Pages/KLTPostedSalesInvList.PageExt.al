@@ -1,8 +1,8 @@
 /// <summary>
-/// PageExtension KLT Posted Sales Cr.M List BC17 (ID 50101) extends Record Posted Sales Credit Memos.
-/// Adds "Sync to target" action to Posted Sales Credit Memos list.
+/// PageExtension KLT Posted Sales Inv List BC17 (ID 50100) extends Record Posted Sales Invoices.
+/// Adds "Sync to target" action to Posted Sales Invoices list.
 /// </summary>
-pageextension 50101 "KLT Posted Sales Cr.M List BC17" extends "Posted Sales Credit Memos"
+pageextension 50100 "KLT Posted Sales Inv List" extends "Posted Sales Invoices"
 {
     actions
     {
@@ -13,28 +13,28 @@ pageextension 50101 "KLT Posted Sales Cr.M List BC17" extends "Posted Sales Cred
                 ApplicationArea = All;
                 Caption = 'Sync to target';
                 Image = SendTo;
-                ToolTip = 'Synchronizes the selected sales credit memo(s) to target';
+                ToolTip = 'Synchronizes the selected sales invoice(s) to target';
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
 
                 trigger OnAction()
                 var
-                    SalesCrMemoHeader: Record "Sales Cr.Memo Header";
+                    SalesInvHeader: Record "Sales Invoice Header";
                     SalesDocSync: Codeunit "KLT Sales Doc Sync";
                     SelectedCount: Integer;
                 begin
-                    CurrPage.SetSelectionFilter(SalesCrMemoHeader);
-                    SelectedCount := SalesCrMemoHeader.Count();
+                    CurrPage.SetSelectionFilter(SalesInvHeader);
+                    SelectedCount := SalesInvHeader.Count();
                     
                     if SelectedCount = 0 then
-                        Error('Please select at least one credit memo to sync.');
+                        Error('Please select at least one invoice to sync.');
 
-                    if not Confirm('Sync %1 credit memo(s) to target?', false, SelectedCount) then
+                    if not Confirm('Sync %1 invoice(s) to target?', false, SelectedCount) then
                         exit;
 
-                    SalesDocSync.SyncSalesCreditMemos(SalesCrMemoHeader);
-                    Message('%1 credit memo(s) queued for synchronization.', SelectedCount);
+                    SalesDocSync.SyncSalesInvoices(SalesInvHeader);
+                    Message('%1 invoice(s) queued for synchronization.', SelectedCount);
                 end;
             }
             action(ViewSyncLog)

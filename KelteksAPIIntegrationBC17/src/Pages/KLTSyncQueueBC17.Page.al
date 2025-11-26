@@ -2,7 +2,7 @@
 /// Page KLT Sync Queue BC17 (ID 50102).
 /// List page for managing the sync queue in BC17.
 /// </summary>
-page 50102 "KLT Sync Queue BC17"
+page 50102 "KLT Sync Queue"
 {
     PageType = List;
     ApplicationArea = All;

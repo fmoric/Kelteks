@@ -2,7 +2,7 @@
 /// PageExtension KLT Posted Sales Cr.M List BC17 (ID 50101) extends Record Posted Sales Credit Memos.
 /// Adds "Sync to target" action to Posted Sales Credit Memos list.
 /// </summary>
-pageextension 50101 "KLT Posted Sales Cr.M List BC17" extends "Posted Sales Credit Memos"
+pageextension 50101 "KLT Posted Sales Cr.M List" extends "Posted Sales Credit Memos"
 {
     actions
     {

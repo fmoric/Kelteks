@@ -2,7 +2,7 @@
 /// PageExtension KLT Purch. Cr. Memo List BC27 (ID 50151) extends Record Purchase Credit Memos.
 /// Adds sync status indicators to Purchase Credit Memos list.
 /// </summary>
-pageextension 50151 "KLT Purch. Cr. Memo List BC27" extends "Purchase Credit Memos"
+pageextension 50105 "KLT Purch. Cr. Memo List" extends "Purchase Credit Memos"
 {
     layout
     {

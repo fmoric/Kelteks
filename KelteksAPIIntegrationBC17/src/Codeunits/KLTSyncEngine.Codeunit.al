@@ -16,7 +16,7 @@ codeunit 50105 "KLT Sync Engine"
     /// </summary>
     procedure RunScheduledSync()
     var
-        APIConfig: Record "KLT API Config BC17";
+        APIConfig: Record "KLT API Config";
     begin
         APIConfig.GetInstance();
         
@@ -38,7 +38,7 @@ codeunit 50105 "KLT Sync Engine"
     /// </summary>
     procedure SyncSalesDocuments()
     var
-        APIConfig: Record "KLT API Config BC17";
+        APIConfig: Record "KLT API Config";
         SyncQueue: Record "KLT API Sync Queue";
         ProcessedCount: Integer;
     begin
@@ -239,7 +239,7 @@ codeunit 50105 "KLT Sync Engine"
     var
         SyncQueue: Record "KLT API Sync Queue";
         ProcessedCount: Integer;
-        APIConfig: Record "KLT API Config BC17";
+        APIConfig: Record "KLT API Config";
     begin
         APIConfig.GetInstance();
         ProcessedCount := 0;

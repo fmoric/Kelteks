@@ -2,7 +2,7 @@
 /// Queue table for managing batch document synchronization
 /// Implements FIFO processing with priority support
 /// </summary>
-table 50153 "KLT API Sync Queue"
+table 50103 "KLT API Sync Queue"
 {
     Caption = 'API Sync Queue';
     DataClassification = CustomerContent;

@@ -2,7 +2,7 @@
 /// Purchase Document Synchronization for BC27
 /// Sends Purchase Invoices and Credit Memos to target system
 /// </summary>
-codeunit 50152 "KLT Purchase Doc Sync"
+codeunit 50103 "KLT Purchase Doc Sync"
 {
     var
         APIHelper: Codeunit "KLT API Helper";
@@ -13,7 +13,7 @@ codeunit 50152 "KLT Purchase Doc Sync"
     /// </summary>
     procedure SyncPurchaseInvoice(var PurchHeader: Record "Purchase Header"): Boolean
     var
-        APIConfig: Record "KLT API Config BC27";
+        APIConfig: Record "KLT API Config";
         SyncLog: Record "KLT Document Sync Log";
         RequestJson: JsonObject;
         ResponseJson: JsonObject;
@@ -56,7 +56,7 @@ codeunit 50152 "KLT Purchase Doc Sync"
     /// </summary>
     procedure SyncPurchaseCreditMemo(var PurchHeader: Record "Purchase Header"): Boolean
     var
-        APIConfig: Record "KLT API Config BC27";
+        APIConfig: Record "KLT API Config";
         SyncLog: Record "KLT Document Sync Log";
         RequestJson: JsonObject;
         ResponseJson: JsonObject;

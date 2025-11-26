@@ -2,7 +2,7 @@
 /// Sync Engine for BC27
 /// Orchestrates document synchronization with job queue, retry logic, and batch processing
 /// </summary>
-codeunit 50155 "KLT Sync Engine"
+codeunit 50105 "KLT Sync Engine"
 {
     var
         SalesDocSync: Codeunit "KLT Sales Doc Sync";
@@ -14,7 +14,7 @@ codeunit 50155 "KLT Sync Engine"
     /// </summary>
     procedure RunScheduledSync()
     var
-        APIConfig: Record "KLT API Config BC27";
+        APIConfig: Record "KLT API Config";
     begin
         APIConfig.GetInstance();
         
@@ -36,7 +36,7 @@ codeunit 50155 "KLT Sync Engine"
     /// </summary>
     procedure SyncPurchaseDocuments()
     var
-        APIConfig: Record "KLT API Config BC27";
+        APIConfig: Record "KLT API Config";
         SyncQueue: Record "KLT API Sync Queue";
         ProcessedCount: Integer;
     begin
@@ -237,7 +237,7 @@ codeunit 50155 "KLT Sync Engine"
     var
         SyncQueue: Record "KLT API Sync Queue";
         ProcessedCount: Integer;
-        APIConfig: Record "KLT API Config BC27";
+        APIConfig: Record "KLT API Config";
     begin
         APIConfig.GetInstance();
         ProcessedCount := 0;

@@ -2,7 +2,7 @@
 /// Page KLT Sync Log FactBox BC17 (ID 50104).
 /// FactBox showing sync statistics for BC17.
 /// </summary>
-page 50104 "KLT Sync Log FactBox BC17"
+page 50104 "KLT Sync Log FactBox"
 {
     PageType = CardPart;
     SourceTable = "KLT Document Sync Log";

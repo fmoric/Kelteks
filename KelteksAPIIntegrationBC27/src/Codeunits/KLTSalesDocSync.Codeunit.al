@@ -2,7 +2,7 @@
 /// Sales Document Synchronization for BC27
 /// Receives Sales Invoices and Credit Memos from target system
 /// </summary>
-codeunit 50153 "KLT Sales Doc Sync"
+codeunit 50104 "KLT Sales Doc Sync"
 {
     var
         APIHelper: Codeunit "KLT API Helper";
@@ -13,7 +13,7 @@ codeunit 50153 "KLT Sales Doc Sync"
     /// </summary>
     procedure SyncSalesInvoicesFromTarget(): Integer
     var
-        APIConfig: Record "KLT API Config BC27";
+        APIConfig: Record "KLT API Config";
         ResponseJson: JsonObject;
         ValueArray: JsonArray;
         Endpoint: Text;
@@ -47,7 +47,7 @@ codeunit 50153 "KLT Sales Doc Sync"
     /// </summary>
     procedure SyncSalesCreditMemosFromTarget(): Integer
     var
-        APIConfig: Record "KLT API Config BC27";
+        APIConfig: Record "KLT API Config";
         ResponseJson: JsonObject;
         ValueArray: JsonArray;
         Endpoint: Text;

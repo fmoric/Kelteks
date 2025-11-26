@@ -2,7 +2,7 @@
 /// PageExtension KLT Posted Sales Inv List BC17 (ID 50100) extends Record Posted Sales Invoices.
 /// Adds "Sync to target" action to Posted Sales Invoices list.
 /// </summary>
-pageextension 50100 "KLT Posted Sales Inv List BC17" extends "Posted Sales Invoices"
+pageextension 50100 "KLT Posted Sales Inv List" extends "Posted Sales Invoices"
 {
     actions
     {

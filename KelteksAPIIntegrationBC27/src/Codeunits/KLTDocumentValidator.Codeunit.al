@@ -2,7 +2,7 @@
 /// Document Validator for BC27
 /// Validates sales and purchase documents before sync
 /// </summary>
-codeunit 50154 "KLT Document Validator"
+codeunit 50102 "KLT Document Validator"
 {
     var
         CustomerNotExistErr: Label 'Customer %1 does not exist in BC27';

@@ -1,9 +1,9 @@
 /// <summary>
-/// Page KLT API Configuration BC27 (ID 50150).
-/// Configuration page for BC27 API integration settings.
+/// Page KLT API Configuration (ID 50100).
+/// Configuration page for API integration settings.
 /// Supports all authentication methods: OAuth 2.0, Basic, Windows, Certificate.
 /// </summary>
-page 50150 "KLT API Configuration BC27"
+page 50100 "KLT API Configuration"
 {
     PageType = Card;
     ApplicationArea = All;

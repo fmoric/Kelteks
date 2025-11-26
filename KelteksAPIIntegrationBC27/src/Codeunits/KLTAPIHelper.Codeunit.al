@@ -2,7 +2,7 @@
 /// HTTP Helper for BC27 - Handles API communication with BC17
 /// Provides GET/POST methods with authentication, JSON parsing, and error handling
 /// </summary>
-codeunit 50151 "KLT API Helper"
+codeunit 50101 "KLT API Helper"
 {
     var
         APIAuth: Codeunit "KLT API Auth";
@@ -25,7 +25,7 @@ codeunit 50151 "KLT API Helper"
     /// </summary>
     procedure SendGetRequest(Endpoint: Text; var ResponseJson: JsonObject): Boolean
     var
-        APIConfig: Record "KLT API Config BC27";
+        APIConfig: Record "KLT API Config";
         Client: HttpClient;
         Response: HttpResponseMessage;
         ResponseText: Text;
@@ -69,7 +69,7 @@ codeunit 50151 "KLT API Helper"
     /// </summary>
     procedure SendPostRequest(Endpoint: Text; RequestJson: JsonObject; var ResponseJson: JsonObject): Boolean
     var
-        APIConfig: Record "KLT API Config BC27";
+        APIConfig: Record "KLT API Config";
         Client: HttpClient;
         Request: HttpRequestMessage;
         Response: HttpResponseMessage;
@@ -131,7 +131,7 @@ codeunit 50151 "KLT API Helper"
     /// </summary>
     procedure SendPatchRequest(Endpoint: Text; RequestJson: JsonObject; var ResponseJson: JsonObject): Boolean
     var
-        APIConfig: Record "KLT API Config BC27";
+        APIConfig: Record "KLT API Config";
         Client: HttpClient;
         Request: HttpRequestMessage;
         Response: HttpResponseMessage;
@@ -188,7 +188,7 @@ codeunit 50151 "KLT API Helper"
         exit(true);
     end;
 
-    local procedure ConfigureHttpClient(var Client: HttpClient; APIConfig: Record "KLT API Config BC27")
+    local procedure ConfigureHttpClient(var Client: HttpClient; APIConfig: Record "KLT API Config")
     begin
         Client.Timeout := APIConfig."API Timeout (Seconds)" * 1000; // Convert to milliseconds
         Client.DefaultRequestHeaders.Add('Accept', 'application/json');
@@ -380,7 +380,7 @@ codeunit 50151 "KLT API Helper"
     /// </summary>
     procedure TestConnection(): Boolean
     var
-        APIConfig: Record "KLT API Config BC27";
+        APIConfig: Record "KLT API Config";
         ResponseJson: JsonObject;
         Endpoint: Text;
     begin

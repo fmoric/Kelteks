@@ -1,8 +1,8 @@
 /// <summary>
-/// Enum KLT Auth Method (ID 50154).
+/// Enum KLT Auth Method (ID 50104).
 /// Authentication methods for API connections.
 /// </summary>
-enum 50154 "KLT Auth Method"
+enum 50104 "KLT Auth Method"
 {
     Extensible = true;
 

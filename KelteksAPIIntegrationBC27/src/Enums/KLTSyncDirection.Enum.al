@@ -1,7 +1,7 @@
 /// <summary>
 /// Direction of document synchronization
 /// </summary>
-enum 50153 "KLT Sync Direction"
+enum 50103 "KLT Sync Direction"
 {
     Extensible = true;
 

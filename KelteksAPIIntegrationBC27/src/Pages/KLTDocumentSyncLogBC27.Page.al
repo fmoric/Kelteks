@@ -2,7 +2,7 @@
 /// Page KLT Document Sync Log BC27 (ID 50151).
 /// List page showing sync history for BC27.
 /// </summary>
-page 50151 "KLT Document Sync Log BC27"
+page 50102 "KLT Document Sync Log"
 {
     PageType = List;
     ApplicationArea = All;

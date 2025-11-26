@@ -2,7 +2,7 @@
 /// Page KLT Config FactBox BC17 (ID 50103).
 /// FactBox showing configuration status for BC17.
 /// </summary>
-page 50103 "KLT Config FactBox BC17"
+page 50103 "KLT Config FactBox"
 {
     PageType = CardPart;
     SourceTable = "KLT API Config BC17";

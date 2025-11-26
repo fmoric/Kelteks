@@ -157,7 +157,7 @@
 - **Implementation**:
   - ✅ Main README.md for each extension
   - ✅ Setup guides for each auth method (SETUP-*.md)
-  - ✅ Architecture documentation (SPLIT-ARCHITECTURE.md)
+  - ✅ Architecture documentation (ARCHITECTURE.md)
   - ✅ Quick start guide (QUICKSTART-ONPREMISE.md)
   - ✅ Code analysis and review checklists
 

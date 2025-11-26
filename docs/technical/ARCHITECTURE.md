@@ -173,7 +173,7 @@ If upgrading from the combined extension:
 ✅ **BC27 Extension Created** - Basic structure with config and auth  
 ✅ **Object ID Ranges Allocated** - No conflicts  
 ✅ **AL-Go Settings Updated** - Both apps registered  
-✅ **Documentation Created** - README-SPLIT.md with full details  
+✅ **Documentation Created** - ARCHITECTURE.md with full details  
 
 **Next Steps**: Complete the codeunits, pages, and page extensions for both apps
 

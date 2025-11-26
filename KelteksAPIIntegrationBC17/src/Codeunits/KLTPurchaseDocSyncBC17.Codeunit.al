@@ -1,6 +1,6 @@
 /// <summary>
 /// Purchase Document Synchronization for BC17
-/// Receives Purchase Invoices and Credit Memos from BC27
+/// Receives Purchase Invoices and Credit Memos from target system
 /// </summary>
 codeunit 50103 "KLT Purchase Doc Sync"
 {
@@ -15,9 +15,9 @@ codeunit 50103 "KLT Purchase Doc Sync"
         InvalidLineTypeErr: Label 'Invalid line type: %1';
 
     /// <summary>
-    /// Retrieves and creates Purchase Invoices from BC27
+    /// Retrieves and creates Purchase Invoices from target
     /// </summary>
-    procedure SyncPurchaseInvoicesFromBC27(): Integer
+    procedure SyncPurchaseInvoicesFromTarget(): Integer
     var
         APIConfig: Record "KLT API Config BC17";
         ResponseJson: JsonObject;
@@ -29,8 +29,8 @@ codeunit 50103 "KLT Purchase Doc Sync"
         APIConfig.GetInstance();
         DocumentsCreated := 0;
         
-        // Get purchase invoices from BC27
-        Endpoint := APIHelper.GetPurchaseInvoiceEndpoint(APIConfig."BC27 Company ID");
+        // Get purchase invoices from target
+        Endpoint := APIHelper.GetPurchaseInvoiceEndpoint(APIConfig."Target Company ID");
         if not APIHelper.SendGetRequest(Endpoint, ResponseJson) then
             exit(0);
         
@@ -49,9 +49,9 @@ codeunit 50103 "KLT Purchase Doc Sync"
     end;
 
     /// <summary>
-    /// Retrieves and creates Purchase Credit Memos from BC27
+    /// Retrieves and creates Purchase Credit Memos from target
     /// </summary>
-    procedure SyncPurchaseCreditMemosFromBC27(): Integer
+    procedure SyncPurchaseCreditMemosFromTarget(): Integer
     var
         APIConfig: Record "KLT API Config BC17";
         ResponseJson: JsonObject;
@@ -63,8 +63,8 @@ codeunit 50103 "KLT Purchase Doc Sync"
         APIConfig.GetInstance();
         DocumentsCreated := 0;
         
-        // Get purchase credit memos from BC27
-        Endpoint := APIHelper.GetPurchaseCreditMemoEndpoint(APIConfig."BC27 Company ID");
+        // Get purchase credit memos from target
+        Endpoint := APIHelper.GetPurchaseCreditMemoEndpoint(APIConfig."Target Company ID");
         if not APIHelper.SendGetRequest(Endpoint, ResponseJson) then
             exit(0);
         

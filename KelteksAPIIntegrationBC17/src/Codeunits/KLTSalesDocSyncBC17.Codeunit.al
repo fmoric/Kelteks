@@ -1,6 +1,6 @@
 /// <summary>
 /// Sales Document Synchronization for BC17
-/// Sends Posted Sales Invoices and Credit Memos to BC27
+/// Sends Posted Sales Invoices and Credit Memos to target system
 /// </summary>
 codeunit 50102 "KLT Sales Doc Sync"
 {
@@ -11,7 +11,7 @@ codeunit 50102 "KLT Sales Doc Sync"
         APIRequestFailedErr: Label 'API request failed';
 
     /// <summary>
-    /// Synchronizes a Posted Sales Invoice to BC27
+    /// Synchronizes a Posted Sales Invoice to target
     /// </summary>
     procedure SyncPostedSalesInvoice(var SalesInvHeader: Record "Sales Invoice Header"): Boolean
     var
@@ -41,8 +41,8 @@ codeunit 50102 "KLT Sales Doc Sync"
             exit(false);
         end;
         
-        // Send to BC27
-        Endpoint := APIHelper.GetSalesInvoiceEndpoint(APIConfig."BC27 Company ID");
+        // Send to target
+        Endpoint := APIHelper.GetSalesInvoiceEndpoint(APIConfig."Target Company ID");
         if not APIHelper.SendPostRequest(Endpoint, RequestJson, ResponseJson) then begin
             UpdateSyncLogError(SyncLogEntryNo, APIRequestFailedErr, "KLT Error Category"::APICommunication);
             exit(false);
@@ -54,7 +54,7 @@ codeunit 50102 "KLT Sales Doc Sync"
     end;
 
     /// <summary>
-    /// Synchronizes a Posted Sales Credit Memo to BC27
+    /// Synchronizes a Posted Sales Credit Memo to target
     /// </summary>
     procedure SyncPostedSalesCreditMemo(var SalesCrMemoHeader: Record "Sales Cr.Memo Header"): Boolean
     var
@@ -84,8 +84,8 @@ codeunit 50102 "KLT Sales Doc Sync"
             exit(false);
         end;
         
-        // Send to BC27
-        Endpoint := APIHelper.GetSalesCreditMemoEndpoint(APIConfig."BC27 Company ID");
+        // Send to target
+        Endpoint := APIHelper.GetSalesCreditMemoEndpoint(APIConfig."Target Company ID");
         if not APIHelper.SendPostRequest(Endpoint, RequestJson, ResponseJson) then begin
             UpdateSyncLogError(SyncLogEntryNo, APIRequestFailedErr, "KLT Error Category"::APICommunication);
             exit(false);

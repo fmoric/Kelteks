@@ -23,10 +23,10 @@ codeunit 50105 "KLT Sync Engine"
         if not APIConfig."Enable Sync" then
             exit;
         
-        // Sync outbound documents (Sales to BC27)
+        // Sync outbound documents (Sales to target)
         SyncSalesDocuments();
         
-        // Sync inbound documents (Purchase from BC27)
+        // Sync inbound documents (Purchase from target)
         SyncPurchaseDocuments();
         
         // Process retry queue
@@ -34,7 +34,7 @@ codeunit 50105 "KLT Sync Engine"
     end;
 
     /// <summary>
-    /// Synchronizes sales documents to BC27
+    /// Synchronizes sales documents to target
     /// </summary>
     procedure SyncSalesDocuments()
     var
@@ -83,17 +83,17 @@ codeunit 50105 "KLT Sync Engine"
     end;
 
     /// <summary>
-    /// Synchronizes purchase documents from BC27
+    /// Synchronizes purchase documents from target
     /// </summary>
     procedure SyncPurchaseDocuments()
     var
         DocumentsCreated: Integer;
     begin
         // Sync purchase invoices
-        DocumentsCreated := PurchaseDocSync.SyncPurchaseInvoicesFromBC27();
+        DocumentsCreated := PurchaseDocSync.SyncPurchaseInvoicesFromTarget();
         
         // Sync purchase credit memos
-        DocumentsCreated += PurchaseDocSync.SyncPurchaseCreditMemosFromBC27();
+        DocumentsCreated += PurchaseDocSync.SyncPurchaseCreditMemosFromTarget();
     end;
 
     /// <summary>

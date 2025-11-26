@@ -1,6 +1,6 @@
 /// <summary>
 /// Purchase Document Synchronization for BC27
-/// Sends Purchase Invoices and Credit Memos to BC17
+/// Sends Purchase Invoices and Credit Memos to target system
 /// </summary>
 codeunit 50152 "KLT Purchase Doc Sync"
 {
@@ -9,7 +9,7 @@ codeunit 50152 "KLT Purchase Doc Sync"
         Validator: Codeunit "KLT Document Validator";
 
     /// <summary>
-    /// Synchronizes a Purchase Invoice to BC17
+    /// Synchronizes a Purchase Invoice to target
     /// </summary>
     procedure SyncPurchaseInvoice(var PurchHeader: Record "Purchase Header"): Boolean
     var
@@ -39,8 +39,8 @@ codeunit 50152 "KLT Purchase Doc Sync"
             exit(false);
         end;
         
-        // Send to BC17
-        Endpoint := APIHelper.GetPurchaseInvoiceEndpoint(APIConfig."BC17 Company ID");
+        // Send to target
+        Endpoint := APIHelper.GetPurchaseInvoiceEndpoint(APIConfig."Target Company ID");
         if not APIHelper.SendPostRequest(Endpoint, RequestJson, ResponseJson) then begin
             UpdateSyncLogError(SyncLogEntryNo, 'API request failed', "KLT Error Category"::APICommunication);
             exit(false);
@@ -52,7 +52,7 @@ codeunit 50152 "KLT Purchase Doc Sync"
     end;
 
     /// <summary>
-    /// Synchronizes a Purchase Credit Memo to BC17
+    /// Synchronizes a Purchase Credit Memo to target
     /// </summary>
     procedure SyncPurchaseCreditMemo(var PurchHeader: Record "Purchase Header"): Boolean
     var
@@ -82,8 +82,8 @@ codeunit 50152 "KLT Purchase Doc Sync"
             exit(false);
         end;
         
-        // Send to BC17
-        Endpoint := APIHelper.GetPurchaseCreditMemoEndpoint(APIConfig."BC17 Company ID");
+        // Send to target
+        Endpoint := APIHelper.GetPurchaseCreditMemoEndpoint(APIConfig."Target Company ID");
         if not APIHelper.SendPostRequest(Endpoint, RequestJson, ResponseJson) then begin
             UpdateSyncLogError(SyncLogEntryNo, 'API request failed', "KLT Error Category"::APICommunication);
             exit(false);

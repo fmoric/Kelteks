@@ -31,7 +31,7 @@ codeunit 50104 "KLT Document Validator"
         GLAccountNotPostingErr: Label 'G/L Account %1 is not a posting account';
 
     /// <summary>
-    /// Validates Posted Sales Invoice before sending to BC27
+    /// Validates Posted Sales Invoice before sending to target
     /// </summary>
     procedure ValidatePostedSalesInvoice(var SalesInvHeader: Record "Sales Invoice Header"; var ErrorText: Text): Boolean
     var
@@ -67,7 +67,7 @@ codeunit 50104 "KLT Document Validator"
     end;
 
     /// <summary>
-    /// Validates Posted Sales Credit Memo before sending to BC27
+    /// Validates Posted Sales Credit Memo before sending to target
     /// </summary>
     procedure ValidatePostedSalesCreditMemo(var SalesCrMemoHeader: Record "Sales Cr.Memo Header"; var ErrorText: Text): Boolean
     var
@@ -103,7 +103,7 @@ codeunit 50104 "KLT Document Validator"
     end;
 
     /// <summary>
-    /// Validates Purchase Invoice data received from BC27
+    /// Validates Purchase Invoice data received from target
     /// </summary>
     procedure ValidatePurchaseInvoiceData(JsonData: JsonObject; var ErrorText: Text): Boolean
     var
@@ -148,7 +148,7 @@ codeunit 50104 "KLT Document Validator"
     end;
 
     /// <summary>
-    /// Validates Purchase Credit Memo data received from BC27
+    /// Validates Purchase Credit Memo data received from target
     /// </summary>
     procedure ValidatePurchaseCreditMemoData(JsonData: JsonObject; var ErrorText: Text): Boolean
     var

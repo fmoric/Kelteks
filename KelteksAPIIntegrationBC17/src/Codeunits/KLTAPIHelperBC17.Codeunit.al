@@ -21,7 +21,7 @@ codeunit 50101 "KLT API Helper"
         ErrorContextTxt: Label '%1 - Context: %2', Locked = true;
 
     /// <summary>
-    /// Sends HTTP GET request to BC27 API
+    /// Sends HTTP GET request to target API
     /// </summary>
     procedure SendGetRequest(Endpoint: Text; var ResponseJson: JsonObject): Boolean
     var
@@ -34,7 +34,7 @@ codeunit 50101 "KLT API Helper"
         APIConfig.GetInstance();
         
         // Build full URL
-        FullUrl := BuildUrl(APIConfig."BC27 Base URL", Endpoint);
+        FullUrl := BuildUrl(APIConfig."Target Base URL", Endpoint);
         
         // Configure HTTP client
         ConfigureHttpClient(Client, APIConfig);
@@ -65,7 +65,7 @@ codeunit 50101 "KLT API Helper"
     end;
 
     /// <summary>
-    /// Sends HTTP POST request to BC27 API
+    /// Sends HTTP POST request to target API
     /// </summary>
     procedure SendPostRequest(Endpoint: Text; RequestJson: JsonObject; var ResponseJson: JsonObject): Boolean
     var
@@ -82,7 +82,7 @@ codeunit 50101 "KLT API Helper"
         APIConfig.GetInstance();
         
         // Build full URL
-        FullUrl := BuildUrl(APIConfig."BC27 Base URL", Endpoint);
+        FullUrl := BuildUrl(APIConfig."Target Base URL", Endpoint);
         
         // Configure HTTP client
         ConfigureHttpClient(Client, APIConfig);
@@ -127,7 +127,7 @@ codeunit 50101 "KLT API Helper"
     end;
 
     /// <summary>
-    /// Sends HTTP PATCH request to BC27 API (for updates)
+    /// Sends HTTP PATCH request to target API (for updates)
     /// </summary>
     procedure SendPatchRequest(Endpoint: Text; RequestJson: JsonObject; var ResponseJson: JsonObject): Boolean
     var
@@ -144,7 +144,7 @@ codeunit 50101 "KLT API Helper"
         APIConfig.GetInstance();
         
         // Build full URL
-        FullUrl := BuildUrl(APIConfig."BC27 Base URL", Endpoint);
+        FullUrl := BuildUrl(APIConfig."Target Base URL", Endpoint);
         
         // Configure HTTP client
         ConfigureHttpClient(Client, APIConfig);

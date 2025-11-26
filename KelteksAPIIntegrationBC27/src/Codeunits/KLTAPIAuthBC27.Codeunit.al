@@ -18,12 +18,12 @@ codeunit 50150 "KLT API Auth"
         CredentialsFormatTxt: Label '%1:%2', Locked = true;
         CompaniesApiPathTxt: Label '/api/v2.0/companies', Locked = true;
 
-    procedure GetBC17AccessToken(): Text
+    procedure GetTargetAccessToken(): Text
     var
         APIConfig: Record "KLT API Config BC27";
     begin
         APIConfig.GetInstance();
-        exit(GetAccessToken(APIConfig."BC17 Tenant ID", APIConfig."BC17 Client ID", APIConfig."BC17 Client Secret"));
+        exit(GetAccessToken(APIConfig."Target Tenant ID", APIConfig."Target Client ID", APIConfig."Target Client Secret"));
     end;
 
     local procedure GetAccessToken(TenantId: Text; ClientId: Text; ClientSecret: Text): Text
@@ -110,7 +110,7 @@ codeunit 50150 "KLT API Auth"
         case APIConfig."Authentication Method" of
             APIConfig."Authentication Method"::OAuth:
                 begin
-                    Token := GetBC17AccessToken();
+                    Token := GetTargetAccessToken();
                     exit(Token <> '');
                 end;
             APIConfig."Authentication Method"::Basic,
@@ -136,12 +136,12 @@ codeunit 50150 "KLT API Auth"
         case APIConfig."Authentication Method" of
             APIConfig."Authentication Method"::OAuth:
                 begin
-                    AuthHeader := 'Bearer ' + GetBC17AccessToken();
+                    AuthHeader := 'Bearer ' + GetTargetAccessToken();
                     Client.DefaultRequestHeaders.Add('Authorization', AuthHeader);
                 end;
             APIConfig."Authentication Method"::Basic:
                 begin
-                    AuthHeader := 'Basic ' + GetBasicAuthToken(APIConfig."BC17 Username", APIConfig."BC17 Password");
+                    AuthHeader := 'Basic ' + GetBasicAuthToken(APIConfig."Target Username", APIConfig."Target Password");
                     Client.DefaultRequestHeaders.Add('Authorization', AuthHeader);
                 end;
             APIConfig."Authentication Method"::Windows:
@@ -153,7 +153,7 @@ codeunit 50150 "KLT API Auth"
             APIConfig."Authentication Method"::Certificate:
                 begin
                     // Certificate authentication handled via HttpClient certificate methods
-                    AddCertificate(Client, APIConfig."BC17 Certificate Thumbprint");
+                    AddCertificate(Client, APIConfig."Target Certificate Thumbprint");
                 end;
         end;
     end;
@@ -188,11 +188,11 @@ codeunit 50150 "KLT API Auth"
 
     local procedure GetTestUrl(APIConfig: Record "KLT API Config BC27"): Text
     begin
-        if APIConfig."BC17 Base URL" = '' then
+        if APIConfig."Target Base URL" = '' then
             exit('');
         
         // Return a simple test URL to verify connectivity
-        exit(APIConfig."BC17 Base URL" + CompaniesApiPathTxt);
+        exit(APIConfig."Target Base URL" + CompaniesApiPathTxt);
     end;
 
     /// <summary>

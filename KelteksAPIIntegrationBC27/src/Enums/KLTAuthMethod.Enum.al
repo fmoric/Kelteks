@@ -1,8 +1,8 @@
 /// <summary>
-/// Enum KLT Auth Method BC27 (ID 50154).
+/// Enum KLT Auth Method (ID 50154).
 /// Authentication methods for API connections.
 /// </summary>
-enum 50154 "KLT Auth Method BC27"
+enum 50154 "KLT Auth Method"
 {
     Extensible = true;
 

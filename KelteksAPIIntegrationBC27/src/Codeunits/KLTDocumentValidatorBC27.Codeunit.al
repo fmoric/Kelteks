@@ -31,7 +31,7 @@ codeunit 50154 "KLT Document Validator"
         GLAccountNotPostingErr: Label 'G/L Account %1 is not a posting account';
 
     /// <summary>
-    /// Validates Posted Sales Invoice received from BC17
+    /// Validates Posted Sales Invoice received from target
     /// </summary>
     procedure ValidatePostedSalesInvoice(var SalesInvHeader: Record "Sales Invoice Header"; var ErrorText: Text): Boolean
     var
@@ -67,7 +67,7 @@ codeunit 50154 "KLT Document Validator"
     end;
 
     /// <summary>
-    /// Validates Posted Sales Credit Memo received from BC17
+    /// Validates Posted Sales Credit Memo received from target
     /// </summary>
     procedure ValidatePostedSalesCreditMemo(var SalesCrMemoHeader: Record "Sales Cr.Memo Header"; var ErrorText: Text): Boolean
     var

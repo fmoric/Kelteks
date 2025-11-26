@@ -1,6 +1,6 @@
 /// <summary>
 /// Sales Document Synchronization for BC27
-/// Receives Sales Invoices and Credit Memos from BC17
+/// Receives Sales Invoices and Credit Memos from target system
 /// </summary>
 codeunit 50153 "KLT Sales Doc Sync"
 {
@@ -9,9 +9,9 @@ codeunit 50153 "KLT Sales Doc Sync"
         Validator: Codeunit "KLT Document Validator";
 
     /// <summary>
-    /// Retrieves and creates Sales Invoices from BC17
+    /// Retrieves and creates Sales Invoices from target
     /// </summary>
-    procedure SyncSalesInvoicesFromBC17(): Integer
+    procedure SyncSalesInvoicesFromTarget(): Integer
     var
         APIConfig: Record "KLT API Config BC27";
         ResponseJson: JsonObject;
@@ -23,8 +23,8 @@ codeunit 50153 "KLT Sales Doc Sync"
         APIConfig.GetInstance();
         DocumentsCreated := 0;
         
-        // Get sales invoices from BC17
-        Endpoint := APIHelper.GetSalesInvoiceEndpoint(APIConfig."BC17 Company ID");
+        // Get sales invoices from target
+        Endpoint := APIHelper.GetSalesInvoiceEndpoint(APIConfig."Target Company ID");
         if not APIHelper.SendGetRequest(Endpoint, ResponseJson) then
             exit(0);
         
@@ -43,9 +43,9 @@ codeunit 50153 "KLT Sales Doc Sync"
     end;
 
     /// <summary>
-    /// Retrieves and creates Sales Credit Memos from BC17
+    /// Retrieves and creates Sales Credit Memos from target
     /// </summary>
-    procedure SyncSalesCreditMemosFromBC17(): Integer
+    procedure SyncSalesCreditMemosFromTarget(): Integer
     var
         APIConfig: Record "KLT API Config BC27";
         ResponseJson: JsonObject;
@@ -57,8 +57,8 @@ codeunit 50153 "KLT Sales Doc Sync"
         APIConfig.GetInstance();
         DocumentsCreated := 0;
         
-        // Get sales credit memos from BC17
-        Endpoint := APIHelper.GetSalesCreditMemoEndpoint(APIConfig."BC17 Company ID");
+        // Get sales credit memos from target
+        Endpoint := APIHelper.GetSalesCreditMemoEndpoint(APIConfig."Target Company ID");
         if not APIHelper.SendGetRequest(Endpoint, ResponseJson) then
             exit(0);
         

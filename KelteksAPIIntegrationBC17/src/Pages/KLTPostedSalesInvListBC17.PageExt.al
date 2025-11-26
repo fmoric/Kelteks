@@ -1,6 +1,6 @@
 /// <summary>
 /// PageExtension KLT Posted Sales Inv List BC17 (ID 50100) extends Record Posted Sales Invoices.
-/// Adds "Sync to BC27" action to Posted Sales Invoices list.
+/// Adds "Sync to target" action to Posted Sales Invoices list.
 /// </summary>
 pageextension 50100 "KLT Posted Sales Inv List BC17" extends "Posted Sales Invoices"
 {
@@ -11,9 +11,9 @@ pageextension 50100 "KLT Posted Sales Inv List BC17" extends "Posted Sales Invoi
             action(SyncToBC27)
             {
                 ApplicationArea = All;
-                Caption = 'Sync to BC27';
+                Caption = 'Sync to target';
                 Image = SendTo;
-                ToolTip = 'Synchronizes the selected sales invoice(s) to BC27';
+                ToolTip = 'Synchronizes the selected sales invoice(s) to target';
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
@@ -30,7 +30,7 @@ pageextension 50100 "KLT Posted Sales Inv List BC17" extends "Posted Sales Invoi
                     if SelectedCount = 0 then
                         Error('Please select at least one invoice to sync.');
 
-                    if not Confirm('Sync %1 invoice(s) to BC27?', false, SelectedCount) then
+                    if not Confirm('Sync %1 invoice(s) to target?', false, SelectedCount) then
                         exit;
 
                     SalesDocSync.SyncSalesInvoices(SalesInvHeader);

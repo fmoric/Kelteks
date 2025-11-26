@@ -1,0 +1,32 @@
+{
+  "id": "8a5e1b2c-3d4e-5f6a-7b8c-9d0e1f2a3b4c",
+  "name": "Kelteks API Integration BC17",
+  "publisher": "Kelteks",
+  "version": "1.0.0.0",
+  "brief": "API Integration for BC17 - Sales Outbound & Purchase Inbound",
+  "description": "BC v17 extension for Fiskalizacija 2.0 compliance. Sends posted sales invoices/credit memos to BC27 and receives purchase invoices/credit memos from BC27.",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "17.0.0.0",
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50149
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": false,
+    "includeSourceInSymbolFile": false
+  },
+  "runtime": "7.0",
+  "features": [
+    "NoImplicitWith"
+  ]
+}

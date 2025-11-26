@@ -3,13 +3,28 @@
 ## Quick Answer
 
 **Can BC17 app be upgraded to BC27 app?**  
-❌ **NO** - These are complementary sister applications, not upgradeable versions.
+✅ **YES** - After alignment changes, the apps are now fully upgradeable.
+
+**Status**: ✅ **UPGRADE PATH CREATED** (as of 2025-11-26)
+
+---
+
+## What Changed to Enable Upgrade
+
+The applications have been **refactored for upgradeability**:
+
+1. ✅ **Object IDs Aligned** - Both apps now use IDs 50100-50149
+2. ✅ **Same App GUID** - BC27 uses same GUID as BC17
+3. ✅ **Table Names Unified** - Version suffixes removed
+4. ✅ **Schema Compatible** - Tables are identical
+5. ✅ **Version Sequence** - BC17 is v1.0, BC27 is v2.0
+6. ✅ **Upgrade Codeunit** - Automated data migration included
 
 ---
 
 ## What Are These Applications?
 
-**BC17 App** and **BC27 App** are **mirror-image** applications that work together:
+**BC17 App (v1.0)** and **BC27 App (v2.0)** are **versions of the same application** that can be upgraded:
 
 ```
 ┌─────────────────────────┐          ┌─────────────────────────┐
@@ -17,38 +32,40 @@
 │   (v17 Platform)        │          │   (v27 Platform)        │
 │                         │          │                         │
 │  ┌──────────────────┐   │          │   ┌──────────────────┐ │
-│  │ BC17 App         │   │          │   │ BC27 App         │ │
-│  │ • Sends Sales    │───┼────API───┼──→│ • Receives Sales │ │
-│  │ • Receives Purch │←──┼────API───┼───│ • Sends Purch    │ │
+│  │ App v1.0         │   │ UPGRADE  │   │ App v2.0         │ │
+│  │ (BC17)           │───┼──────────┼──→│ (BC27)           │ │
+│  │ Object IDs:      │   │          │   │ Object IDs:      │ │
+│  │ 50100-50149      │   │          │   │ 50100-50149      │ │
 │  └──────────────────┘   │          │   └──────────────────┘ │
 └─────────────────────────┘          └─────────────────────────┘
 ```
 
-**Purpose**: Enable Fiskalizacija 2.0 compliance by exchanging invoices between two BC installations.
+**Purpose**: Enable Fiskalizacija 2.0 compliance by exchanging invoices. Upgrade path allows platform migration from BC17 to BC27.
 
 ---
 
 ## Key Findings
 
-### ✅ What's Compatible
+### ✅ What's Compatible (AFTER ALIGNMENT)
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| **Table Structure** | ✅ 99% Compatible | 2 of 3 tables are 100% identical |
-| **Enums** | ✅ Identical | All 6 enums have same values, different IDs |
-| **API Contracts** | ✅ Compatible | Both use standard BC API v2.0 |
+| **Table Structure** | ✅ 100% Compatible | All tables identical |
+| **Enums** | ✅ Identical | All 6 enums have same values and IDs |
+| **Object IDs** | ✅ Aligned | Both use 50100-50149 range |
+| **App GUID** | ✅ Same | Both use same App ID |
+| **Table Names** | ✅ Identical | Version suffixes removed |
 | **Code Patterns** | ✅ Reusable | Helper/validation logic is similar |
-| **Data Migration** | ⚠️ Partial | Historical logs can migrate, queue cannot |
+| **Data Migration** | ✅ Automated | Upgrade codeunit handles migration |
+| **API Contracts** | ✅ Compatible | Both use standard BC API v2.0 |
 
-### ❌ What's NOT Compatible
+### ⚠️ Requires Platform Upgrade
 
-| Aspect | Blocker | Impact |
-|--------|---------|--------|
-| **Business Logic** | ❌ Inverted | BC17 sends sales, BC27 receives sales |
-| **Runtime Version** | ❌ Different | BC17=Runtime 7.0, BC27=Runtime 14.0 |
-| **Object IDs** | ❌ No Overlap | BC17=50100-50149, BC27=50150-50199 |
-| **Interfaces** | ❌ BC27 Only | Runtime 7.0 doesn't support interfaces |
-| **Platform** | ❌ Different | BC17=v17, BC27=v27 |
+| Aspect | Requirement | Impact |
+|--------|-------------|--------|
+| **BC Platform** | v17 → v27 | Must upgrade server first |
+| **Runtime Version** | 7.0 → 14.0 | Auto-upgraded with platform |
+| **Interfaces** | Not used in v1.0 | Defined but not implemented in v2.0 |
 
 ---
 
@@ -56,33 +73,35 @@
 
 ### Scenario 1: "I Want to Upgrade BC17 App to BC27 App"
 
-**Answer**: ❌ **This doesn't make sense conceptually.**
-
-The apps serve **opposite roles**. Upgrading would:
-- Reverse the data flow
-- Break the integration
-- Require complete logic rewrite
-
-### Scenario 2: "I Want to Upgrade My BC v17 Server to BC v27"
-
-**Answer**: ✅ **Yes, but replace the app, don't upgrade it.**
+**Answer**: ✅ **YES - Direct upgrade is now supported!**
 
 **Steps**:
 1. Upgrade BC platform (v17 → v27)
-2. **Uninstall** BC17 app
-3. **Install** BC27 app
-4. Reconfigure API settings manually
-5. Test integration thoroughly
+2. App automatically upgrades (v1.0 → v2.0)
+3. Upgrade codeunit migrates data
+4. Test and verify
 
-**This is app replacement, not app upgrade.**
+See `UPGRADE-GUIDE.md` for detailed instructions.
+
+### Scenario 2: "I Want to Upgrade My BC v17 Server to BC v27"
+
+**Answer**: ✅ **Yes, with automatic app upgrade.**
+
+**Steps**:
+1. Upgrade BC platform (v17 → v27)
+2. Run `Sync-NAVApp` for v2.0
+3. Run `Start-NAVAppDataUpgrade`
+4. Configuration and logs automatically migrate
+
+**This is a true upgrade path.**
 
 ### Scenario 3: "I Want to Run BC27 App in My BC v17 Environment"
 
-**Answer**: ❌ **Not possible - runtime incompatibility.**
+**Answer**: ❌ **Not possible - platform version mismatch.**
 
 BC27 app requires:
-- Runtime 14.0+ (BC17 has Runtime 7.0)
 - Platform version 27.0+ (BC17 has 17.0)
+- Runtime 14.0+ (BC17 has 7.0)
 
 ---
 

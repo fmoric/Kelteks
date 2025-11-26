@@ -214,7 +214,7 @@ Assign the **KLT API Integration BC17** permission set to users who will:
 
 ### Option 1: Using the Configuration Page
 
-1. Search for **KLT API Configuration BC17**
+1. Search for **KLT API Configuration**
 2. Click **New** (if not exists, only one record allowed)
 3. Fill in the fields:
 
@@ -349,7 +349,7 @@ View and resolve synchronization errors:
 
 ### Statistics
 
-View real-time statistics on the **KLT API Configuration BC17** page:
+View real-time statistics on the **KLT API Configuration** page:
 
 - **Total Synced Documents**: All-time count
 - **Successful Syncs**: Success count
@@ -465,7 +465,7 @@ Logs are retained for 365 days by default (configurable).
 ### Key Objects
 
 **Tables:**
-- 50100: KLT API Configuration BC17
+- 50100: KLT API Configuration
 - 50101: KLT Document Sync Log
 - 50103: KLT API Sync Queue
 
@@ -479,7 +479,7 @@ Logs are retained for 365 days by default (configurable).
 - 50100: KLT API Auth BC17 (OAuth & Basic authentication)
 
 **Pages:**
-- 50100: KLT API Configuration BC17
+- 50100: KLT API Configuration
 
 ### Security
 

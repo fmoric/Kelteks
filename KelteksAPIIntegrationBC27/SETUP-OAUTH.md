@@ -132,7 +132,7 @@ Install-NAVApp -ServerInstance BC270 `
 ## Step 5: Configure BC27 Extension
 
 ### 5.1 Open Configuration
-Search for: `KLT API Configuration BC27`
+Search for: `KLT API Configuration`
 
 ### 5.2 Enter BC17 Connection Details
 

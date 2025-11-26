@@ -276,7 +276,7 @@ Assign the **KLT API Integration BC27** permission set to users who will:
 
 ### Using the Configuration Page
 
-1. Search for **KLT API Configuration BC27**
+1. Search for **KLT API Configuration**
 2. Click **New** (only one record allowed - singleton pattern)
 3. Configure the following settings:
 
@@ -443,7 +443,7 @@ Errors are logged to Business Central's standard **Error Message** table:
 
 ### Statistics Dashboard
 
-View sync statistics on **KLT API Configuration BC27** page:
+View sync statistics on **KLT API Configuration** page:
 
 **Metrics:**
 - Total Documents Synced
@@ -627,7 +627,7 @@ This extension integrates with Business Central's standard error management:
 ### Key Objects
 
 **Tables:**
-- 50150: KLT API Configuration BC27
+- 50150: KLT API Configuration
 - 50151: KLT Document Sync Log
 - 50153: KLT API Sync Queue
 
@@ -642,7 +642,7 @@ This extension integrates with Business Central's standard error management:
 - 50154: KLT Sync Engine BC27 (Orchestration)
 
 **Pages:**
-- 50150: KLT API Configuration BC27
+- 50150: KLT API Configuration
 - 50151: KLT Document Sync Log
 
 ### Security Features

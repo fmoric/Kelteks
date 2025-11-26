@@ -202,7 +202,7 @@ Install-NAVApp -ServerInstance BC170 `
 ## Step 6: Configure BC17 Extension
 
 ### 6.1 Open Configuration Page
-1. In BC17 Web Client, search for: `KLT API Configuration BC17`
+1. In BC17 Web Client, search for: `KLT API Configuration`
 2. Open the configuration page
 
 ### 6.2 Enter Connection Details
@@ -237,7 +237,7 @@ Install-NAVApp -ServerInstance BC170 `
 ## Step 7: Test Connection
 
 ### 7.1 Run Connection Test
-1. In **KLT API Configuration BC17** page
+1. In **KLT API Configuration** page
 2. Click **Actions** > **Test Connection**
 3. Wait for the test to complete
 

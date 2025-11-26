@@ -4,7 +4,7 @@
 /// </summary>
 table 50100 "KLT API Config"
 {
-    Caption = 'API Configuration BC17';
+    Caption = 'API Configuration';
     DataClassification = CustomerContent;
 
     fields

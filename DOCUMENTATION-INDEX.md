@@ -1,7 +1,8 @@
 # Documentation Index - Kelteks API Integration
 
 **Last Updated**: 2025-11-26  
-**Total Documents**: 13 (repository root) + 10 (extensions) = 23 files
+**Total Documents**: 13 (repository root) + 10 (extensions) = 23 files  
+**Organization**: Grouped in `/docs` folder for easier navigation
 
 ---
 
@@ -9,50 +10,82 @@
 
 ### 🚀 Getting Started (Start Here)
 - **[README.md](README.md)** - Project overview and quick start
-- **[QUICKSTART-ONPREMISE.md](QUICKSTART-ONPREMISE.md)** - 15-20 minute setup guide
+- **[docs/guides/QUICKSTART-ONPREMISE.md](docs/guides/QUICKSTART-ONPREMISE.md)** - 15-20 minute setup guide
 
 ### 📖 Core Documentation
 
-#### Project Overview
-- **[SUMMARY.md](SUMMARY.md)** - Complete project summary and technical specification
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Split architecture design and rationale
-- **[IMPLEMENTATION-STATUS.md](IMPLEMENTATION-STATUS.md)** - Current implementation status and features
+#### Project Overview (in `docs/technical/`)
+- **[SUMMARY.md](docs/technical/SUMMARY.md)** - Complete project summary and technical specification
+- **[ARCHITECTURE.md](docs/technical/ARCHITECTURE.md)** - Split architecture design and rationale
+- **[IMPLEMENTATION-STATUS.md](docs/technical/IMPLEMENTATION-STATUS.md)** - Current implementation status and features
 
-#### Quality & Analysis
-- **[PROJECT-ANALYSIS-2025-11-26.md](PROJECT-ANALYSIS-2025-11-26.md)** - Comprehensive project analysis
+#### Quality & Analysis (in `docs/analysis/`)
+- **[PROJECT-ANALYSIS-2025-11-26.md](docs/analysis/PROJECT-ANALYSIS-2025-11-26.md)** - Comprehensive project analysis
   - Code quality assessment
   - Documentation analysis
   - Deployment readiness
   - Recommendations
-- **[BC-BEST-PRACTICES-COMPLIANCE.md](BC-BEST-PRACTICES-COMPLIANCE.md)** - Best practices compliance report (10/10)
+- **[BC-BEST-PRACTICES-COMPLIANCE.md](docs/analysis/BC-BEST-PRACTICES-COMPLIANCE.md)** - Best practices compliance report (10/10)
+- **[INTERNAL-ACCESS-ANALYSIS.md](docs/analysis/INTERNAL-ACCESS-ANALYSIS.md)** - Access modifier verification
+- **[CONSOLIDATION-SUMMARY.md](docs/analysis/CONSOLIDATION-SUMMARY.md)** - Documentation consolidation changes
+- **[FINAL-ANALYSIS.md](docs/analysis/FINAL-ANALYSIS.md)** - Final assessment report
 
-#### Upgrade Path
-- **[UPGRADE-GUIDE.md](UPGRADE-GUIDE.md)** - User guide for upgrading from BC17 to BC27
-- **[UPGRADE-TECHNICAL-ANALYSIS.md](UPGRADE-TECHNICAL-ANALYSIS.md)** - Technical analysis of upgrade path
+#### Upgrade Path (in `docs/guides/` and `docs/technical/`)
+- **[UPGRADE-GUIDE.md](docs/guides/UPGRADE-GUIDE.md)** - User guide for upgrading from BC17 to BC27
+- **[UPGRADE-TECHNICAL-ANALYSIS.md](docs/technical/UPGRADE-TECHNICAL-ANALYSIS.md)** - Technical analysis of upgrade path
 
-#### Developer Resources
-- **[COPILOT-GUIDE.md](COPILOT-GUIDE.md)** - Developer guide and coding patterns
-- **[FINAL-REVIEW-CHECKLIST.md](FINAL-REVIEW-CHECKLIST.md)** - Pre-deployment checklist and TODO items
+#### Developer Resources (in `docs/guides/`)
+- **[COPILOT-GUIDE.md](docs/guides/COPILOT-GUIDE.md)** - Developer guide and coding patterns
+- **[FINAL-REVIEW-CHECKLIST.md](docs/guides/FINAL-REVIEW-CHECKLIST.md)** - Pre-deployment checklist and TODO items
 
 ### 📦 Extension-Specific Documentation
 
-#### BC17 Extension (KelteksAPIIntegrationBC17)
-- **[BC17/README.md](KelteksAPIIntegrationBC17/README.md)** - BC17 user guide
-- **[BC17/SETUP-OAUTH.md](KelteksAPIIntegrationBC17/SETUP-OAUTH.md)** - OAuth 2.0 setup
-- **[BC17/SETUP-BASIC.md](KelteksAPIIntegrationBC17/SETUP-BASIC.md)** - Basic authentication setup
-- **[BC17/SETUP-WINDOWS.md](KelteksAPIIntegrationBC17/SETUP-WINDOWS.md)** - Windows authentication setup
-- **[BC17/SETUP-CERTIFICATE.md](KelteksAPIIntegrationBC17/SETUP-CERTIFICATE.md)** - Certificate authentication setup
+#### BC17 Extension (in `KelteksAPIIntegrationBC17/`)
+- **[README.md](KelteksAPIIntegrationBC17/README.md)** - BC17 user guide
+- **[SETUP-OAUTH.md](KelteksAPIIntegrationBC17/SETUP-OAUTH.md)** - OAuth 2.0 setup
+- **[SETUP-BASIC.md](KelteksAPIIntegrationBC17/SETUP-BASIC.md)** - Basic authentication setup
+- **[SETUP-WINDOWS.md](KelteksAPIIntegrationBC17/SETUP-WINDOWS.md)** - Windows authentication setup
+- **[SETUP-CERTIFICATE.md](KelteksAPIIntegrationBC17/SETUP-CERTIFICATE.md)** - Certificate authentication setup
 
-#### BC27 Extension (KelteksAPIIntegrationBC27)
-- **[BC27/README.md](KelteksAPIIntegrationBC27/README.md)** - BC27 user guide
-- **[BC27/SETUP-OAUTH.md](KelteksAPIIntegrationBC27/SETUP-OAUTH.md)** - OAuth 2.0 setup
-- **[BC27/SETUP-BASIC.md](KelteksAPIIntegrationBC27/SETUP-BASIC.md)** - Basic authentication setup
-- **[BC27/SETUP-WINDOWS.md](KelteksAPIIntegrationBC27/SETUP-WINDOWS.md)** - Windows authentication setup
-- **[BC27/SETUP-CERTIFICATE.md](KelteksAPIIntegrationBC27/SETUP-CERTIFICATE.md)** - Certificate authentication setup
+#### BC27 Extension (in `KelteksAPIIntegrationBC27/`)
+- **[README.md](KelteksAPIIntegrationBC27/README.md)** - BC27 user guide
+- **[SETUP-OAUTH.md](KelteksAPIIntegrationBC27/SETUP-OAUTH.md)** - OAuth 2.0 setup
+- **[SETUP-BASIC.md](KelteksAPIIntegrationBC27/SETUP-BASIC.md)** - Basic authentication setup
+- **[SETUP-WINDOWS.md](KelteksAPIIntegrationBC27/SETUP-WINDOWS.md)** - Windows authentication setup
+- **[SETUP-CERTIFICATE.md](KelteksAPIIntegrationBC27/SETUP-CERTIFICATE.md)** - Certificate authentication setup
 
 ### 📋 Supporting Documents
 - **[SECURITY.md](SECURITY.md)** - Security policy
 - **[SUPPORT.md](SUPPORT.md)** - Support information
+
+---
+
+## Folder Structure
+
+```
+Kelteks/
+├── README.md (main entry point)
+├── DOCUMENTATION-INDEX.md (this file)
+├── docs/
+│   ├── analysis/          (Code quality & project analysis)
+│   │   ├── PROJECT-ANALYSIS-2025-11-26.md
+│   │   ├── BC-BEST-PRACTICES-COMPLIANCE.md
+│   │   ├── INTERNAL-ACCESS-ANALYSIS.md
+│   │   ├── CONSOLIDATION-SUMMARY.md
+│   │   └── FINAL-ANALYSIS.md
+│   ├── guides/            (Setup & user guides)
+│   │   ├── QUICKSTART-ONPREMISE.md
+│   │   ├── UPGRADE-GUIDE.md
+│   │   ├── COPILOT-GUIDE.md
+│   │   └── FINAL-REVIEW-CHECKLIST.md
+│   └── technical/         (Architecture & specifications)
+│       ├── SUMMARY.md
+│       ├── ARCHITECTURE.md
+│       ├── IMPLEMENTATION-STATUS.md
+│       └── UPGRADE-TECHNICAL-ANALYSIS.md
+├── KelteksAPIIntegrationBC17/ (BC17 extension docs)
+└── KelteksAPIIntegrationBC27/ (BC27 extension docs)
+```
 
 ---
 

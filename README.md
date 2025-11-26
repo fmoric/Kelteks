@@ -117,30 +117,45 @@ See [detailed setup guides](KelteksAPIIntegrationBC17/README.md) for step-by-ste
 
 ## Documentation
 
-### User Documentation
-- [Quick Start Guide (On-Premise)](QUICKSTART-ONPREMISE.md) - 15-20 minute setup
-- [BC17 Setup Guides](KelteksAPIIntegrationBC17/) - OAuth, Basic, Windows, Certificate auth
-- [BC27 Setup Guides](KelteksAPIIntegrationBC27/) - OAuth, Basic, Windows, Certificate auth
-- [Architecture Overview](ARCHITECTURE.md)
-- [Upgrade Guide](UPGRADE-GUIDE.md) - BC17 to BC27 upgrade path
+📚 **[Documentation Index](DOCUMENTATION-INDEX.md)** - Complete guide to all documentation  
+📊 **[Documentation Summary](docs/DOCUMENTATION-SUMMARY.md)** - Quick reference and reading paths
 
-### Developer Documentation
-- [Complete Project Summary](SUMMARY.md) - Full technical specification
-- [Implementation Status](IMPLEMENTATION-STATUS.md) - Current state and features
-- [Code Quality Report](BC-BEST-PRACTICES-COMPLIANCE.md) - Best practices compliance
-- [Copilot Guide](COPILOT-GUIDE.md) - Developer reference
+### Quick Links by Purpose
 
-### Deployment
-- [Deployment Checklist](FINAL-REVIEW-CHECKLIST.md) - Pre-deployment validation
-- [Project Analysis](PROJECT-ANALYSIS-2025-11-26.md) - Comprehensive assessment
+**🚀 Getting Started:**
+- [Quick Start Guide](docs/guides/QUICKSTART-ONPREMISE.md) - 15-20 minute setup (Basic Auth)
+- [BC17 Setup Guides](KelteksAPIIntegrationBC17/) - OAuth, Basic, Windows, Certificate
+- [BC27 Setup Guides](KelteksAPIIntegrationBC27/) - OAuth, Basic, Windows, Certificate
+
+**🏗️ Architecture & Technical:**
+- [Architecture Overview](docs/technical/ARCHITECTURE.md) - Split architecture design
+- [Complete Summary](docs/technical/SUMMARY.md) - Full technical specification
+- [Implementation Status](docs/technical/IMPLEMENTATION-STATUS.md) - Features & status
+
+**✅ Quality & Deployment:**
+- [Project Analysis](docs/analysis/PROJECT-ANALYSIS-2025-11-26.md) - Comprehensive assessment
+- [Deployment Checklist](docs/guides/FINAL-REVIEW-CHECKLIST.md) - Pre-deployment validation
+- [Best Practices](docs/analysis/BC-BEST-PRACTICES-COMPLIANCE.md) - 10/10 compliance
+
+**👨‍💻 Developer Resources:**
+- [Copilot Guide](docs/guides/COPILOT-GUIDE.md) - AL coding patterns
+- [Upgrade Guide](docs/guides/UPGRADE-GUIDE.md) - BC17 to BC27 upgrade
+
+### Documentation Organization
+
+All documentation is organized in the `/docs` folder:
+- **`/docs/analysis/`** - Code quality & project analysis (5 files)
+- **`/docs/guides/`** - Setup & user guides (4 files)
+- **`/docs/technical/`** - Architecture & specifications (4 files)
 
 ## Support
 
 For issues or questions:
 1. Review [setup guides](KelteksAPIIntegrationBC17/README.md) for configuration help
-2. Check [Final Review Checklist](FINAL-REVIEW-CHECKLIST.md) for known issues
-3. See [Code Analysis](PROJECT-ANALYSIS-2025-11-26.md) for technical details
-4. Contact: Ana Šetka (Consultant)
+2. Check [Deployment Checklist](docs/guides/FINAL-REVIEW-CHECKLIST.md) for known issues
+3. See [Project Analysis](docs/analysis/PROJECT-ANALYSIS-2025-11-26.md) for technical details
+4. Consult [Documentation Index](DOCUMENTATION-INDEX.md) to find specific topics
+5. Contact: Ana Šetka (Consultant)
 
 ## License & Compliance
 

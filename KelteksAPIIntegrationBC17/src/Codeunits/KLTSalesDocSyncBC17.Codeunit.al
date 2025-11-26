@@ -7,8 +7,8 @@ codeunit 50102 "KLT Sales Doc Sync"
     var
         APIHelper: Codeunit "KLT API Helper";
         Validator: Codeunit "KLT Document Validator";
-        FailedBuildJSONErr: Label FailedBuildJSONErr;
-        APIRequestFailedErr: Label APIRequestFailedErr;
+        FailedBuildJSONErr: Label 'Failed to build JSON request';
+        APIRequestFailedErr: Label 'API request failed';
 
     /// <summary>
     /// Synchronizes a Posted Sales Invoice to BC27

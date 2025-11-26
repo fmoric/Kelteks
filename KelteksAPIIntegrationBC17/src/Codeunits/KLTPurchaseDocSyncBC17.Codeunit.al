@@ -9,10 +9,10 @@ codeunit 50103 "KLT Purchase Doc Sync"
         Validator: Codeunit "KLT Document Validator";
         FailedBuildJSONErr: Label 'Failed to build JSON request';
         APIRequestFailedErr: Label 'API request failed';
-        VendorNotFoundErr: Label VendorNotFoundErr;
-        PurchInvLinesNotArrayErr: Label PurchInvLinesNotArrayErr;
-        PurchCrMemoLinesNotArrayErr: Label PurchCrMemoLinesNotArrayErr;
-        InvalidLineTypeErr: Label InvalidLineTypeErr;
+        VendorNotFoundErr: Label 'Vendor %1 not found';
+        PurchInvLinesNotArrayErr: Label 'Purchase invoice lines is not an array';
+        PurchCrMemoLinesNotArrayErr: Label 'Purchase credit memo lines is not an array';
+        InvalidLineTypeErr: Label 'Invalid line type: %1';
 
     /// <summary>
     /// Retrieves and creates Purchase Invoices from BC27

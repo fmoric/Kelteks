@@ -5,30 +5,31 @@
 codeunit 50104 "KLT Document Validator"
 {
     var
-        CustomerNotExistErr: Label CustomerNotExistErr;
-        VendorNotExistErr: Label VendorNotExistErr;
-        PostingDateRequiredErr: Label PostingDateRequiredErr;
-        DocumentDateRequiredErr: Label DocumentDateRequiredErr;
-        CurrencyNotExistErr: Label CurrencyNotExistErr;
-        VendorNumberRequiredErr: Label VendorNumberRequiredErr;
-        PostingPeriodBeforeErr: Label PostingPeriodBeforeErr;
-        PostingPeriodAfterErr: Label PostingPeriodAfterErr;
-        LineTypeRequiredErr: Label LineTypeRequiredErr;
-        NumberRequiredErr: Label NumberRequiredErr;
-        QuantityMustBePositiveErr: Label QuantityMustBePositiveErr;
-        UnitPriceNegativeErr: Label UnitPriceNegativeErr;
-        DuplicatePostedInvoiceErr: Label DuplicatePostedInvoiceErr;
-        DuplicateUnpostedInvoiceErr: Label DuplicateUnpostedInvoiceErr;
-        DuplicatePostedCreditMemoErr: Label DuplicatePostedCreditMemoErr;
-        DuplicateUnpostedCreditMemoErr: Label DuplicateUnpostedCreditMemoErr;
-        VendorNotFoundErr: Label VendorNotFoundErr;
-        VendorNoPostingGroupErr: Label VendorNoPostingGroupErr;
-        VendorPostingGroupNotFoundErr: Label VendorPostingGroupNotFoundErr;
-        ItemNotExistErr: Label ItemNotExistErr;
-        ItemBlockedErr: Label ItemBlockedErr;
-        GLAccountNotExistErr: Label GLAccountNotExistErr;
-        GLAccountBlockedErr: Label GLAccountBlockedErr;
-        GLAccountNotPostingErr: Label GLAccountNotPostingErr;
+        CustomerNotExistErr: Label 'Customer %1 does not exist';
+        VendorNotExistErr: Label 'Vendor %1 does not exist in BC17';
+        PostingDateRequiredErr: Label 'Posting Date is required';
+        DocumentDateRequiredErr: Label 'Document Date is required';
+        CurrencyNotExistErr: Label 'Currency %1 does not exist';
+        VendorNumberRequiredErr: Label 'Vendor Number is required';
+        PostingPeriodBeforeErr: Label 'Posting Date %1 is before allowed posting from date %2';
+        PostingPeriodAfterErr: Label 'Posting Date %1 is after allowed posting to date %2';
+        LineTypeRequiredErr: Label 'Line Type is required';
+        NumberRequiredErr: Label 'Number is required for non-comment lines';
+        QuantityMustBePositiveErr: Label 'Quantity must be greater than zero';
+        UnitPriceNegativeErr: Label 'Unit Price cannot be negative';
+        DuplicatePostedInvoiceErr: Label 'Duplicate: Posted invoice with External Document No. %1 already exists';
+        DuplicateUnpostedInvoiceErr: Label 'Duplicate: Unposted invoice with External Document No. %1 already exists';
+        DuplicatePostedCreditMemoErr: Label 'Duplicate: Posted credit memo with External Document No. %1 already exists';
+        DuplicateUnpostedCreditMemoErr: Label 'Duplicate: Unposted credit memo with External Document No. %1 already exists';
+        VendorNotFoundErr: Label 'Vendor %1 not found';
+        VendorNoPostingGroupErr: Label 'Vendor %1 has no posting group assigned';
+        VendorPostingGroupNotFoundErr: Label 'Vendor Posting Group %1 not found';
+        ItemNotExistErr: Label 'Item %1 does not exist';
+        ItemBlockedErr: Label 'Item %1 is blocked';
+        GLAccountNotExistErr: Label 'G/L Account %1 does not exist';
+        GLAccountBlockedErr: Label 'G/L Account %1 is blocked';
+        GLAccountNotPostingErr: Label 'G/L Account %1 is not a posting account';
+
     /// <summary>
     /// Validates Posted Sales Invoice before sending to BC27
     /// </summary>

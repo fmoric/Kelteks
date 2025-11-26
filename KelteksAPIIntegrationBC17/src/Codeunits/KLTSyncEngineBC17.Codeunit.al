@@ -7,8 +7,8 @@ codeunit 50105 "KLT Sync Engine"
     var
         SalesDocSync: Codeunit "KLT Sales Doc Sync";
         PurchaseDocSync: Codeunit "KLT Purchase Doc Sync";
-        SourceDocNotFoundErr: Label SourceDocNotFoundErr;
-        SyncFailedErr: Label SyncFailedErr;
+        SourceDocNotFoundErr: Label 'Source document not found';
+        SyncFailedErr: Label 'Sync failed';
 
     /// <summary>
     /// Main entry point for scheduled synchronization

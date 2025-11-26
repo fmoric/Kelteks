@@ -43,16 +43,22 @@ All code has been refactored and validated. Manual syntax checks pass. The code 
 - [x] Error Message using built-in procedures
 - [x] Proper use of BC built-in codeunits
 
+### ✅ File Naming Validation
+- [x] All filenames match object names per BC best practices
+- [x] Codeunit files renamed to match object names (commit e5b4e80)
+- [x] Table/Page/Enum files already correctly named
+- [x] No redundant version suffixes in filenames
+
 ## Files Ready for Compilation
 
 ### BC17 Extension (18 files)
 **Codeunits (6)**:
-- ✅ KLTAPIAuthBC17.Codeunit.al (50100)
-- ✅ KLTAPIHelperBC17.Codeunit.al (50101)
-- ✅ KLTSalesDocSyncBC17.Codeunit.al (50102)
-- ✅ KLTPurchaseDocSyncBC17.Codeunit.al (50103)
-- ✅ KLTDocumentValidatorBC17.Codeunit.al (50104)
-- ✅ KLTSyncEngineBC17.Codeunit.al (50105)
+- ✅ KLTAPIAuth.Codeunit.al (50100 "KLT API Auth")
+- ✅ KLTAPIHelper.Codeunit.al (50101 "KLT API Helper")
+- ✅ KLTSalesDocSync.Codeunit.al (50102 "KLT Sales Doc Sync")
+- ✅ KLTPurchaseDocSync.Codeunit.al (50103 "KLT Purchase Doc Sync")
+- ✅ KLTDocumentValidator.Codeunit.al (50104 "KLT Document Validator")
+- ✅ KLTSyncEngine.Codeunit.al (50105 "KLT Sync Engine")
 
 **Tables (3)**:
 - ✅ KLTAPIConfigBC17.Table.al (50100)
@@ -71,12 +77,12 @@ All code has been refactored and validated. Manual syntax checks pass. The code 
 
 ### BC27 Extension (19 files)
 **Codeunits (6)**:
-- ✅ KLTAPIAuthBC27.Codeunit.al (50150)
-- ✅ KLTAPIHelperBC27.Codeunit.al (50151)
-- ✅ KLTPurchaseDocSyncBC27.Codeunit.al (50152)
-- ✅ KLTSalesDocSyncBC27.Codeunit.al (50153)
-- ✅ KLTDocumentValidatorBC27.Codeunit.al (50154)
-- ✅ KLTSyncEngineBC27.Codeunit.al (50155)
+- ✅ KLTAPIAuth.Codeunit.al (50150 "KLT API Auth")
+- ✅ KLTAPIHelper.Codeunit.al (50151 "KLT API Helper")
+- ✅ KLTPurchaseDocSync.Codeunit.al (50152 "KLT Purchase Doc Sync")
+- ✅ KLTSalesDocSync.Codeunit.al (50153 "KLT Sales Doc Sync")
+- ✅ KLTDocumentValidator.Codeunit.al (50154 "KLT Document Validator")
+- ✅ KLTSyncEngine.Codeunit.al (50155 "KLT Sync Engine")
 
 **Interfaces (1)**:
 - ✅ KLTIAPIAuth.Interface.al

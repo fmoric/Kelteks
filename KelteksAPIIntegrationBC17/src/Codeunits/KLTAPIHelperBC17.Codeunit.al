@@ -2,10 +2,10 @@
 /// HTTP Helper for BC17 - Handles API communication with BC27
 /// Provides GET/POST methods with authentication, JSON parsing, and error handling
 /// </summary>
-codeunit 50101 "KLT API Helper BC17"
+codeunit 50101 "KLT API Helper"
 {
     var
-        APIAuth: Codeunit "KLT API Auth BC17";
+        APIAuth: Codeunit "KLT API Auth";
         HTTPGetFailedConnErr: Label 'HTTP GET request failed: Connection error';
         HTTPGetFailedStatusErr: Label 'HTTP GET failed with status %1';
         FailedParseJSONErr: Label 'Failed to parse JSON response';

@@ -2,11 +2,11 @@
 /// Sync Engine for BC17
 /// Orchestrates document synchronization with job queue, retry logic, and batch processing
 /// </summary>
-codeunit 50105 "KLT Sync Engine BC17"
+codeunit 50105 "KLT Sync Engine"
 {
     var
-        SalesDocSync: Codeunit "KLT Sales Doc Sync BC17";
-        PurchaseDocSync: Codeunit "KLT Purchase Doc Sync BC17";
+        SalesDocSync: Codeunit "KLT Sales Doc Sync";
+        PurchaseDocSync: Codeunit "KLT Purchase Doc Sync";
         SourceDocNotFoundErr: Label SourceDocNotFoundErr;
         SyncFailedErr: Label SyncFailedErr;
 

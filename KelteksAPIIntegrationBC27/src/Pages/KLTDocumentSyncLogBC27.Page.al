@@ -120,7 +120,7 @@ page 50151 "KLT Document Sync Log BC27"
 
                 trigger OnAction()
                 var
-                    SyncEngine: Codeunit "KLT Sync Engine BC27";
+                    SyncEngine: Codeunit "KLT Sync Engine";
                 begin
                     SyncEngine.RetryFailedSync(Rec);
                     Message('Retry initiated.');

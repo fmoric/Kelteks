@@ -2,7 +2,7 @@
 /// Interface for API authentication operations
 /// Supports OAuth 2.0, Basic, Windows, and Certificate authentication
 /// </summary>
-interface "KLT IAPIAuth"
+interface "KLT IAPI Auth"
 {
     /// <summary>
     /// Gets access token for the target environment

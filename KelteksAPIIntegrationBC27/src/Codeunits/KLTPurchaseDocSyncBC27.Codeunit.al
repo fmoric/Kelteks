@@ -2,11 +2,11 @@
 /// Purchase Document Synchronization for BC27
 /// Sends Purchase Invoices and Credit Memos to BC17
 /// </summary>
-codeunit 50152 "KLT Purchase Doc Sync BC27"
+codeunit 50152 "KLT Purchase Doc Sync"
 {
     var
-        APIHelper: Codeunit "KLT API Helper BC27";
-        Validator: Codeunit "KLT Document Validator BC27";
+        APIHelper: Codeunit "KLT API Helper";
+        Validator: Codeunit "KLT Document Validator";
 
     /// <summary>
     /// Synchronizes a Purchase Invoice to BC17

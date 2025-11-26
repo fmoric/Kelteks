@@ -2,11 +2,11 @@
 /// Purchase Document Synchronization for BC17
 /// Receives Purchase Invoices and Credit Memos from BC27
 /// </summary>
-codeunit 50103 "KLT Purchase Doc Sync BC17"
+codeunit 50103 "KLT Purchase Doc Sync"
 {
     var
-        APIHelper: Codeunit "KLT API Helper BC17";
-        Validator: Codeunit "KLT Document Validator BC17";
+        APIHelper: Codeunit "KLT API Helper";
+        Validator: Codeunit "KLT Document Validator";
         FailedBuildJSONErr: Label 'Failed to build JSON request';
         APIRequestFailedErr: Label 'API request failed';
         VendorNotFoundErr: Label VendorNotFoundErr;

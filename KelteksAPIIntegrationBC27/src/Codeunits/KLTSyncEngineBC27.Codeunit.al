@@ -2,11 +2,11 @@
 /// Sync Engine for BC27
 /// Orchestrates document synchronization with job queue, retry logic, and batch processing
 /// </summary>
-codeunit 50155 "KLT Sync Engine BC27"
+codeunit 50155 "KLT Sync Engine"
 {
     var
-        SalesDocSync: Codeunit "KLT Sales Doc Sync BC27";
-        PurchaseDocSync: Codeunit "KLT Purchase Doc Sync BC27";
+        SalesDocSync: Codeunit "KLT Sales Doc Sync";
+        PurchaseDocSync: Codeunit "KLT Purchase Doc Sync";
 
     /// <summary>
     /// Main entry point for scheduled synchronization

@@ -21,7 +21,7 @@ pageextension 50100 "KLT Posted Sales Inv List BC17" extends "Posted Sales Invoi
                 trigger OnAction()
                 var
                     SalesInvHeader: Record "Sales Invoice Header";
-                    SalesDocSync: Codeunit "KLT Sales Doc Sync BC17";
+                    SalesDocSync: Codeunit "KLT Sales Doc Sync";
                     SelectedCount: Integer;
                 begin
                     CurrPage.SetSelectionFilter(SalesInvHeader);

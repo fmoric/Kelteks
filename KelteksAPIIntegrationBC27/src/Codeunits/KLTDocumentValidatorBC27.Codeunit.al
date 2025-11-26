@@ -94,7 +94,7 @@
         GLAccountNotExistErr: Label 'G/L Account %1 does not exist';
         GLAccountBlockedErr: Label 'G/L Account %1 is blocked';
         GLAccountNotPostingErr: Label 'G/L Account %1 is not a posting account';
-codeunit 50154 "KLT Document Validator BC27"
+codeunit 50154 "KLT Document Validator"
     var
         CustomerNotExistErr: Label 'Customer %1 does not exist in BC27';
         VendorNotExistErr: Label 'Vendor %1 does not exist';
@@ -2230,7 +2230,7 @@ codeunit 50154 "KLT Document Validator BC27"
         GLAccountNotExistErr: Label 'G/L Account %1 does not exist';
         GLAccountBlockedErr: Label 'G/L Account %1 is blocked';
         GLAccountNotPostingErr: Label 'G/L Account %1 is not a posting account';
-        APIHelper: Codeunit "KLT API Helper BC27";
+        APIHelper: Codeunit "KLT API Helper";
     var
         CustomerNotExistErr: Label 'Customer %1 does not exist in BC27';
         VendorNotExistErr: Label 'Vendor %1 does not exist';
@@ -3310,7 +3310,7 @@ codeunit 50154 "KLT Document Validator BC27"
         GLAccountNotExistErr: Label 'G/L Account %1 does not exist';
         GLAccountBlockedErr: Label 'G/L Account %1 is blocked';
         GLAccountNotPostingErr: Label 'G/L Account %1 is not a posting account';
-        APIHelper: Codeunit "KLT API Helper BC27";
+        APIHelper: Codeunit "KLT API Helper";
     var
         CustomerNotExistErr: Label 'Customer %1 does not exist in BC27';
         VendorNotExistErr: Label 'Vendor %1 does not exist';
@@ -4390,7 +4390,7 @@ codeunit 50154 "KLT Document Validator BC27"
         GLAccountNotExistErr: Label 'G/L Account %1 does not exist';
         GLAccountBlockedErr: Label 'G/L Account %1 is blocked';
         GLAccountNotPostingErr: Label 'G/L Account %1 is not a posting account';
-        APIHelper: Codeunit "KLT API Helper BC27";
+        APIHelper: Codeunit "KLT API Helper";
     var
         CustomerNotExistErr: Label 'Customer %1 does not exist in BC27';
         VendorNotExistErr: Label 'Vendor %1 does not exist';

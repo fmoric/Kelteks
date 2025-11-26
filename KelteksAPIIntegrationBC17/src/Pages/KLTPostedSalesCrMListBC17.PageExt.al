@@ -21,7 +21,7 @@ pageextension 50101 "KLT Posted Sales Cr.M List BC17" extends "Posted Sales Cred
                 trigger OnAction()
                 var
                     SalesCrMemoHeader: Record "Sales Cr.Memo Header";
-                    SalesDocSync: Codeunit "KLT Sales Doc Sync BC17";
+                    SalesDocSync: Codeunit "KLT Sales Doc Sync";
                     SelectedCount: Integer;
                 begin
                     CurrPage.SetSelectionFilter(SalesCrMemoHeader);

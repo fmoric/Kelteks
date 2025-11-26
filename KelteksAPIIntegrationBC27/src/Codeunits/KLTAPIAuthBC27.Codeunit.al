@@ -2,7 +2,7 @@
 /// Handles multi-method authentication for BC17 API access from BC27
 /// Supports: OAuth 2.0, Basic, Windows, and Certificate authentication
 /// </summary>
-codeunit 50150 "KLT API Auth BC27"
+codeunit 50150 "KLT API Auth"
 {
     var
         TokenCache: Text;

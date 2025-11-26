@@ -2,11 +2,11 @@
 /// Sales Document Synchronization for BC27
 /// Receives Sales Invoices and Credit Memos from BC17
 /// </summary>
-codeunit 50153 "KLT Sales Doc Sync BC27"
+codeunit 50153 "KLT Sales Doc Sync"
 {
     var
-        APIHelper: Codeunit "KLT API Helper BC27";
-        Validator: Codeunit "KLT Document Validator BC27";
+        APIHelper: Codeunit "KLT API Helper";
+        Validator: Codeunit "KLT Document Validator";
 
     /// <summary>
     /// Retrieves and creates Sales Invoices from BC17

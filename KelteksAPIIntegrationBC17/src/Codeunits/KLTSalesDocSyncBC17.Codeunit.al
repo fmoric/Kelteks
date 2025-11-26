@@ -2,11 +2,11 @@
 /// Sales Document Synchronization for BC17
 /// Sends Posted Sales Invoices and Credit Memos to BC27
 /// </summary>
-codeunit 50102 "KLT Sales Doc Sync BC17"
+codeunit 50102 "KLT Sales Doc Sync"
 {
     var
-        APIHelper: Codeunit "KLT API Helper BC17";
-        Validator: Codeunit "KLT Document Validator BC17";
+        APIHelper: Codeunit "KLT API Helper";
+        Validator: Codeunit "KLT Document Validator";
         FailedBuildJSONErr: Label FailedBuildJSONErr;
         APIRequestFailedErr: Label APIRequestFailedErr;
 

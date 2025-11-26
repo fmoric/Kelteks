@@ -2,7 +2,7 @@
 /// Document Validator for BC17
 /// Validates sales and purchase documents before sync
 /// </summary>
-codeunit 50104 "KLT Document Validator BC17"
+codeunit 50104 "KLT Document Validator"
 {
     var
         CustomerNotExistErr: Label CustomerNotExistErr;
@@ -106,7 +106,7 @@ codeunit 50104 "KLT Document Validator BC17"
     /// </summary>
     procedure ValidatePurchaseInvoiceData(JsonData: JsonObject; var ErrorText: Text): Boolean
     var
-        APIHelper: Codeunit "KLT API Helper BC17";
+        APIHelper: Codeunit "KLT API Helper";
         VendorNo: Code[20];
         Vendor: Record Vendor;
         PostingDate: Date;
@@ -151,7 +151,7 @@ codeunit 50104 "KLT Document Validator BC17"
     /// </summary>
     procedure ValidatePurchaseCreditMemoData(JsonData: JsonObject; var ErrorText: Text): Boolean
     var
-        APIHelper: Codeunit "KLT API Helper BC17";
+        APIHelper: Codeunit "KLT API Helper";
         VendorNo: Code[20];
         Vendor: Record Vendor;
         PostingDate: Date;
@@ -196,7 +196,7 @@ codeunit 50104 "KLT Document Validator BC17"
     /// </summary>
     procedure ValidateLineData(LineJson: JsonObject; var ErrorText: Text): Boolean
     var
-        APIHelper: Codeunit "KLT API Helper BC17";
+        APIHelper: Codeunit "KLT API Helper";
         LineType: Text;
         ItemNo: Code[20];
         Quantity: Decimal;

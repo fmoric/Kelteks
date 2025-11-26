@@ -103,7 +103,7 @@ Set-NAVServerConfiguration -ServerInstance BC270 -KeyName "ODataServicesEnabled"
 Restart-NAVServerInstance -ServerInstance BC270
 ```
 
-### 2.3 Get BC27 Company ID
+### 2.3 Get Target Company ID
 1. Open BC27 Web Client
 2. Navigate to **Companies**
 3. Find your company and note the **ID** field (GUID format)
@@ -381,7 +381,7 @@ Use this checklist to verify your setup:
 - [ ] API permissions granted and consented
 - [ ] BC27 OAuth configured
 - [ ] BC27 web services enabled
-- [ ] BC27 Company ID obtained
+- [ ] Target Company ID obtained
 - [ ] BC17 extension installed
 - [ ] Permission set assigned
 - [ ] Configuration page filled out

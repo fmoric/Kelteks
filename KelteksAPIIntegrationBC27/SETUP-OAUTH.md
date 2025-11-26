@@ -86,7 +86,7 @@ Get-NAVServerConfiguration -ServerInstance BC170 -KeyName "ODataServicesEnabled"
 
 Both should be `True`.
 
-### 2.3 Get BC17 Company ID
+### 2.3 Get Target Company ID
 ```sql
 SELECT "ID", "Name" FROM Company
 ```

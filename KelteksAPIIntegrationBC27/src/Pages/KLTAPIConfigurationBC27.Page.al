@@ -39,13 +39,13 @@ page 50150 "KLT API Configuration BC27"
             group(Connection)
             {
                 Caption = 'BC17 Connection Settings';
-                field("BC17 Base URL"; Rec."BC17 Base URL")
+                field("Target Base URL"; Rec."Target Base URL")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the base URL for BC17 (e.g., https://bc17-server:7048/BC170/ODataV4/ for on-premise or https://api.businesscentral.dynamics.com/v2.0/{environment}/api/v2.0/ for SaaS)';
                     ShowMandatory = true;
                 }
-                field("BC17 Company ID"; Rec."BC17 Company ID")
+                field("Target Company ID"; Rec."Target Company ID")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the Company GUID in BC17. Find this in Company Information.';
@@ -57,19 +57,19 @@ page 50150 "KLT API Configuration BC27"
                 Caption = 'OAuth 2.0 Authentication (Cloud/Hybrid)';
                 Visible = Rec."Authentication Method" = Rec."Authentication Method"::OAuth;
 
-                field("BC17 Tenant ID"; Rec."BC17 Tenant ID")
+                field("Target Tenant ID"; Rec."Target Tenant ID")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the Azure AD Tenant ID';
                     ShowMandatory = true;
                 }
-                field("BC17 Client ID"; Rec."BC17 Client ID")
+                field("Target Client ID"; Rec."Target Client ID")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the Azure AD Application (Client) ID';
                     ShowMandatory = true;
                 }
-                field("BC17 Client Secret"; Rec."BC17 Client Secret")
+                field("Target Client Secret"; Rec."Target Client Secret")
                 {
                     ApplicationArea = All;
                     ExtendedDatatype = Masked;
@@ -82,13 +82,13 @@ page 50150 "KLT API Configuration BC27"
                 Caption = 'Basic Authentication (On-Premise) - RECOMMENDED FOR SIMPLICITY';
                 Visible = Rec."Authentication Method" = Rec."Authentication Method"::Basic;
 
-                field("BC17 Username Basic"; Rec."BC17 Username")
+                field("BC17 Username Basic"; Rec."Target Username")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the username for Basic authentication (e.g., DOMAIN\ServiceAccount or serviceaccount@domain.com)';
                     ShowMandatory = true;
                 }
-                field("BC17 Password"; Rec."BC17 Password")
+                field("Target Password"; Rec."Target Password")
                 {
                     ApplicationArea = All;
                     ExtendedDatatype = Masked;
@@ -107,13 +107,13 @@ page 50150 "KLT API Configuration BC27"
                 Caption = 'Windows Authentication (Domain Integrated)';
                 Visible = Rec."Authentication Method" = Rec."Authentication Method"::Windows;
 
-                field("BC17 Domain"; Rec."BC17 Domain")
+                field("Target Domain"; Rec."Target Domain")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the Windows domain name';
                     ShowMandatory = true;
                 }
-                field("BC17 Username Windows"; Rec."BC17 Username")
+                field("BC17 Username Windows"; Rec."Target Username")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the domain username (without domain prefix)';
@@ -131,13 +131,13 @@ page 50150 "KLT API Configuration BC27"
                 Caption = 'Certificate Authentication (Mutual TLS)';
                 Visible = Rec."Authentication Method" = Rec."Authentication Method"::Certificate;
 
-                field("BC17 Certificate Name"; Rec."BC17 Certificate Name")
+                field("Target Certificate Name"; Rec."Target Certificate Name")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the certificate name';
                     ShowMandatory = true;
                 }
-                field("BC17 Certificate Thumbprint"; Rec."BC17 Certificate Thumbprint")
+                field("Target Certificate Thumbprint"; Rec."Target Certificate Thumbprint")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the certificate thumbprint (find using PowerShell: Get-ChildItem Cert:\LocalMachine\My)';
@@ -218,7 +218,7 @@ page 50150 "KLT API Configuration BC27"
                 ApplicationArea = All;
                 Caption = 'Test Connection';
                 Image = TestDatabase;
-                ToolTip = 'Tests the connection to BC17 using the configured settings';
+                ToolTip = 'Tests the connection to target using the configured settings';
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;

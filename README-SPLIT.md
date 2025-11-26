@@ -80,10 +80,10 @@ BC v17                                    BC v27
 3. Assign permission set **"KLT API Integration BC17"** to users
 4. Open **KLT API Configuration BC17** page
 5. Configure connection to BC27:
-   - BC27 Base URL
-   - BC27 Company ID
-   - BC27 Tenant ID
-   - BC27 Client ID and Secret
+   - Target Base URL
+   - Target Company ID
+   - Target Tenant ID
+   - Target Client ID and Secret
 6. Test connection
 7. Enable synchronization
 8. Create job queue entry
@@ -110,11 +110,11 @@ BC v17                                    BC v27
 **Navigate to**: Search for "KLT API Configuration BC17"
 
 **Required Settings**:
-- **BC27 Base URL**: `https://api.businesscentral.dynamics.com/v2.0/[environment]`
-- **BC27 Company ID**: GUID from BC27 company list
-- **BC27 Tenant ID**: Azure AD tenant GUID
-- **BC27 Client ID**: OAuth application client ID
-- **BC27 Client Secret**: OAuth application secret
+- **Target Base URL**: `https://api.businesscentral.dynamics.com/v2.0/[environment]`
+- **Target Company ID**: GUID from BC27 company list
+- **Target Tenant ID**: Azure AD tenant GUID
+- **Target Client ID**: OAuth application client ID
+- **Target Client Secret**: OAuth application secret
 
 **Optional Settings**:
 - Sync Interval: 15 minutes (default)
@@ -208,8 +208,8 @@ Both extensions use:
 ### Connection Test Fails
 
 **In BC17**:
-1. Verify BC27 Base URL is correct
-2. Check BC27 Company ID (GUID format)
+1. Verify Target Base URL is correct
+2. Check Target Company ID (GUID format)
 3. Validate BC27 OAuth credentials
 4. Test network connectivity to BC27
 

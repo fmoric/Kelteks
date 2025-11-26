@@ -49,7 +49,7 @@ page 50153 "KLT Config FactBox BC27"
 
     local procedure UpdateConnectionStatus()
     var
-        APIHelper: Codeunit "KLT API Helper BC27";
+        APIHelper: Codeunit "KLT API Helper";
     begin
         if Rec."Base URL" = '' then begin
             ConnectionStatusText := 'Not Configured';

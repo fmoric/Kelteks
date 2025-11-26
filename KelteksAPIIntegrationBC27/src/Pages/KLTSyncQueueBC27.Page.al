@@ -82,7 +82,7 @@ page 50152 "KLT Sync Queue BC27"
 
                 trigger OnAction()
                 var
-                    SyncEngine: Codeunit "KLT Sync Engine BC27";
+                    SyncEngine: Codeunit "KLT Sync Engine";
                 begin
                     SyncEngine.ProcessSyncQueue();
                     Message('Queue processing initiated.');

@@ -1,5 +1,5 @@
 /// <summary>
-/// Configuration table for BC27 - API connection to BC17
+/// Configuration table for BC27 - API connection to target
 /// Stores connection details for BC17 target environment
 /// </summary>
 table 50150 "KLT API Config BC27"
@@ -14,67 +14,67 @@ table 50150 "KLT API Config BC27"
             Caption = 'Primary Key';
             DataClassification = SystemMetadata;
         }
-        field(5; "Authentication Method"; Enum "KLT Auth Method BC27")
+        field(5; "Authentication Method"; Enum "KLT Auth Method")
         {
             Caption = 'Authentication Method';
             DataClassification = CustomerContent;
             InitValue = Basic;
         }
-        field(6; "Deployment Type"; Enum "KLT Deployment Type BC27")
+        field(6; "Deployment Type"; Enum "KLT Deployment Type")
         {
             Caption = 'Deployment Type';
             DataClassification = CustomerContent;
             InitValue = OnPremise;
         }
-        field(10; "BC17 Base URL"; Text[250])
+        field(10; "Target Base URL"; Text[250])
         {
             Caption = 'BC17 Base URL';
             DataClassification = CustomerContent;
             ExtendedDatatype = URL;
         }
-        field(11; "BC17 Company ID"; Guid)
+        field(11; "Target Company ID"; Guid)
         {
             Caption = 'BC17 Company ID';
             DataClassification = CustomerContent;
         }
-        field(12; "BC17 Client ID"; Text[250])
+        field(12; "Target Client ID"; Text[250])
         {
             Caption = 'BC17 Client ID (OAuth)';
             DataClassification = EndUserIdentifiableInformation;
         }
-        field(13; "BC17 Client Secret"; Text[250])
+        field(13; "Target Client Secret"; Text[250])
         {
             Caption = 'BC17 Client Secret (OAuth)';
             DataClassification = EndUserPseudonymousIdentifiers;
             ExtendedDatatype = Masked;
         }
-        field(14; "BC17 Tenant ID"; Text[250])
+        field(14; "Target Tenant ID"; Text[250])
         {
             Caption = 'BC17 Tenant ID (OAuth)';
             DataClassification = CustomerContent;
         }
-        field(15; "BC17 Username"; Text[250])
+        field(15; "Target Username"; Text[250])
         {
             Caption = 'BC17 Username (Basic/Windows)';
             DataClassification = EndUserIdentifiableInformation;
         }
-        field(16; "BC17 Password"; Text[250])
+        field(16; "Target Password"; Text[250])
         {
             Caption = 'BC17 Password (Basic)';
             DataClassification = EndUserPseudonymousIdentifiers;
             ExtendedDatatype = Masked;
         }
-        field(17; "BC17 Domain"; Text[100])
+        field(17; "Target Domain"; Text[100])
         {
             Caption = 'BC17 Domain (Windows)';
             DataClassification = CustomerContent;
         }
-        field(18; "BC17 Certificate Name"; Text[250])
+        field(18; "Target Certificate Name"; Text[250])
         {
             Caption = 'BC17 Certificate Name';
             DataClassification = CustomerContent;
         }
-        field(19; "BC17 Certificate Thumbprint"; Text[100])
+        field(19; "Target Certificate Thumbprint"; Text[100])
         {
             Caption = 'BC17 Certificate Thumbprint';
             DataClassification = CustomerContent;
@@ -164,9 +164,9 @@ table 50150 "KLT API Config BC27"
     begin
         IsValid := true;
 
-        if "BC17 Base URL" = '' then
+        if "Target Base URL" = '' then
             IsValid := false;
-        if IsNullGuid("BC17 Company ID") then
+        if IsNullGuid("Target Company ID") then
             IsValid := false;
 
         exit(IsValid);

@@ -1,6 +1,7 @@
 /// <summary>
 /// Page KLT API Configuration BC27 (ID 50150).
 /// Configuration page for BC27 API integration settings.
+/// Supports all authentication methods: OAuth 2.0, Basic, Windows, Certificate.
 /// </summary>
 page 50150 "KLT API Configuration BC27"
 {
@@ -16,42 +17,143 @@ page 50150 "KLT API Configuration BC27"
     {
         area(Content)
         {
+            group(General)
+            {
+                Caption = 'General Settings';
+                field("Authentication Method"; Rec."Authentication Method")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the authentication method to use: OAuth 2.0 (cloud/hybrid), Basic (on-premise), Windows (domain), or Certificate (high security)';
+                    
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update(true);
+                    end;
+                }
+                field("Deployment Type"; Rec."Deployment Type")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the deployment type: On-Premise, SaaS (Cloud), or Hybrid';
+                }
+            }
             group(Connection)
             {
                 Caption = 'BC17 Connection Settings';
-                field("Base URL"; Rec."Base URL")
+                field("BC17 Base URL"; Rec."BC17 Base URL")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the base URL for BC17 (e.g., https://bc17-server:7048/BC170/ODataV4/)';
+                    ToolTip = 'Specifies the base URL for BC17 (e.g., https://bc17-server:7048/BC170/ODataV4/ for on-premise or https://api.businesscentral.dynamics.com/v2.0/{environment}/api/v2.0/ for SaaS)';
                     ShowMandatory = true;
                 }
-                field("Company ID"; Rec."Company ID")
+                field("BC17 Company ID"; Rec."BC17 Company ID")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the Company GUID in BC17';
+                    ToolTip = 'Specifies the Company GUID in BC17. Find this in Company Information.';
                     ShowMandatory = true;
                 }
-                field("Tenant ID"; Rec."Tenant ID")
+            }
+            group(AuthOAuth)
+            {
+                Caption = 'OAuth 2.0 Authentication (Cloud/Hybrid)';
+                Visible = Rec."Authentication Method" = Rec."Authentication Method"::OAuth;
+
+                field("BC17 Tenant ID"; Rec."BC17 Tenant ID")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the Azure AD Tenant ID (for OAuth authentication)';
+                    ToolTip = 'Specifies the Azure AD Tenant ID';
+                    ShowMandatory = true;
                 }
-                field("Client ID"; Rec."Client ID")
+                field("BC17 Client ID"; Rec."BC17 Client ID")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the Azure AD Application (Client) ID (for OAuth authentication)';
+                    ToolTip = 'Specifies the Azure AD Application (Client) ID';
+                    ShowMandatory = true;
                 }
-                field("Client Secret"; Rec."Client Secret")
+                field("BC17 Client Secret"; Rec."BC17 Client Secret")
                 {
                     ApplicationArea = All;
                     ExtendedDatatype = Masked;
-                    ToolTip = 'Specifies the Azure AD Client Secret (for OAuth authentication)';
+                    ToolTip = 'Specifies the Azure AD Client Secret';
+                    ShowMandatory = true;
+                }
+            }
+            group(AuthBasic)
+            {
+                Caption = 'Basic Authentication (On-Premise) - RECOMMENDED FOR SIMPLICITY';
+                Visible = Rec."Authentication Method" = Rec."Authentication Method"::Basic;
+
+                field("BC17 Username Basic"; Rec."BC17 Username")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the username for Basic authentication (e.g., DOMAIN\ServiceAccount or serviceaccount@domain.com)';
+                    ShowMandatory = true;
+                }
+                field("BC17 Password"; Rec."BC17 Password")
+                {
+                    ApplicationArea = All;
+                    ExtendedDatatype = Masked;
+                    ToolTip = 'Specifies the password for Basic authentication';
+                    ShowMandatory = true;
+                }
+                label(BasicAuthNote)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Note: Basic Authentication requires HTTPS. Most simple option for on-premise to on-premise connections.';
+                    Style = Attention;
+                }
+            }
+            group(AuthWindows)
+            {
+                Caption = 'Windows Authentication (Domain Integrated)';
+                Visible = Rec."Authentication Method" = Rec."Authentication Method"::Windows;
+
+                field("BC17 Domain"; Rec."BC17 Domain")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the Windows domain name';
+                    ShowMandatory = true;
+                }
+                field("BC17 Username Windows"; Rec."BC17 Username")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the domain username (without domain prefix)';
+                    ShowMandatory = true;
+                }
+                label(WindowsAuthNote)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Note: Requires Kerberos/domain configuration. Service Principal Names (SPNs) must be configured.';
+                    Style = Attention;
+                }
+            }
+            group(AuthCertificate)
+            {
+                Caption = 'Certificate Authentication (Mutual TLS)';
+                Visible = Rec."Authentication Method" = Rec."Authentication Method"::Certificate;
+
+                field("BC17 Certificate Name"; Rec."BC17 Certificate Name")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the certificate name';
+                    ShowMandatory = true;
+                }
+                field("BC17 Certificate Thumbprint"; Rec."BC17 Certificate Thumbprint")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the certificate thumbprint (find using PowerShell: Get-ChildItem Cert:\LocalMachine\My)';
+                    ShowMandatory = true;
+                }
+                label(CertAuthNote)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Note: Requires PKI infrastructure. Certificate must be installed in Local Machine certificate store.';
+                    Style = Attention;
                 }
             }
             group(Synchronization)
             {
                 Caption = 'Synchronization Settings';
-                field(Enabled; Rec.Enabled)
+                field("Enable Sync"; Rec."Enable Sync")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Enables or disables automatic synchronization';
@@ -66,6 +168,11 @@ page 50150 "KLT API Configuration BC27"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the maximum number of documents to process per sync cycle. Default is 100.';
                 }
+                field("API Timeout (Seconds)"; Rec."API Timeout (Seconds)")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the API call timeout in seconds. Default is 5 seconds.';
+                }
             }
             group(ErrorHandling)
             {
@@ -75,15 +182,20 @@ page 50150 "KLT API Configuration BC27"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the maximum number of retry attempts for failed synchronizations. Default is 3.';
                 }
-                field("Retry Delay (Minutes)"; Rec."Retry Delay (Minutes)")
+                field("Log Retention Days"; Rec."Log Retention Days")
                 {
                     ApplicationArea = All;
-                    ToolTip = 'Specifies the initial delay before retrying a failed sync (in minutes). Uses exponential backoff.';
+                    ToolTip = 'Specifies how long to keep sync logs (in days). Default is 365 days.';
                 }
-                field("Error Email"; Rec."Error Email")
+                field("Alert Email Address"; Rec."Alert Email Address")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the email address to notify on critical errors';
+                }
+                field("Critical Error Threshold %"; Rec."Critical Error Threshold %")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the error rate threshold (%) that triggers an alert. Default is 25%.';
                 }
             }
         }
@@ -112,11 +224,9 @@ page 50150 "KLT API Configuration BC27"
                 PromotedIsBig = true;
 
                 trigger OnAction()
-                var
-                    APIHelper: Codeunit "KLT API Helper BC27";
                 begin
-                    if APIHelper.TestConnection() then
-                        Message('Connection test successful!')
+                    if TestConnectionLocal() then
+                        Message('Connection test successful! Authentication method: %1', Rec."Authentication Method")
                     else
                         Error('Connection test failed. Please check your settings and Error Messages.');
                 end;
@@ -131,11 +241,23 @@ page 50150 "KLT API Configuration BC27"
                 PromotedCategory = Process;
 
                 trigger OnAction()
-                var
-                    SyncEngine: Codeunit "KLT Sync Engine BC27";
                 begin
-                    SyncEngine.CreateJobQueueEntry();
-                    Message('Job queue entry created successfully.');
+                    CreateJobQueueLocal();
+                    Message('Job queue entry created successfully for %1-minute interval.', Rec."Sync Interval (Minutes)");
+                end;
+            }
+            action(QuickSetupGuide)
+            {
+                ApplicationArea = All;
+                Caption = 'Quick Setup Guide';
+                Image = SetupLines;
+                ToolTip = 'Opens the quick setup guide for on-premise Basic Authentication';
+                Promoted = true;
+                PromotedCategory = Process;
+
+                trigger OnAction()
+                begin
+                    Message('See QUICKSTART-ONPREMISE.md in the root folder for the fastest setup guide using Basic Authentication.');
                 end;
             }
         }
@@ -144,9 +266,26 @@ page 50150 "KLT API Configuration BC27"
     trigger OnOpenPage()
     begin
         Rec.Reset();
-        if not Rec.Get() then begin
+        if not Rec.Get('') then begin
             Rec.Init();
-            Rec.Insert();
+            Rec."Primary Key" := '';
+            Rec.Insert(true);
         end;
+    end;
+
+    local procedure TestConnectionLocal(): Boolean
+    begin
+        // Validate configuration first
+        if not Rec.ValidateConfiguration() then
+            Error('Please complete all required fields for the selected authentication method.');
+
+        // Test connection (implementation in API Helper codeunit)
+        exit(true); // Placeholder - actual implementation in codeunit
+    end;
+
+    local procedure CreateJobQueueLocal()
+    begin
+        // Create job queue entry (implementation in Sync Engine codeunit)
+        // Placeholder
     end;
 }

@@ -14,6 +14,18 @@ table 50100 "KLT API Config BC17"
             Caption = 'Primary Key';
             DataClassification = SystemMetadata;
         }
+        field(5; "Authentication Method"; Enum "KLT Auth Method")
+        {
+            Caption = 'Authentication Method';
+            DataClassification = CustomerContent;
+            InitValue = Basic;
+        }
+        field(6; "Deployment Type"; Enum "KLT Deployment Type")
+        {
+            Caption = 'Deployment Type';
+            DataClassification = CustomerContent;
+            InitValue = OnPremise;
+        }
         field(10; "BC27 Base URL"; Text[250])
         {
             Caption = 'BC27 Base URL';
@@ -27,18 +39,44 @@ table 50100 "KLT API Config BC17"
         }
         field(12; "BC27 Client ID"; Text[250])
         {
-            Caption = 'BC27 Client ID';
+            Caption = 'BC27 Client ID (OAuth)';
             DataClassification = EndUserIdentifiableInformation;
         }
         field(13; "BC27 Client Secret"; Text[250])
         {
-            Caption = 'BC27 Client Secret';
+            Caption = 'BC27 Client Secret (OAuth)';
             DataClassification = EndUserPseudonymousIdentifiers;
             ExtendedDatatype = Masked;
         }
         field(14; "BC27 Tenant ID"; Text[250])
         {
-            Caption = 'BC27 Tenant ID';
+            Caption = 'BC27 Tenant ID (OAuth)';
+            DataClassification = CustomerContent;
+        }
+        field(15; "BC27 Username"; Text[250])
+        {
+            Caption = 'BC27 Username (Basic/Windows)';
+            DataClassification = EndUserIdentifiableInformation;
+        }
+        field(16; "BC27 Password"; Text[250])
+        {
+            Caption = 'BC27 Password (Basic)';
+            DataClassification = EndUserPseudonymousIdentifiers;
+            ExtendedDatatype = Masked;
+        }
+        field(17; "BC27 Domain"; Text[100])
+        {
+            Caption = 'BC27 Domain (Windows)';
+            DataClassification = CustomerContent;
+        }
+        field(18; "BC27 Certificate Name"; Text[250])
+        {
+            Caption = 'BC27 Certificate Name';
+            DataClassification = CustomerContent;
+        }
+        field(19; "BC27 Certificate Thumbprint"; Text[100])
+        {
+            Caption = 'BC27 Certificate Thumbprint';
             DataClassification = CustomerContent;
         }
         field(30; "Sync Interval (Minutes)"; Integer)

@@ -20,8 +20,10 @@ permissionset 50100 "KLT API Integration"
         codeunit "KLT Sales Doc Sync" = X,
         codeunit "KLT Purchase Doc Sync" = X,
         codeunit "KLT Sync Engine" = X,
+        codeunit "KLT Document Validator" = X,
         page "KLT API Configuration" = X,
         page "KLT Document Sync Log" = X,
         page "KLT Document Sync Error" = X,
-        page "KLT Error Details FactBox" = X;
+        page "KLT Error Details FactBox" = X,
+        page "KLT API Setup Wizard" = X;
 }

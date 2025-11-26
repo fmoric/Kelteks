@@ -25,5 +25,9 @@ permissionset 50100 "KLT API Integration"
         page "KLT Document Sync Log" = X,
         page "KLT Document Sync Error" = X,
         page "KLT Error Details FactBox" = X,
-        page "KLT API Setup Wizard" = X;
+        page "KLT API Setup Wizard" = X,
+        pageextension "KLT Posted Sales Inv. List" = X,
+        pageextension "KLT Posted Sales Cr.M. List" = X,
+        pageextension "KLT Purchase Invoice List" = X,
+        pageextension "KLT Purch. Cr. Memo List" = X;
 }

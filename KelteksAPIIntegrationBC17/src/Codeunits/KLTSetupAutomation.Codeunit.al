@@ -10,7 +10,7 @@ codeunit 50106 "KLT Setup Automation"
     begin
         // Auto-detect current company ID
         if CompanyInfo.Get() then
-            GuidedSetup."Auto-Detected Company ID" := CompanyInfo.SystemId;
+            GuidedSetup."Auto-Detected Company ID" := CompanyInfo.Id;
 
         // Detect deployment type based on environment
         if IsServerOnPremise() then

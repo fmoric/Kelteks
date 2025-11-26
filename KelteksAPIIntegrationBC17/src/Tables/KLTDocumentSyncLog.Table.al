@@ -172,6 +172,7 @@ table 50101 "KLT Document Sync Log"
     procedure MarkAsFailed(ErrorMsg: Text)
     var
         DurationMilliseconds: BigInteger;
+        ErrorMessage: Record "Error Message";
     begin
         Status := Status::Failed;
         "Completed DateTime" := CurrentDateTime();
@@ -185,6 +186,23 @@ table 50101 "KLT Document Sync Log"
                 "Duration (ms)" := DurationMilliseconds;
         end;
         Modify(true);
+
+        // Log to standard Error Message table
+        LogErrorMessage(ErrorMsg);
+    end;
+
+    /// <summary>
+    /// Log error to standard Error Message table
+    /// </summary>
+    local procedure LogErrorMessage(ErrorMsg: Text)
+    var
+        ErrorMessage: Record "Error Message";
+    begin
+        ErrorMessage.LogMessage(
+            Rec,
+            "Entry No.",
+            ErrorMessage."Message Type"::Error,
+            CopyStr(ErrorMsg, 1, 250));
     end;
 
     /// <summary>

@@ -1,7 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/microsoft/AL-Go-Actions/v8.0/.Modules/settings.schema.json",
   "country": "us",
-  "appFolders": [],
+  "appFolders": [
+    "KelteksAPIIntegrationBC17",
+    "KelteksAPIIntegrationBC27"
+  ],
   "testFolders": [],
   "bcptTestFolders": []
 }

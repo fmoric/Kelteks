@@ -143,18 +143,18 @@ Password: <SecurePassword123!>
 - **Deployment Type**: Select `On-Premise`
 
 ### BC17 Connection Settings
-- **BC17 Base URL**: `https://bc17-server:7048/BC170/ODataV4/`
+- **Target Base URL**: `https://bc17-server:7048/BC170/ODataV4/`
   - Replace `bc17-server` with your BC17 server name or IP
   - Ensure port `7048` matches your BC17 web service port
   - Path must end with `/ODataV4/`
 
-- **BC17 Company ID**: `{GUID}`
+- **Target Company ID**: `{GUID}`
   - Find this in BC17: Company Information → ID field
   - Example: `5ea85f64-6818-5673-c4gd-3d074g77bgb7`
 
 ### Basic Authentication (On-Premise)
-- **BC17 Username**: `DOMAIN\KelteksSyncService` or `kelteks.sync@yourdomain.com`
-- **BC17 Password**: `<SecurePassword123!>`
+- **Target Username**: `DOMAIN\KelteksSyncService` or `kelteks.sync@yourdomain.com`
+- **Target Password**: `<SecurePassword123!>`
 
 ### Synchronization Settings
 - **Enable Sync**: Leave **unchecked** for now (enable after testing)
@@ -299,7 +299,7 @@ Password: <SecurePassword123!>
 
 1. Change service account password in Active Directory
 2. Update BC17 Configuration: **BC27 Password** field
-3. Update BC27 Configuration: **BC17 Password** field
+3. Update BC27 Configuration: **Target Password** field
 4. Test Connection in both environments
 5. Document change in change log
 

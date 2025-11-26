@@ -87,8 +87,8 @@ API Configuration:
 ├── BC17 Base URL
 ├── BC17 Company ID
 ├── BC17 OAuth Credentials
-├── BC27 Base URL
-├── BC27 Company ID
+├── Target Base URL
+├── Target Company ID
 └── BC27 OAuth Credentials
 ```
 
@@ -97,8 +97,8 @@ API Configuration:
 **In BC17**:
 ```
 API Configuration BC17:
-├── BC27 Base URL
-├── BC27 Company ID
+├── Target Base URL
+├── Target Company ID
 └── BC27 OAuth Credentials
 ```
 

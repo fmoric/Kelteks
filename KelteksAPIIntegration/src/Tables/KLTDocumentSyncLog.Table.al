@@ -148,13 +148,21 @@ table 50101 "KLT Document Sync Log"
     /// Update the log entry status to completed
     /// </summary>
     procedure MarkAsCompleted(TargetDocNo: Code[20]; TargetSysId: Guid)
+    var
+        DurationMilliseconds: BigInteger;
     begin
         Status := Status::Completed;
         "Completed DateTime" := CurrentDateTime();
         "Target Document No." := TargetDocNo;
         "Target System ID" := TargetSysId;
-        if "Started DateTime" <> 0DT then
-            "Duration (ms)" := CurrentDateTime() - "Started DateTime";
+        if "Started DateTime" <> 0DT then begin
+            DurationMilliseconds := CurrentDateTime() - "Started DateTime";
+            // Cap duration at max integer value for safety
+            if DurationMilliseconds > 2147483647 then
+                "Duration (ms)" := 2147483647
+            else
+                "Duration (ms)" := DurationMilliseconds;
+        end;
         Modify(true);
     end;
 
@@ -162,12 +170,20 @@ table 50101 "KLT Document Sync Log"
     /// Update the log entry status to failed
     /// </summary>
     procedure MarkAsFailed(ErrorMsg: Text)
+    var
+        DurationMilliseconds: BigInteger;
     begin
         Status := Status::Failed;
         "Completed DateTime" := CurrentDateTime();
         "Error Message" := CopyStr(ErrorMsg, 1, MaxStrLen("Error Message"));
-        if "Started DateTime" <> 0DT then
-            "Duration (ms)" := CurrentDateTime() - "Started DateTime";
+        if "Started DateTime" <> 0DT then begin
+            DurationMilliseconds := CurrentDateTime() - "Started DateTime";
+            // Cap duration at max integer value for safety
+            if DurationMilliseconds > 2147483647 then
+                "Duration (ms)" := 2147483647
+            else
+                "Duration (ms)" := DurationMilliseconds;
+        end;
         Modify(true);
     end;
 

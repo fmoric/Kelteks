@@ -143,11 +143,7 @@ table 50102 "KLT Document Sync Error"
     /// Calculate if error can be retried based on category and retry count
     /// </summary>
     local procedure CalculateCanRetry()
-    var
-        APIConfig: Record "KLT API Configuration";
     begin
-        APIConfig.GetInstance();
-        
         // API Communication and Authentication errors can be retried
         if "Error Category" in ["Error Category"::"API Communication", "Error Category"::Authentication] then begin
             "Can Retry" := "Retry Count" < "Max Retry Attempts";
@@ -163,13 +159,23 @@ table 50102 "KLT Document Sync Error"
     local procedure CalculateNextRetryTime()
     var
         BackoffMinutes: Integer;
+        MaxBackoffMinutes: Integer;
+        MillisecondsPerMinute: Integer;
     begin
-        // Exponential backoff: 1, 2, 4, 8, 16... minutes
-        BackoffMinutes := Power(2, "Retry Count");
-        if BackoffMinutes > 60 then
-            BackoffMinutes := 60; // Cap at 1 hour
+        MaxBackoffMinutes := 60; // Cap at 1 hour
+        MillisecondsPerMinute := 60000; // 60 seconds * 1000 milliseconds
         
-        "Next Retry DateTime" := CurrentDateTime() + (BackoffMinutes * 60 * 1000);
+        // Exponential backoff: 1, 2, 4, 8, 16... minutes
+        // Use Min to prevent overflow from Power function
+        if "Retry Count" >= 10 then
+            BackoffMinutes := MaxBackoffMinutes
+        else begin
+            BackoffMinutes := Power(2, "Retry Count");
+            if BackoffMinutes > MaxBackoffMinutes then
+                BackoffMinutes := MaxBackoffMinutes;
+        end;
+        
+        "Next Retry DateTime" := CurrentDateTime() + (BackoffMinutes * MillisecondsPerMinute);
     end;
 
     /// <summary>

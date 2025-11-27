@@ -11,6 +11,14 @@ codeunit 80106 "KLT Sync Engine"
         SyncFailedErr: Label 'Sync failed';
 
     /// <summary>
+    /// OnRun trigger - Entry point for Job Queue execution
+    /// </summary>
+    trigger OnRun()
+    begin
+        RunScheduledSync();
+    end;
+
+    /// <summary>
     /// Main entry point for scheduled synchronization
     /// Called by Job Queue
     /// </summary>

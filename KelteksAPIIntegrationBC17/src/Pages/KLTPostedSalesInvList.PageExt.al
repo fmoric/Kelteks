@@ -21,8 +21,9 @@ pageextension 80101 "KLT Posted Sales Inv List" extends "Posted Sales Invoices"
                 trigger OnAction()
                 var
                     SalesInvHeader: Record "Sales Invoice Header";
-                    SalesDocSync: Codeunit "KLT Sales Doc Sync";
+                    SyncEngine: Codeunit "KLT Sync Engine";
                     SelectedCount: Integer;
+                    QueuedCount: Integer;
                 begin
                     CurrPage.SetSelectionFilter(SalesInvHeader);
                     SelectedCount := SalesInvHeader.Count();
@@ -30,11 +31,19 @@ pageextension 80101 "KLT Posted Sales Inv List" extends "Posted Sales Invoices"
                     if SelectedCount = 0 then
                         Error('Please select at least one invoice to sync.');
 
-                    if not Confirm('Sync %1 invoice(s) to target?', false, SelectedCount) then
+                    if not Confirm('Queue %1 invoice(s) for synchronization?', false, SelectedCount) then
                         exit;
 
-                    SalesDocSync.SyncSalesInvoices(SalesInvHeader);
-                    Message('%1 invoice(s) queued for synchronization.', SelectedCount);
+                    // Queue each selected invoice
+                    QueuedCount := 0;
+                    if SalesInvHeader.FindSet() then begin
+                        repeat
+                            SyncEngine.QueueSalesInvoice(SalesInvHeader."No.");
+                            QueuedCount += 1;
+                        until SalesInvHeader.Next() = 0;
+                    end;
+
+                    Message('%1 invoice(s) queued for synchronization.', QueuedCount);
                 end;
             }
             action(ViewSyncLog)

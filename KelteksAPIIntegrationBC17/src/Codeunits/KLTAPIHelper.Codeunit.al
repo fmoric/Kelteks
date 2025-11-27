@@ -364,7 +364,7 @@ codeunit 80101 "KLT API Helper"
 
     local procedure LogError(ErrorText: Text; Context: Text)
     var
-        ErrorMessage: Record "Error Message";
+        ErrorMessage: Record "Error Message" temporary;
     begin
         // Log error message using BC17 compatible API
         ErrorMessage.LogSimpleMessage(

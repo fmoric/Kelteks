@@ -274,18 +274,70 @@ page 80100 "KLT API Configuration"
     end;
 
     local procedure TestConnectionLocal(): Boolean
+    var
+        APIHelper: Codeunit "KLT API Helper";
     begin
         // Validate configuration first
         if not Rec.ValidateConfiguration() then
             Error('Please complete all required fields for the selected authentication method.');
 
-        // Test connection (implementation in API Helper codeunit)
-        exit(true); // Placeholder - actual implementation in codeunit
+        // Save current record before testing
+        Rec.Modify(true);
+        Commit();
+
+        // Test connection using API Helper
+        exit(APIHelper.TestConnection());
     end;
 
     local procedure CreateJobQueueLocal()
+    var
+        JobQueueEntry: Record "Job Queue Entry";
+        SyncIntervalMinutes: Integer;
     begin
-        // Create job queue entry (implementation in Sync Engine codeunit)
-        // Placeholder
+        // Get sync interval from configuration
+        SyncIntervalMinutes := Rec."Sync Interval (Minutes)";
+        if SyncIntervalMinutes = 0 then
+            SyncIntervalMinutes := 15; // Default to 15 minutes
+
+        // Check if job queue entry already exists
+        JobQueueEntry.SetRange("Object Type to Run", JobQueueEntry."Object Type to Run"::Codeunit);
+        JobQueueEntry.SetRange("Object ID to Run", Codeunit::"KLT Sync Engine");
+        if JobQueueEntry.FindFirst() then begin
+            // Update existing entry
+            JobQueueEntry.Validate(Status, JobQueueEntry.Status::"On Hold");
+            JobQueueEntry.Validate("No. of Minutes between Runs", SyncIntervalMinutes);
+            JobQueueEntry.Validate("Run on Mondays", true);
+            JobQueueEntry.Validate("Run on Tuesdays", true);
+            JobQueueEntry.Validate("Run on Wednesdays", true);
+            JobQueueEntry.Validate("Run on Thursdays", true);
+            JobQueueEntry.Validate("Run on Fridays", true);
+            JobQueueEntry.Validate("Run on Saturdays", true);
+            JobQueueEntry.Validate("Run on Sundays", true);
+            JobQueueEntry.Validate("Starting Time", 000000T);
+            JobQueueEntry.Validate("Ending Time", 235959T);
+            JobQueueEntry.Validate(Status, JobQueueEntry.Status::Ready);
+            JobQueueEntry.Modify(true);
+        end else begin
+            // Create new job queue entry
+            JobQueueEntry.Init();
+            JobQueueEntry.Validate("Object Type to Run", JobQueueEntry."Object Type to Run"::Codeunit);
+            JobQueueEntry.Validate("Object ID to Run", Codeunit::"KLT Sync Engine");
+            JobQueueEntry.Validate(Description, 'Kelteks API Sync - BC27 to BC17');
+            JobQueueEntry.Validate("No. of Minutes between Runs", SyncIntervalMinutes);
+            JobQueueEntry.Validate("Run on Mondays", true);
+            JobQueueEntry.Validate("Run on Tuesdays", true);
+            JobQueueEntry.Validate("Run on Wednesdays", true);
+            JobQueueEntry.Validate("Run on Thursdays", true);
+            JobQueueEntry.Validate("Run on Fridays", true);
+            JobQueueEntry.Validate("Run on Saturdays", true);
+            JobQueueEntry.Validate("Run on Sundays", true);
+            JobQueueEntry.Validate("Starting Time", 000000T);
+            JobQueueEntry.Validate("Ending Time", 235959T);
+            JobQueueEntry.Validate("Maximum No. of Attempts to Run", 3);
+            JobQueueEntry.Validate("Rerun Delay (sec.)", 60);
+            JobQueueEntry.Insert(true);
+            JobQueueEntry.Validate(Status, JobQueueEntry.Status::Ready);
+            JobQueueEntry.Modify(true);
+        end;
     end;
 }

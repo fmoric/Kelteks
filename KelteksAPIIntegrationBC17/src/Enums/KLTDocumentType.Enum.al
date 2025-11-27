@@ -1,7 +1,7 @@
 /// <summary>
 /// Document types supported for API synchronization
 /// </summary>
-enum 50100 "KLT Document Type"
+enum 80102 "KLT Document Type"
 {
     Extensible = true;
 

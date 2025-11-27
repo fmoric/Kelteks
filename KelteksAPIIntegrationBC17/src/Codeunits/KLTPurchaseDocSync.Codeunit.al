@@ -2,7 +2,7 @@
 /// Purchase Document Synchronization for BC17
 /// Receives Purchase Invoices and Credit Memos from target system
 /// </summary>
-codeunit 50103 "KLT Purchase Doc Sync"
+codeunit 80103 "KLT Purchase Doc Sync"
 {
     var
         APIHelper: Codeunit "KLT API Helper";
@@ -28,23 +28,23 @@ codeunit 50103 "KLT Purchase Doc Sync"
     begin
         APIConfig.GetInstance();
         DocumentsCreated := 0;
-        
+
         // Get purchase invoices from target
         Endpoint := APIHelper.GetPurchaseInvoiceEndpoint(APIConfig."Target Company ID");
         if not APIHelper.SendGetRequest(Endpoint, ResponseJson) then
             exit(0);
-        
+
         // Extract value array
         if not APIHelper.GetValueArray(ResponseJson, ValueArray) then
             exit(0);
-        
+
         // Process each document
         for i := 0 to ValueArray.Count() - 1 do begin
             if CreatePurchaseInvoiceFromJson(ValueArray, i) then
                 DocumentsCreated += 1;
             Commit(); // Commit after each document
         end;
-        
+
         exit(DocumentsCreated);
     end;
 
@@ -62,23 +62,23 @@ codeunit 50103 "KLT Purchase Doc Sync"
     begin
         APIConfig.GetInstance();
         DocumentsCreated := 0;
-        
+
         // Get purchase credit memos from target
         Endpoint := APIHelper.GetPurchaseCreditMemoEndpoint(APIConfig."Target Company ID");
         if not APIHelper.SendGetRequest(Endpoint, ResponseJson) then
             exit(0);
-        
+
         // Extract value array
         if not APIHelper.GetValueArray(ResponseJson, ValueArray) then
             exit(0);
-        
+
         // Process each document
         for i := 0 to ValueArray.Count() - 1 do begin
             if CreatePurchaseCreditMemoFromJson(ValueArray, i) then
                 DocumentsCreated += 1;
             Commit(); // Commit after each document
         end;
-        
+
         exit(DocumentsCreated);
     end;
 
@@ -95,39 +95,39 @@ codeunit 50103 "KLT Purchase Doc Sync"
         // Get document JSON
         ValueArray.Get(Index, DocToken);
         DocJson := DocToken.AsObject();
-        
+
         // Get vendor and external doc no for duplicate check
         VendorNo := CopyStr(APIHelper.GetJsonText(DocJson, 'vendorNumber'), 1, MaxStrLen(VendorNo));
         ExternalDocNo := CopyStr(APIHelper.GetJsonText(DocJson, 'externalDocumentNumber'), 1, MaxStrLen(ExternalDocNo));
-        
+
         // Create sync log
         SyncLogEntryNo := CreateSyncLog(ExternalDocNo, APIHelper.GetJsonDate(DocJson, 'invoiceDate'),
-            "KLT Document Type"::PurchaseInvoice, "KLT Sync Direction"::Inbound);
-        
+            "KLT Document Type"::"Purchase Invoice", "KLT Sync Direction"::Inbound);
+
         // Validate data
         if not Validator.ValidatePurchaseInvoiceData(DocJson, ErrorText) then begin
-            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::DataValidation);
+            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::"Data Validation");
             exit(false);
         end;
-        
+
         // Check for duplicates
         if not Validator.CheckDuplicatePurchaseInvoice(ExternalDocNo, VendorNo, ErrorText) then begin
-            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::DataValidation);
+            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::"Data Validation");
             exit(false);
         end;
-        
+
         // Create purchase invoice header
         if not CreatePurchaseInvoiceHeader(DocJson, PurchHeader, ErrorText) then begin
-            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::BusinessLogic);
+            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::"Business Logic");
             exit(false);
         end;
-        
+
         // Create purchase invoice lines
         if not CreatePurchaseInvoiceLines(DocJson, PurchHeader, ErrorText) then begin
-            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::BusinessLogic);
+            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::"Business Logic");
             exit(false);
         end;
-        
+
         // Update sync log as completed
         UpdateSyncLogCompleted(SyncLogEntryNo, PurchHeader."No.");
         exit(true);
@@ -146,39 +146,39 @@ codeunit 50103 "KLT Purchase Doc Sync"
         // Get document JSON
         ValueArray.Get(Index, DocToken);
         DocJson := DocToken.AsObject();
-        
+
         // Get vendor and external doc no for duplicate check
         VendorNo := CopyStr(APIHelper.GetJsonText(DocJson, 'vendorNumber'), 1, MaxStrLen(VendorNo));
         ExternalDocNo := CopyStr(APIHelper.GetJsonText(DocJson, 'externalDocumentNumber'), 1, MaxStrLen(ExternalDocNo));
-        
+
         // Create sync log
         SyncLogEntryNo := CreateSyncLog(ExternalDocNo, APIHelper.GetJsonDate(DocJson, 'creditMemoDate'),
-            "KLT Document Type"::PurchaseCreditMemo, "KLT Sync Direction"::Inbound);
-        
+            "KLT Document Type"::"Purchase Credit Memo", "KLT Sync Direction"::Inbound);
+
         // Validate data
         if not Validator.ValidatePurchaseCreditMemoData(DocJson, ErrorText) then begin
-            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::DataValidation);
+            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::"Data Validation");
             exit(false);
         end;
-        
+
         // Check for duplicates
         if not Validator.CheckDuplicatePurchaseCreditMemo(ExternalDocNo, VendorNo, ErrorText) then begin
-            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::DataValidation);
+            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::"Data Validation");
             exit(false);
         end;
-        
+
         // Create purchase credit memo header
         if not CreatePurchaseCreditMemoHeader(DocJson, PurchHeader, ErrorText) then begin
-            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::BusinessLogic);
+            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::"Business Logic");
             exit(false);
         end;
-        
+
         // Create purchase credit memo lines
         if not CreatePurchaseCreditMemoLines(DocJson, PurchHeader, ErrorText) then begin
-            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::BusinessLogic);
+            UpdateSyncLogError(SyncLogEntryNo, ErrorText, "KLT Error Category"::"Business Logic");
             exit(false);
         end;
-        
+
         // Update sync log as completed
         UpdateSyncLogCompleted(SyncLogEntryNo, PurchHeader."No.");
         exit(true);
@@ -190,30 +190,30 @@ codeunit 50103 "KLT Purchase Doc Sync"
         VendorNo: Code[20];
     begin
         VendorNo := CopyStr(APIHelper.GetJsonText(DocJson, 'vendorNumber'), 1, MaxStrLen(VendorNo));
-        
+
         if not Vendor.Get(VendorNo) then begin
             ErrorText := StrSubstNo(VendorNotFoundErr, VendorNo);
             exit(false);
         end;
-        
+
         PurchHeader.Init();
         PurchHeader."Document Type" := PurchHeader."Document Type"::Invoice;
         PurchHeader.Insert(true);
-        
+
         PurchHeader.Validate("Buy-from Vendor No.", VendorNo);
         PurchHeader.Validate("Posting Date", APIHelper.GetJsonDate(DocJson, 'postingDate'));
         PurchHeader.Validate("Document Date", APIHelper.GetJsonDate(DocJson, 'invoiceDate'));
         PurchHeader.Validate("Due Date", APIHelper.GetJsonDate(DocJson, 'dueDate'));
         PurchHeader.Validate("Vendor Invoice No.", CopyStr(APIHelper.GetJsonText(DocJson, 'externalDocumentNumber'), 1, MaxStrLen(PurchHeader."Vendor Invoice No.")));
-        
+
         // Currency
         if APIHelper.GetJsonText(DocJson, 'currencyCode') <> '' then
             PurchHeader.Validate("Currency Code", CopyStr(APIHelper.GetJsonText(DocJson, 'currencyCode'), 1, MaxStrLen(PurchHeader."Currency Code")));
-        
+
         // Payment terms
         if APIHelper.GetJsonText(DocJson, 'paymentTermsCode') <> '' then
             PurchHeader.Validate("Payment Terms Code", CopyStr(APIHelper.GetJsonText(DocJson, 'paymentTermsCode'), 1, MaxStrLen(PurchHeader."Payment Terms Code")));
-        
+
         PurchHeader.Modify(true);
         exit(true);
     end;
@@ -224,30 +224,30 @@ codeunit 50103 "KLT Purchase Doc Sync"
         VendorNo: Code[20];
     begin
         VendorNo := CopyStr(APIHelper.GetJsonText(DocJson, 'vendorNumber'), 1, MaxStrLen(VendorNo));
-        
+
         if not Vendor.Get(VendorNo) then begin
             ErrorText := StrSubstNo(VendorNotFoundErr, VendorNo);
             exit(false);
         end;
-        
+
         PurchHeader.Init();
         PurchHeader."Document Type" := PurchHeader."Document Type"::"Credit Memo";
         PurchHeader.Insert(true);
-        
+
         PurchHeader.Validate("Buy-from Vendor No.", VendorNo);
         PurchHeader.Validate("Posting Date", APIHelper.GetJsonDate(DocJson, 'postingDate'));
         PurchHeader.Validate("Document Date", APIHelper.GetJsonDate(DocJson, 'creditMemoDate'));
         PurchHeader.Validate("Due Date", APIHelper.GetJsonDate(DocJson, 'dueDate'));
         PurchHeader.Validate("Vendor Cr. Memo No.", CopyStr(APIHelper.GetJsonText(DocJson, 'externalDocumentNumber'), 1, MaxStrLen(PurchHeader."Vendor Cr. Memo No.")));
-        
+
         // Currency
         if APIHelper.GetJsonText(DocJson, 'currencyCode') <> '' then
             PurchHeader.Validate("Currency Code", CopyStr(APIHelper.GetJsonText(DocJson, 'currencyCode'), 1, MaxStrLen(PurchHeader."Currency Code")));
-        
+
         // Payment terms
         if APIHelper.GetJsonText(DocJson, 'paymentTermsCode') <> '' then
             PurchHeader.Validate("Payment Terms Code", CopyStr(APIHelper.GetJsonText(DocJson, 'paymentTermsCode'), 1, MaxStrLen(PurchHeader."Payment Terms Code")));
-        
+
         PurchHeader.Modify(true);
         exit(true);
     end;
@@ -264,27 +264,27 @@ codeunit 50103 "KLT Purchase Doc Sync"
         // Get lines array
         if not DocJson.Get('purchaseInvoiceLines', LinesToken) then
             exit(true); // No lines is valid
-        
+
         if not LinesToken.IsArray() then begin
             ErrorText := PurchInvLinesNotArrayErr;
             exit(false);
         end;
-        
+
         LinesArray := LinesToken.AsArray();
-        
+
         for i := 0 to LinesArray.Count() - 1 do begin
             LinesArray.Get(i, LineToken);
             LineJson := LineToken.AsObject();
-            
+
             // Validate line
             if not Validator.ValidateLineData(LineJson, ErrorText) then
                 exit(false);
-            
+
             // Create line
             if not CreatePurchaseLine(PurchHeader, LineJson, PurchLine, ErrorText) then
                 exit(false);
         end;
-        
+
         exit(true);
     end;
 
@@ -300,27 +300,27 @@ codeunit 50103 "KLT Purchase Doc Sync"
         // Get lines array
         if not DocJson.Get('purchaseCreditMemoLines', LinesToken) then
             exit(true); // No lines is valid
-        
+
         if not LinesToken.IsArray() then begin
             ErrorText := PurchCrMemoLinesNotArrayErr;
             exit(false);
         end;
-        
+
         LinesArray := LinesToken.AsArray();
-        
+
         for i := 0 to LinesArray.Count() - 1 do begin
             LinesArray.Get(i, LineToken);
             LineJson := LineToken.AsObject();
-            
+
             // Validate line
             if not Validator.ValidateLineData(LineJson, ErrorText) then
                 exit(false);
-            
+
             // Create line
             if not CreatePurchaseLine(PurchHeader, LineJson, PurchLine, ErrorText) then
                 exit(false);
         end;
-        
+
         exit(true);
     end;
 
@@ -333,26 +333,26 @@ codeunit 50103 "KLT Purchase Doc Sync"
         PurchLine."Document Type" := PurchHeader."Document Type";
         PurchLine."Document No." := PurchHeader."No.";
         PurchLine."Line No." := GetNextLineNo(PurchHeader);
-        
+
         // Parse line type
         LineTypeText := APIHelper.GetJsonText(LineJson, 'lineType');
         if not ParseLineType(LineTypeText, LineType) then begin
             ErrorText := StrSubstNo(InvalidLineTypeErr, LineTypeText);
             exit(false);
         end;
-        
+
         PurchLine.Insert(true);
         PurchLine.Validate(Type, LineType);
-        
+
         // Only set No. for non-comment lines
         if LineType <> LineType::" " then
             PurchLine.Validate("No.", CopyStr(APIHelper.GetJsonText(LineJson, 'number'), 1, MaxStrLen(PurchLine."No.")));
-        
+
         PurchLine.Validate(Description, CopyStr(APIHelper.GetJsonText(LineJson, 'description'), 1, MaxStrLen(PurchLine.Description)));
         PurchLine.Validate(Quantity, APIHelper.GetJsonDecimal(LineJson, 'quantity'));
         PurchLine.Validate("Direct Unit Cost", APIHelper.GetJsonDecimal(LineJson, 'unitCost'));
         PurchLine.Validate("Line Discount %", APIHelper.GetJsonDecimal(LineJson, 'lineDiscount'));
-        
+
         PurchLine.Modify(true);
         exit(true);
     end;
@@ -389,7 +389,7 @@ codeunit 50103 "KLT Purchase Doc Sync"
         exit(true);
     end;
 
-    local procedure CreateSyncLog(DocumentNo: Code[20]; DocumentDate: Date; DocType: Enum "KLT Document Type"; Direction: Enum "KLT Sync Direction"): Integer
+    local procedure CreateSyncLogEntry(DocumentNo: Code[20]; DocumentDate: Date; SourceSysId: Guid; DocType: Enum "KLT Document Type"; Direction: Enum "KLT Sync Direction") EntryNo: Integer
     var
         SyncLog: Record "KLT Document Sync Log";
     begin
@@ -397,11 +397,27 @@ codeunit 50103 "KLT Purchase Doc Sync"
         SyncLog."Entry No." := 0;
         SyncLog."Document Type" := DocType;
         SyncLog."Source Document No." := DocumentNo;
-        SyncLog."Document Date" := DocumentDate;
+        SyncLog."Source System ID" := SourceSysId;
         SyncLog."Sync Direction" := Direction;
-        SyncLog.Status := SyncLog.Status::InProgress;
-        SyncLog."Sync Start Time" := CurrentDateTime();
-        SyncLog."User ID" := CopyStr(UserId(), 1, MaxStrLen(SyncLog."User ID"));
+        SyncLog.Status := SyncLog.Status::"In Progress";
+        SyncLog."Started DateTime" := CurrentDateTime();
+        SyncLog."Created By" := CopyStr(UserId(), 1, MaxStrLen(SyncLog."Created By"));
+        SyncLog.Insert(true);
+        exit(SyncLog."Entry No.");
+    end;
+
+    local procedure CreateSyncLog(DocumentNo: Code[35]; DocumentDate: Date; DocType: Enum "KLT Document Type"; Direction: Enum "KLT Sync Direction") EntryNo: Integer
+    var
+        SyncLog: Record "KLT Document Sync Log";
+    begin
+        SyncLog.Init();
+        SyncLog."Entry No." := 0;
+        SyncLog."Document Type" := DocType;
+        SyncLog."External Document No." := DocumentNo;
+        SyncLog."Sync Direction" := Direction;
+        SyncLog.Status := SyncLog.Status::"In Progress";
+        SyncLog."Started DateTime" := CurrentDateTime();
+        SyncLog."Created By" := CopyStr(UserId(), 1, MaxStrLen(SyncLog."Created By"));
         SyncLog.Insert(true);
         exit(SyncLog."Entry No.");
     end;
@@ -412,10 +428,9 @@ codeunit 50103 "KLT Purchase Doc Sync"
     begin
         if SyncLog.Get(EntryNo) then begin
             SyncLog.Status := SyncLog.Status::Completed;
-            SyncLog."Sync End Time" := CurrentDateTime();
+            SyncLog."Completed DateTime" := CurrentDateTime();
             SyncLog."Target Document No." := TargetDocNo;
-            SyncLog."Last Error Message" := '';
-            SyncLog."Error Category" := SyncLog."Error Category"::" ";
+            SyncLog."Error Message" := '';
             SyncLog.Modify(true);
         end;
     end;
@@ -427,15 +442,17 @@ codeunit 50103 "KLT Purchase Doc Sync"
     begin
         if SyncLog.Get(EntryNo) then begin
             SyncLog.Status := SyncLog.Status::Failed;
-            SyncLog."Sync End Time" := CurrentDateTime();
-            SyncLog."Last Error Message" := CopyStr(ErrorMsg, 1, MaxStrLen(SyncLog."Last Error Message"));
-            SyncLog."Error Category" := ErrorCat;
+            SyncLog."Completed DateTime" := CurrentDateTime();
+            SyncLog."Error Message" := CopyStr(ErrorMsg, 1, MaxStrLen(SyncLog."Error Message"));
             SyncLog."Retry Count" := SyncLog."Retry Count" + 1;
             SyncLog.Modify(true);
-            
-            // Use Error Message built-in procedure with context
-            ErrorMessage.SetContext(SyncLog);
-            ErrorMessage.LogMessage(SyncLog, SyncLog.FieldNo("Last Error Message"), ErrorMsg);
+
+            // Log error to Error Message table
+            ErrorMessage.LogMessage(
+                SyncLog,
+                SyncLog.FieldNo("Error Message"),
+                ErrorMessage."Message Type"::Error,
+                CopyStr(ErrorMsg, 1, 250));
         end;
     end;
 }

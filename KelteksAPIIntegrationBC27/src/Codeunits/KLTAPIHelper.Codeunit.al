@@ -2,7 +2,7 @@
 /// HTTP Helper for BC27 - Handles API communication with BC17
 /// Provides GET/POST methods with authentication, JSON parsing, and error handling
 /// </summary>
-codeunit 50101 "KLT API Helper"
+codeunit 80101 "KLT API Helper"
 {
     var
         APIAuth: Codeunit "KLT API Auth";
@@ -32,35 +32,35 @@ codeunit 50101 "KLT API Helper"
         FullUrl: Text;
     begin
         APIConfig.GetInstance();
-        
+
         // Build full URL
         FullUrl := BuildUrl(APIConfig."Target Base URL", Endpoint);
-        
+
         // Configure HTTP client
         ConfigureHttpClient(Client, APIConfig);
-        
+
         // Add authentication
         APIAuth.AddAuthenticationHeader(Client, APIConfig);
-        
+
         // Send request
         if not Client.Get(FullUrl, Response) then begin
             LogError(HTTPGetFailedConnErr, Endpoint);
             exit(false);
         end;
-        
+
         // Check status
         if not Response.IsSuccessStatusCode() then begin
             LogError(StrSubstNo(HTTPGetFailedStatusErr, Response.HttpStatusCode()), Endpoint);
             exit(false);
         end;
-        
+
         // Parse response
         Response.Content.ReadAs(ResponseText);
         if not ResponseJson.ReadFrom(ResponseText) then begin
             LogError(FailedParseJSONErr, Endpoint);
             exit(false);
         end;
-        
+
         exit(true);
     end;
 
@@ -80,40 +80,40 @@ codeunit 50101 "KLT API Helper"
         FullUrl: Text;
     begin
         APIConfig.GetInstance();
-        
+
         // Build full URL
         FullUrl := BuildUrl(APIConfig."Target Base URL", Endpoint);
-        
+
         // Configure HTTP client
         ConfigureHttpClient(Client, APIConfig);
-        
+
         // Add authentication
         APIAuth.AddAuthenticationHeader(Client, APIConfig);
-        
+
         // Prepare request
         RequestJson.WriteTo(RequestText);
         Content.WriteFrom(RequestText);
         Content.GetHeaders(Headers);
         Headers.Remove('Content-Type');
         Headers.Add('Content-Type', 'application/json');
-        
+
         Request.Method := 'POST';
         Request.SetRequestUri(FullUrl);
         Request.Content := Content;
-        
+
         // Send request
         if not Client.Send(Request, Response) then begin
             LogError(HTTPPostFailedConnErr, Endpoint);
             exit(false);
         end;
-        
+
         // Check status
         if not Response.IsSuccessStatusCode() then begin
             Response.Content.ReadAs(ResponseText);
             LogError(StrSubstNo(HTTPPostFailedStatusErr, Response.HttpStatusCode(), ResponseText), Endpoint);
             exit(false);
         end;
-        
+
         // Parse response
         Response.Content.ReadAs(ResponseText);
         if ResponseText <> '' then begin
@@ -122,7 +122,7 @@ codeunit 50101 "KLT API Helper"
                 exit(false);
             end;
         end;
-        
+
         exit(true);
     end;
 
@@ -142,40 +142,40 @@ codeunit 50101 "KLT API Helper"
         FullUrl: Text;
     begin
         APIConfig.GetInstance();
-        
+
         // Build full URL
         FullUrl := BuildUrl(APIConfig."Target Base URL", Endpoint);
-        
+
         // Configure HTTP client
         ConfigureHttpClient(Client, APIConfig);
-        
+
         // Add authentication
         APIAuth.AddAuthenticationHeader(Client, APIConfig);
-        
+
         // Prepare request
         RequestJson.WriteTo(RequestText);
         Content.WriteFrom(RequestText);
         Content.GetHeaders(Headers);
         Headers.Remove('Content-Type');
         Headers.Add('Content-Type', 'application/json');
-        
+
         Request.Method := 'PATCH';
         Request.SetRequestUri(FullUrl);
         Request.Content := Content;
-        
+
         // Send request
         if not Client.Send(Request, Response) then begin
             LogError(HTTPPatchFailedConnErr, Endpoint);
             exit(false);
         end;
-        
+
         // Check status
         if not Response.IsSuccessStatusCode() then begin
             Response.Content.ReadAs(ResponseText);
             LogError(StrSubstNo(HTTPPatchFailedStatusErr, Response.HttpStatusCode(), ResponseText), Endpoint);
             exit(false);
         end;
-        
+
         // Parse response
         Response.Content.ReadAs(ResponseText);
         if ResponseText <> '' then begin
@@ -184,7 +184,7 @@ codeunit 50101 "KLT API Helper"
                 exit(false);
             end;
         end;
-        
+
         exit(true);
     end;
 
@@ -199,11 +199,11 @@ codeunit 50101 "KLT API Helper"
         // Remove trailing slash from base URL
         if BaseUrl.EndsWith('/') then
             BaseUrl := CopyStr(BaseUrl, 1, StrLen(BaseUrl) - 1);
-        
+
         // Ensure endpoint starts with /
         if not Endpoint.StartsWith('/') then
             Endpoint := '/' + Endpoint;
-        
+
         exit(BaseUrl + Endpoint);
     end;
 
@@ -257,10 +257,10 @@ codeunit 50101 "KLT API Helper"
     begin
         if not ResponseJson.Get('value', ValueToken) then
             exit(false);
-        
+
         if not ValueToken.IsArray() then
             exit(false);
-        
+
         ValueArray := ValueToken.AsArray();
         exit(true);
     end;
@@ -274,10 +274,10 @@ codeunit 50101 "KLT API Helper"
     begin
         if not JObject.Get(KeyName, JToken) then
             exit('');
-        
+
         if JToken.IsValue() then
             exit(JToken.AsValue().AsText());
-        
+
         exit('');
     end;
 
@@ -290,10 +290,10 @@ codeunit 50101 "KLT API Helper"
     begin
         if not JObject.Get(KeyName, JToken) then
             exit(0);
-        
+
         if JToken.IsValue() then
             exit(JToken.AsValue().AsDecimal());
-        
+
         exit(0);
     end;
 
@@ -306,10 +306,10 @@ codeunit 50101 "KLT API Helper"
     begin
         if not JObject.Get(KeyName, JToken) then
             exit(0);
-        
+
         if JToken.IsValue() then
             exit(JToken.AsValue().AsInteger());
-        
+
         exit(0);
     end;
 
@@ -323,12 +323,12 @@ codeunit 50101 "KLT API Helper"
     begin
         if not JObject.Get(KeyName, JToken) then
             exit(0D);
-        
+
         if JToken.IsValue() then begin
             DateText := JToken.AsValue().AsText();
             exit(ParseDate(DateText));
         end;
-        
+
         exit(0D);
     end;
 
@@ -352,27 +352,24 @@ codeunit 50101 "KLT API Helper"
     begin
         if not JObject.Get(KeyName, JToken) then
             exit(GuidVar);
-        
+
         if JToken.IsValue() then begin
             GuidText := JToken.AsValue().AsText();
             if Evaluate(GuidVar, GuidText) then
                 exit(GuidVar);
         end;
-        
+
         exit(GuidVar);
     end;
 
     local procedure LogError(ErrorText: Text; Context: Text)
     var
-        SyncLog: Record "KLT Document Sync Log";
         ErrorMessage: Record "Error Message";
     begin
-        // Log to Error Message table
-        ErrorMessage.Init();
-        ErrorMessage.Description := CopyStr(ErrorText, 1, MaxStrLen(ErrorMessage.Description));
-        ErrorMessage."Message" := CopyStr(StrSubstNo(ErrorContextTxt, ErrorText, Context), 1, MaxStrLen(ErrorMessage."Message"));
-        ErrorMessage."Created On" := CurrentDateTime();
-        if ErrorMessage.Insert() then;
+        // Log error message using BC17 compatible API
+        ErrorMessage.LogSimpleMessage(
+            ErrorMessage."Message Type"::Error,
+            CopyStr(StrSubstNo(ErrorContextTxt, ErrorText, Context), 1, 250));
     end;
 
     /// <summary>

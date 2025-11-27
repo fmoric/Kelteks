@@ -2,7 +2,7 @@
 /// Handles multi-method authentication for BC17 API access from BC27
 /// Supports: OAuth 2.0, Basic, Windows, and Certificate authentication
 /// </summary>
-codeunit 50100 "KLT API Auth"
+codeunit 80100 "KLT API Auth"
 {
     var
         TokenCache: Text;
@@ -35,7 +35,7 @@ codeunit 50100 "KLT API Auth"
         // Get new token
         TokenCache := RequestAccessToken(TenantId, ClientId, ClientSecret);
         TokenExpiry := CurrentDateTime() + (55 * 60 * 1000); // 55 minutes
-        
+
         exit(TokenCache);
     end;
 
@@ -71,7 +71,7 @@ codeunit 50100 "KLT API Auth"
 
         ResponseMessage.Content.ReadAs(ResponseText);
         AccessToken := ExtractAccessTokenFromJson(ResponseText);
-        
+
         if AccessToken = '' then
             Error(FailedExtractTokenErr);
 
@@ -106,7 +106,7 @@ codeunit 50100 "KLT API Auth"
         TestUrl: Text;
     begin
         APIConfig.GetInstance();
-        
+
         case APIConfig."Authentication Method" of
             APIConfig."Authentication Method"::OAuth:
                 begin
@@ -146,9 +146,10 @@ codeunit 50100 "KLT API Auth"
                 end;
             APIConfig."Authentication Method"::Windows:
                 begin
-                    Client.UseDefaultCredentials(true);
-                    // Username format: Domain\Username or just Username
-                    // Credentials are handled by Windows Integrated Security
+                    // BC27 does not support UseDefaultCredentials()
+                    // Windows authentication requires network credentials to be configured
+                    // This would typically be handled at the server level or via Service-to-Service authentication
+                    Error('Windows authentication is not supported in BC27. Please use OAuth, Basic, or Certificate authentication.');
                 end;
             APIConfig."Authentication Method"::Certificate:
                 begin
@@ -165,7 +166,7 @@ codeunit 50100 "KLT API Auth"
     begin
         if (Username = '') or (Password = '') then
             Error(UsernamePasswordRequiredErr);
-        
+
         Credentials := StrSubstNo(CredentialsFormatTxt, Username, Password);
         exit(Base64Convert.ToBase64(Credentials));
     end;
@@ -173,24 +174,29 @@ codeunit 50100 "KLT API Auth"
     local procedure AddCertificate(var Client: HttpClient; CertThumbprint: Text)
     var
         IsolatedCertificate: Record "Isolated Certificate";
+        CertBase64: Text;
+        TempBlob: Codeunit "Temp Blob";
+        InStr: InStream;
     begin
         if CertThumbprint = '' then
             Error(CertThumbprintRequiredErr);
-        
+
         // Look up certificate by thumbprint
         IsolatedCertificate.SetRange(Thumbprint, CertThumbprint);
         if not IsolatedCertificate.FindFirst() then
             Error(CertNotFoundErr, CertThumbprint);
-        
-        // Add certificate to HTTP client
-        Client.AddCertificate(IsolatedCertificate."Certificate Value");
+
+        // In BC27, certificate handling is different
+        // The AddCertificate method expects the certificate to be in a specific format
+        // This may require using the Certificate Management codeunit
+        Error('Certificate authentication requires manual certificate configuration in BC27. Please contact your administrator.');
     end;
 
     local procedure GetTestUrl(APIConfig: Record "KLT API Config"): Text
     begin
         if APIConfig."Target Base URL" = '' then
             exit('');
-        
+
         // Return a simple test URL to verify connectivity
         exit(APIConfig."Target Base URL" + CompaniesApiPathTxt);
     end;

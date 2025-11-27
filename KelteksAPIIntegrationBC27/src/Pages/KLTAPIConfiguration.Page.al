@@ -3,13 +3,13 @@
 /// Configuration page for API integration settings.
 /// Supports all authentication methods: OAuth 2.0, Basic, Windows, Certificate.
 /// </summary>
-page 50100 "KLT API Configuration"
+page 80100 "KLT API Configuration"
 {
     PageType = Card;
     ApplicationArea = All;
     UsageCategory = Administration;
-    SourceTable = "KLT API Config BC27";
-    Caption = 'Kelteks API Configuration (BC27)';
+    SourceTable = "KLT API Config";
+    Caption = 'Kelteks API Configuration';
     InsertAllowed = false;
     DeleteAllowed = false;
 
@@ -24,7 +24,7 @@ page 50100 "KLT API Configuration"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the authentication method to use: OAuth 2.0 (cloud/hybrid), Basic (on-premise), Windows (domain), or Certificate (high security)';
-                    
+
                     trigger OnValidate()
                     begin
                         CurrPage.Update(true);
@@ -38,7 +38,7 @@ page 50100 "KLT API Configuration"
             }
             group(Connection)
             {
-                Caption = 'BC17 Connection Settings';
+                Caption = 'Connection Settings';
                 field("Target Base URL"; Rec."Target Base URL")
                 {
                     ApplicationArea = All;
@@ -82,7 +82,7 @@ page 50100 "KLT API Configuration"
                 Caption = 'Basic Authentication (On-Premise) - RECOMMENDED FOR SIMPLICITY';
                 Visible = Rec."Authentication Method" = Rec."Authentication Method"::Basic;
 
-                field("BC17 Username Basic"; Rec."Target Username")
+                field("Username Basic"; Rec."Target Username")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the username for Basic authentication (e.g., DOMAIN\ServiceAccount or serviceaccount@domain.com)';
@@ -113,7 +113,7 @@ page 50100 "KLT API Configuration"
                     ToolTip = 'Specifies the Windows domain name';
                     ShowMandatory = true;
                 }
-                field("BC17 Username Windows"; Rec."Target Username")
+                field("Username Windows"; Rec."Target Username")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the domain username (without domain prefix)';
@@ -201,7 +201,7 @@ page 50100 "KLT API Configuration"
         }
         area(FactBoxes)
         {
-            part(ConfigFactBox; "KLT Config FactBox BC27")
+            part(ConfigFactBox; "KLT Config FactBox")
             {
                 ApplicationArea = All;
                 SubPageLink = "Primary Key" = field("Primary Key");

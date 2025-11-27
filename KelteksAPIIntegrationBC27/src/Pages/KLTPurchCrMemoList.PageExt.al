@@ -2,7 +2,7 @@
 /// PageExtension KLT Purch. Cr. Memo List BC27 (ID 50151) extends Record Purchase Credit Memos.
 /// Adds sync status indicators to Purchase Credit Memos list.
 /// </summary>
-pageextension 50105 "KLT Purch. Cr. Memo List" extends "Purchase Credit Memos"
+pageextension 80101 "KLT Purch. Cr. Memo List" extends "Purchase Credit Memos"
 {
     layout
     {
@@ -38,7 +38,7 @@ pageextension 50105 "KLT Purch. Cr. Memo List" extends "Purchase Credit Memos"
                 begin
                     SyncLog.SetRange("Target Document No.", Rec."No.");
                     SyncLog.SetRange("Document Type", SyncLog."Document Type"::"Purchase Credit Memo");
-                    Page.Run(Page::"KLT Document Sync Log BC27", SyncLog);
+                    Page.Run(Page::"KLT Document Sync Log", SyncLog);
                 end;
             }
             action(ViewAllSyncLog)
@@ -52,7 +52,7 @@ pageextension 50105 "KLT Purch. Cr. Memo List" extends "Purchase Credit Memos"
 
                 trigger OnAction()
                 begin
-                    Page.Run(Page::"KLT Document Sync Log BC27");
+                    Page.Run(Page::"KLT Document Sync Log");
                 end;
             }
         }

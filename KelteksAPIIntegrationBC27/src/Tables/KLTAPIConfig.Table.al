@@ -2,7 +2,7 @@
 /// Configuration table - API connection to target environment
 /// Stores connection details for target environment
 /// </summary>
-table 50100 "KLT API Config"
+table 80100 "KLT API Config"
 {
     Caption = 'API Configuration';
     DataClassification = CustomerContent;
@@ -28,55 +28,55 @@ table 50100 "KLT API Config"
         }
         field(10; "Target Base URL"; Text[250])
         {
-            Caption = 'BC17 Base URL';
+            Caption = 'Base URL';
             DataClassification = CustomerContent;
             ExtendedDatatype = URL;
         }
         field(11; "Target Company ID"; Guid)
         {
-            Caption = 'BC17 Company ID';
+            Caption = 'Company ID';
             DataClassification = CustomerContent;
         }
         field(12; "Target Client ID"; Text[250])
         {
-            Caption = 'BC17 Client ID (OAuth)';
+            Caption = 'Client ID (OAuth)';
             DataClassification = EndUserIdentifiableInformation;
         }
         field(13; "Target Client Secret"; Text[250])
         {
-            Caption = 'BC17 Client Secret (OAuth)';
+            Caption = 'Client Secret (OAuth)';
             DataClassification = EndUserPseudonymousIdentifiers;
             ExtendedDatatype = Masked;
         }
         field(14; "Target Tenant ID"; Text[250])
         {
-            Caption = 'BC17 Tenant ID (OAuth)';
+            Caption = 'Tenant ID (OAuth)';
             DataClassification = CustomerContent;
         }
         field(15; "Target Username"; Text[250])
         {
-            Caption = 'BC17 Username (Basic/Windows)';
+            Caption = 'Username (Basic/Windows)';
             DataClassification = EndUserIdentifiableInformation;
         }
         field(16; "Target Password"; Text[250])
         {
-            Caption = 'BC17 Password (Basic)';
+            Caption = 'Password (Basic)';
             DataClassification = EndUserPseudonymousIdentifiers;
             ExtendedDatatype = Masked;
         }
         field(17; "Target Domain"; Text[100])
         {
-            Caption = 'BC17 Domain (Windows)';
+            Caption = 'Domain (Windows)';
             DataClassification = CustomerContent;
         }
         field(18; "Target Certificate Name"; Text[250])
         {
-            Caption = 'BC17 Certificate Name';
+            Caption = 'Certificate Name';
             DataClassification = CustomerContent;
         }
         field(19; "Target Certificate Thumbprint"; Text[100])
         {
-            Caption = 'BC17 Certificate Thumbprint';
+            Caption = 'Certificate Thumbprint';
             DataClassification = CustomerContent;
         }
         field(30; "Sync Interval (Minutes)"; Integer)
@@ -156,14 +156,13 @@ table 50100 "KLT API Config"
         }
     }
 
-    procedure GetInstance(): Record "KLT API Config"
+    procedure GetInstance()
     begin
-        if not Get('') then begin
+        if not Get() then begin
             Init();
             "Primary Key" := '';
             Insert(true);
         end;
-        exit(Rec);
     end;
 
     procedure ValidateConfiguration(): Boolean

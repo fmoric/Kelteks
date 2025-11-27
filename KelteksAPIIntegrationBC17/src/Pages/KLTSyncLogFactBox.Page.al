@@ -2,7 +2,7 @@
 /// Page KLT Sync Log FactBox BC17 (ID 50104).
 /// FactBox showing sync statistics for BC17.
 /// </summary>
-page 50104 "KLT Sync Log FactBox"
+page 80103 "KLT Sync Log FactBox"
 {
     PageType = CardPart;
     SourceTable = "KLT Document Sync Log";
@@ -59,8 +59,8 @@ page 50104 "KLT Sync Log FactBox"
         Last24Hours: DateTime;
     begin
         Last24Hours := CreateDateTime(CalcDate('<-1D>', Today()), Time());
-        
-        SyncLog.SetFilter("Start DateTime", '>=%1', Last24Hours);
+
+        SyncLog.SetFilter("Started DateTime", '>=%1', Last24Hours);
         TotalSynced := SyncLog.Count();
 
         SyncLog.SetRange(Status, SyncLog.Status::Completed);

@@ -2,13 +2,13 @@
 /// Page KLT Sync Queue BC27 (ID 50152).
 /// List page for managing the sync queue in BC27.
 /// </summary>
-page 50104 "KLT Sync Queue"
+page 80104 "KLT Sync Queue"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "KLT API Sync Queue";
-    Caption = 'API Sync Queue (BC27)';
+    Caption = 'API Sync Queue';
     Editable = false;
 
     layout

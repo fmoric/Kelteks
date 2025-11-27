@@ -2,13 +2,13 @@
 /// Page KLT Sync Queue BC17 (ID 50102).
 /// List page for managing the sync queue in BC17.
 /// </summary>
-page 50102 "KLT Sync Queue"
+page 80104 "KLT Sync Queue"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "KLT API Sync Queue";
-    Caption = 'API Sync Queue (BC17)';
+    Caption = 'API Sync Queue';
     Editable = false;
 
     layout
@@ -83,9 +83,10 @@ page 50102 "KLT Sync Queue"
                 trigger OnAction()
                 var
                     SyncEngine: Codeunit "KLT Sync Engine";
+                    QueueProcessingInitiatedMsg: Label 'Queue processing initiated.';
                 begin
                     SyncEngine.ProcessSyncQueue();
-                    Message('Queue processing initiated.');
+                    Message(QueueProcessingInitiatedMsg);
                 end;
             }
             action(ClearCompleted)
@@ -100,13 +101,15 @@ page 50102 "KLT Sync Queue"
                 trigger OnAction()
                 var
                     QueueRec: Record "KLT API Sync Queue";
+                    CompletedItemsRemovedMsg: Label 'Completed items removed from queue.';
+                    NoCompletedItemsMsg: Label 'No completed items found.';
                 begin
                     QueueRec.SetRange(Status, QueueRec.Status::Completed);
                     if QueueRec.FindSet() then begin
                         QueueRec.DeleteAll();
-                        Message('Completed items removed from queue.');
+                        Message(CompletedItemsRemovedMsg);
                     end else
-                        Message('No completed items found.');
+                        Message(NoCompletedItemsMsg);
                 end;
             }
             action(ResetFailed)
@@ -121,6 +124,8 @@ page 50102 "KLT Sync Queue"
                 trigger OnAction()
                 var
                     QueueRec: Record "KLT API Sync Queue";
+                    FailedItemsResetMsg: Label 'Failed items reset to pending.';
+                    NoFailedItemsMsg: Label 'No failed items found.';
                 begin
                     QueueRec.SetRange(Status, QueueRec.Status::Failed);
                     if QueueRec.FindSet() then begin
@@ -129,9 +134,9 @@ page 50102 "KLT Sync Queue"
                             QueueRec."Retry Count" := 0;
                             QueueRec.Modify();
                         until QueueRec.Next() = 0;
-                        Message('Failed items reset to pending.');
+                        Message(FailedItemsResetMsg);
                     end else
-                        Message('No failed items found.');
+                        Message(NoFailedItemsMsg);
                 end;
             }
         }

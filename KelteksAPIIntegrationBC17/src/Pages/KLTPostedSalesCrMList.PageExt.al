@@ -2,13 +2,13 @@
 /// PageExtension KLT Posted Sales Cr.M List BC17 (ID 50101) extends Record Posted Sales Credit Memos.
 /// Adds "Sync to target" action to Posted Sales Credit Memos list.
 /// </summary>
-pageextension 50101 "KLT Posted Sales Cr.M List" extends "Posted Sales Credit Memos"
+pageextension 80100 "KLT Posted Sales Cr.M List" extends "Posted Sales Credit Memos"
 {
     actions
     {
         addlast(Processing)
         {
-            action(SyncToBC27)
+            action(SyncToTarget)
             {
                 ApplicationArea = All;
                 Caption = 'Sync to target';
@@ -26,7 +26,7 @@ pageextension 50101 "KLT Posted Sales Cr.M List" extends "Posted Sales Credit Me
                 begin
                     CurrPage.SetSelectionFilter(SalesCrMemoHeader);
                     SelectedCount := SalesCrMemoHeader.Count();
-                    
+
                     if SelectedCount = 0 then
                         Error('Please select at least one credit memo to sync.');
 
@@ -48,7 +48,7 @@ pageextension 50101 "KLT Posted Sales Cr.M List" extends "Posted Sales Credit Me
 
                 trigger OnAction()
                 begin
-                    Page.Run(Page::"KLT Document Sync Log BC17");
+                    Page.Run(Page::"KLT Document Sync Log");
                 end;
             }
         }

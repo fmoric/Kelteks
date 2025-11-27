@@ -2,7 +2,7 @@
 /// Enum KLT Deployment Type (ID 50105).
 /// Deployment types for Business Central environments.
 /// </summary>
-enum 50105 "KLT Deployment Type"
+enum 80101 "KLT Deployment Type"
 {
     Extensible = true;
 

@@ -2,24 +2,16 @@
 /// Page KLT Config FactBox BC27 (ID 50153).
 /// FactBox showing configuration status for BC27.
 /// </summary>
-page 50101 "KLT Config FactBox"
+page 80101 "KLT Config FactBox"
 {
     PageType = CardPart;
-    SourceTable = "KLT API Config BC27";
+    SourceTable = "KLT API Config";
     Caption = 'Configuration Status';
 
     layout
     {
         area(Content)
         {
-            field(Enabled; Rec.Enabled)
-            {
-                ApplicationArea = All;
-                Caption = 'Sync Enabled';
-                ToolTip = 'Indicates whether synchronization is enabled';
-                Style = Favorable;
-                StyleExpr = Rec.Enabled;
-            }
             field("Sync Interval (Minutes)"; Rec."Sync Interval (Minutes)")
             {
                 ApplicationArea = All;
@@ -51,10 +43,7 @@ page 50101 "KLT Config FactBox"
     var
         APIHelper: Codeunit "KLT API Helper";
     begin
-        if Rec."Base URL" = '' then begin
-            ConnectionStatusText := 'Not Configured';
-            ConnectionStatusStyle := 'Unfavorable';
-        end else if APIHelper.TestConnection() then begin
+        if APIHelper.TestConnection() then begin
             ConnectionStatusText := 'Connected';
             ConnectionStatusStyle := 'Favorable';
         end else begin

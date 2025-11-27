@@ -2,7 +2,7 @@
 /// Document Validator for BC17
 /// Validates sales and purchase documents before sync
 /// </summary>
-codeunit 50104 "KLT Document Validator"
+codeunit 80102 "KLT Document Validator"
 {
     var
         CustomerNotExistErr: Label 'Customer %1 does not exist';
@@ -38,31 +38,31 @@ codeunit 50104 "KLT Document Validator"
         Customer: Record Customer;
     begin
         ErrorText := '';
-        
+
         // Validate customer exists
         if not Customer.Get(SalesInvHeader."Sell-to Customer No.") then begin
             ErrorText := StrSubstNo(CustomerNotExistErr, SalesInvHeader."Sell-to Customer No.");
             exit(false);
         end;
-        
+
         // Validate posting date
         if SalesInvHeader."Posting Date" = 0D then begin
             ErrorText := PostingDateRequiredErr;
             exit(false);
         end;
-        
+
         // Validate document date
         if SalesInvHeader."Document Date" = 0D then begin
             ErrorText := DocumentDateRequiredErr;
             exit(false);
         end;
-        
+
         // Validate currency if specified
         if SalesInvHeader."Currency Code" <> '' then begin
             if not ValidateCurrency(SalesInvHeader."Currency Code", ErrorText) then
                 exit(false);
         end;
-        
+
         exit(true);
     end;
 
@@ -74,31 +74,31 @@ codeunit 50104 "KLT Document Validator"
         Customer: Record Customer;
     begin
         ErrorText := '';
-        
+
         // Validate customer exists
         if not Customer.Get(SalesCrMemoHeader."Sell-to Customer No.") then begin
             ErrorText := StrSubstNo(CustomerNotExistErr, SalesCrMemoHeader."Sell-to Customer No.");
             exit(false);
         end;
-        
+
         // Validate posting date
         if SalesCrMemoHeader."Posting Date" = 0D then begin
             ErrorText := PostingDateRequiredErr;
             exit(false);
         end;
-        
+
         // Validate document date
         if SalesCrMemoHeader."Document Date" = 0D then begin
             ErrorText := DocumentDateRequiredErr;
             exit(false);
         end;
-        
+
         // Validate currency if specified
         if SalesCrMemoHeader."Currency Code" <> '' then begin
             if not ValidateCurrency(SalesCrMemoHeader."Currency Code", ErrorText) then
                 exit(false);
         end;
-        
+
         exit(true);
     end;
 
@@ -114,36 +114,36 @@ codeunit 50104 "KLT Document Validator"
         DocumentDate: Date;
     begin
         ErrorText := '';
-        
+
         // Validate vendor
         VendorNo := CopyStr(APIHelper.GetJsonText(JsonData, 'vendorNumber'), 1, MaxStrLen(VendorNo));
         if VendorNo = '' then begin
             ErrorText := VendorNumberRequiredErr;
             exit(false);
         end;
-        
+
         if not Vendor.Get(VendorNo) then begin
             ErrorText := StrSubstNo(VendorNotExistErr, VendorNo);
             exit(false);
         end;
-        
+
         // Validate dates
         PostingDate := APIHelper.GetJsonDate(JsonData, 'postingDate');
         if PostingDate = 0D then begin
             ErrorText := PostingDateRequiredErr;
             exit(false);
         end;
-        
+
         DocumentDate := APIHelper.GetJsonDate(JsonData, 'documentDate');
         if DocumentDate = 0D then begin
             ErrorText := DocumentDateRequiredErr;
             exit(false);
         end;
-        
+
         // Validate posting period is open
         if not IsPostingPeriodOpen(PostingDate, ErrorText) then
             exit(false);
-        
+
         exit(true);
     end;
 
@@ -159,36 +159,36 @@ codeunit 50104 "KLT Document Validator"
         DocumentDate: Date;
     begin
         ErrorText := '';
-        
+
         // Validate vendor
         VendorNo := CopyStr(APIHelper.GetJsonText(JsonData, 'vendorNumber'), 1, MaxStrLen(VendorNo));
         if VendorNo = '' then begin
             ErrorText := VendorNumberRequiredErr;
             exit(false);
         end;
-        
+
         if not Vendor.Get(VendorNo) then begin
             ErrorText := StrSubstNo(VendorNotExistErr, VendorNo);
             exit(false);
         end;
-        
+
         // Validate dates
         PostingDate := APIHelper.GetJsonDate(JsonData, 'postingDate');
         if PostingDate = 0D then begin
             ErrorText := PostingDateRequiredErr;
             exit(false);
         end;
-        
+
         DocumentDate := APIHelper.GetJsonDate(JsonData, 'documentDate');
         if DocumentDate = 0D then begin
             ErrorText := DocumentDateRequiredErr;
             exit(false);
         end;
-        
+
         // Validate posting period is open
         if not IsPostingPeriodOpen(PostingDate, ErrorText) then
             exit(false);
-        
+
         exit(true);
     end;
 
@@ -204,35 +204,35 @@ codeunit 50104 "KLT Document Validator"
         UnitPrice: Decimal;
     begin
         ErrorText := '';
-        
+
         // Validate type
         LineType := APIHelper.GetJsonText(LineJson, 'lineType');
         if LineType = '' then begin
             ErrorText := LineTypeRequiredErr;
             exit(false);
         end;
-        
+
         // Validate number based on type
         ItemNo := CopyStr(APIHelper.GetJsonText(LineJson, 'number'), 1, MaxStrLen(ItemNo));
         if (LineType <> 'Comment') and (ItemNo = '') then begin
             ErrorText := NumberRequiredErr;
             exit(false);
         end;
-        
+
         // Validate quantity
         Quantity := APIHelper.GetJsonDecimal(LineJson, 'quantity');
         if Quantity <= 0 then begin
             ErrorText := QuantityMustBePositiveErr;
             exit(false);
         end;
-        
+
         // Validate unit price
         UnitPrice := APIHelper.GetJsonDecimal(LineJson, 'unitPrice');
         if UnitPrice < 0 then begin
             ErrorText := UnitPriceNegativeErr;
             exit(false);
         end;
-        
+
         exit(true);
     end;
 
@@ -245,7 +245,7 @@ codeunit 50104 "KLT Document Validator"
         PurchHeader: Record "Purchase Header";
     begin
         ErrorText := '';
-        
+
         // Check posted invoices
         PurchInvHeader.SetRange("Buy-from Vendor No.", VendorNo);
         PurchInvHeader.SetRange("Vendor Invoice No.", ExternalDocNo);
@@ -253,7 +253,7 @@ codeunit 50104 "KLT Document Validator"
             ErrorText := StrSubstNo(DuplicatePostedInvoiceErr, ExternalDocNo);
             exit(false);
         end;
-        
+
         // Check unposted invoices
         PurchHeader.SetRange("Document Type", PurchHeader."Document Type"::Invoice);
         PurchHeader.SetRange("Buy-from Vendor No.", VendorNo);
@@ -262,7 +262,7 @@ codeunit 50104 "KLT Document Validator"
             ErrorText := StrSubstNo(DuplicateUnpostedInvoiceErr, ExternalDocNo);
             exit(false);
         end;
-        
+
         exit(true);
     end;
 
@@ -275,7 +275,7 @@ codeunit 50104 "KLT Document Validator"
         PurchHeader: Record "Purchase Header";
     begin
         ErrorText := '';
-        
+
         // Check posted credit memos
         PurchCrMemoHeader.SetRange("Buy-from Vendor No.", VendorNo);
         PurchCrMemoHeader.SetRange("Vendor Cr. Memo No.", ExternalDocNo);
@@ -283,7 +283,7 @@ codeunit 50104 "KLT Document Validator"
             ErrorText := StrSubstNo(DuplicatePostedCreditMemoErr, ExternalDocNo);
             exit(false);
         end;
-        
+
         // Check unposted credit memos
         PurchHeader.SetRange("Document Type", PurchHeader."Document Type"::"Credit Memo");
         PurchHeader.SetRange("Buy-from Vendor No.", VendorNo);
@@ -292,7 +292,157 @@ codeunit 50104 "KLT Document Validator"
             ErrorText := StrSubstNo(DuplicateUnpostedCreditMemoErr, ExternalDocNo);
             exit(false);
         end;
-        
+
+        exit(true);
+    end;
+
+    /// <summary>
+    /// Validates Sales Invoice data received from target
+    /// </summary>
+    procedure ValidateSalesInvoiceData(JsonData: JsonObject; var ErrorText: Text): Boolean
+    var
+        APIHelper: Codeunit "KLT API Helper";
+        CustomerNo: Code[20];
+        Customer: Record Customer;
+        PostingDate: Date;
+        DocumentDate: Date;
+    begin
+        ErrorText := '';
+
+        // Validate customer
+        CustomerNo := CopyStr(APIHelper.GetJsonText(JsonData, 'customerNumber'), 1, MaxStrLen(CustomerNo));
+        if CustomerNo = '' then begin
+            ErrorText := 'Customer Number is required';
+            exit(false);
+        end;
+
+        if not Customer.Get(CustomerNo) then begin
+            ErrorText := StrSubstNo(CustomerNotExistErr, CustomerNo);
+            exit(false);
+        end;
+
+        // Validate dates
+        PostingDate := APIHelper.GetJsonDate(JsonData, 'postingDate');
+        if PostingDate = 0D then begin
+            ErrorText := PostingDateRequiredErr;
+            exit(false);
+        end;
+
+        DocumentDate := APIHelper.GetJsonDate(JsonData, 'invoiceDate');
+        if DocumentDate = 0D then begin
+            ErrorText := DocumentDateRequiredErr;
+            exit(false);
+        end;
+
+        // Validate posting period is open
+        if not IsPostingPeriodOpen(PostingDate, ErrorText) then
+            exit(false);
+
+        exit(true);
+    end;
+
+    /// <summary>
+    /// Validates Sales Credit Memo data received from target
+    /// </summary>
+    procedure ValidateSalesCreditMemoData(JsonData: JsonObject; var ErrorText: Text): Boolean
+    var
+        APIHelper: Codeunit "KLT API Helper";
+        CustomerNo: Code[20];
+        Customer: Record Customer;
+        PostingDate: Date;
+        DocumentDate: Date;
+    begin
+        ErrorText := '';
+
+        // Validate customer
+        CustomerNo := CopyStr(APIHelper.GetJsonText(JsonData, 'customerNumber'), 1, MaxStrLen(CustomerNo));
+        if CustomerNo = '' then begin
+            ErrorText := 'Customer Number is required';
+            exit(false);
+        end;
+
+        if not Customer.Get(CustomerNo) then begin
+            ErrorText := StrSubstNo(CustomerNotExistErr, CustomerNo);
+            exit(false);
+        end;
+
+        // Validate dates
+        PostingDate := APIHelper.GetJsonDate(JsonData, 'postingDate');
+        if PostingDate = 0D then begin
+            ErrorText := PostingDateRequiredErr;
+            exit(false);
+        end;
+
+        DocumentDate := APIHelper.GetJsonDate(JsonData, 'creditMemoDate');
+        if DocumentDate = 0D then begin
+            ErrorText := DocumentDateRequiredErr;
+            exit(false);
+        end;
+
+        // Validate posting period is open
+        if not IsPostingPeriodOpen(PostingDate, ErrorText) then
+            exit(false);
+
+        exit(true);
+    end;
+
+    /// <summary>
+    /// Checks for duplicate sales invoice using External Document No
+    /// </summary>
+    procedure CheckDuplicateSalesInvoice(ExternalDocNo: Code[35]; CustomerNo: Code[20]; var ErrorText: Text): Boolean
+    var
+        SalesInvHeader: Record "Sales Invoice Header";
+        SalesHeader: Record "Sales Header";
+    begin
+        ErrorText := '';
+
+        // Check posted invoices
+        SalesInvHeader.SetRange("Sell-to Customer No.", CustomerNo);
+        SalesInvHeader.SetRange("External Document No.", ExternalDocNo);
+        if not SalesInvHeader.IsEmpty() then begin
+            ErrorText := StrSubstNo(DuplicatePostedInvoiceErr, ExternalDocNo);
+            exit(false);
+        end;
+
+        // Check unposted invoices
+        SalesHeader.SetRange("Document Type", SalesHeader."Document Type"::Invoice);
+        SalesHeader.SetRange("Sell-to Customer No.", CustomerNo);
+        SalesHeader.SetRange("External Document No.", ExternalDocNo);
+        if not SalesHeader.IsEmpty() then begin
+            ErrorText := StrSubstNo(DuplicateUnpostedInvoiceErr, ExternalDocNo);
+            exit(false);
+        end;
+
+        exit(true);
+    end;
+
+    /// <summary>
+    /// Checks for duplicate sales credit memo using External Document No
+    /// </summary>
+    procedure CheckDuplicateSalesCreditMemo(ExternalDocNo: Code[35]; CustomerNo: Code[20]; var ErrorText: Text): Boolean
+    var
+        SalesCrMemoHeader: Record "Sales Cr.Memo Header";
+        SalesHeader: Record "Sales Header";
+    begin
+        ErrorText := '';
+
+        // Check posted credit memos
+        SalesCrMemoHeader.SetRange("Sell-to Customer No.", CustomerNo);
+        SalesCrMemoHeader.SetRange("External Document No.", ExternalDocNo);
+        if not SalesCrMemoHeader.IsEmpty() then begin
+            ErrorText := StrSubstNo(DuplicatePostedCreditMemoErr, ExternalDocNo);
+            exit(false);
+        end;
+
+        // Check unposted credit memos
+        SalesHeader.SetRange("Document Type", SalesHeader."Document Type"::"Credit Memo");
+        SalesHeader.SetRange("Sell-to Customer No.", CustomerNo);
+        SalesHeader.SetRange("External Document No.", ExternalDocNo);
+        if not SalesHeader.IsEmpty() then begin
+            ErrorText := StrSubstNo(DuplicateUnpostedCreditMemoErr, ExternalDocNo);
+            exit(false);
+        end;
+
         exit(true);
     end;
 
@@ -313,18 +463,18 @@ codeunit 50104 "KLT Document Validator"
         GLSetup: Record "General Ledger Setup";
     begin
         GLSetup.Get();
-        
+
         // Check if posting is allowed
         if PostingDate < GLSetup."Allow Posting From" then begin
             ErrorText := StrSubstNo(PostingPeriodBeforeErr, PostingDate, GLSetup."Allow Posting From");
             exit(false);
         end;
-        
+
         if (GLSetup."Allow Posting To" <> 0D) and (PostingDate > GLSetup."Allow Posting To") then begin
             ErrorText := StrSubstNo(PostingPeriodAfterErr, PostingDate, GLSetup."Allow Posting To");
             exit(false);
         end;
-        
+
         exit(true);
     end;
 
@@ -340,17 +490,17 @@ codeunit 50104 "KLT Document Validator"
             ErrorText := StrSubstNo(VendorNotFoundErr, VendorNo);
             exit(false);
         end;
-        
+
         if Vendor."Vendor Posting Group" = '' then begin
             ErrorText := StrSubstNo(VendorNoPostingGroupErr, VendorNo);
             exit(false);
         end;
-        
+
         if not VendorPostingGroup.Get(Vendor."Vendor Posting Group") then begin
             ErrorText := StrSubstNo(VendorPostingGroupNotFoundErr, Vendor."Vendor Posting Group");
             exit(false);
         end;
-        
+
         exit(true);
     end;
 
@@ -365,12 +515,12 @@ codeunit 50104 "KLT Document Validator"
             ErrorText := StrSubstNo(ItemNotExistErr, ItemNo);
             exit(false);
         end;
-        
+
         if Item.Blocked then begin
             ErrorText := StrSubstNo(ItemBlockedErr, ItemNo);
             exit(false);
         end;
-        
+
         exit(true);
     end;
 
@@ -385,17 +535,17 @@ codeunit 50104 "KLT Document Validator"
             ErrorText := StrSubstNo(GLAccountNotExistErr, AccountNo);
             exit(false);
         end;
-        
+
         if GLAccount.Blocked then begin
             ErrorText := StrSubstNo(GLAccountBlockedErr, AccountNo);
             exit(false);
         end;
-        
+
         if GLAccount."Account Type" <> GLAccount."Account Type"::Posting then begin
             ErrorText := StrSubstNo(GLAccountNotPostingErr, AccountNo);
             exit(false);
         end;
-        
+
         exit(true);
     end;
 }

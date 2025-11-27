@@ -2,7 +2,18 @@
     "folders": [
         {
             "path": ".AL-Go"
+        },
+        {
+            "path": "KelteksAPIIntegrationBC17"
+        },
+        {
+            "path": "KelteksAPIIntegrationBC27"
+        },
+        {
+            "path": ".github"
         }
     ],
-    "settings": {}
+    "settings": {
+        "powershell.cwd": "KelteksAPIIntegrationBC27"
+    }
 }

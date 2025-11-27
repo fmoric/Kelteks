@@ -2,7 +2,7 @@
 /// PageExtension KLT Purchase Invoice List BC27 (ID 50150) extends Record Purchase Invoices.
 /// Adds sync status indicators to Purchase Invoices list.
 /// </summary>
-pageextension 50106 "KLT Purchase Invoice List" extends "Purchase Invoices"
+pageextension 80100 "KLT Purchase Invoice List" extends "Purchase Invoices"
 {
     layout
     {
@@ -38,7 +38,7 @@ pageextension 50106 "KLT Purchase Invoice List" extends "Purchase Invoices"
                 begin
                     SyncLog.SetRange("Target Document No.", Rec."No.");
                     SyncLog.SetRange("Document Type", SyncLog."Document Type"::"Purchase Invoice");
-                    Page.Run(Page::"KLT Document Sync Log BC27", SyncLog);
+                    Page.Run(Page::"KLT Document Sync Log", SyncLog);
                 end;
             }
             action(ViewAllSyncLog)
@@ -52,7 +52,7 @@ pageextension 50106 "KLT Purchase Invoice List" extends "Purchase Invoices"
 
                 trigger OnAction()
                 begin
-                    Page.Run(Page::"KLT Document Sync Log BC27");
+                    Page.Run(Page::"KLT Document Sync Log");
                 end;
             }
         }

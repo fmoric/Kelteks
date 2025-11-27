@@ -2,7 +2,7 @@
 /// Log table for document synchronization history
 /// Tracks all document transfers between BC17 and BC27
 /// </summary>
-table 50101 "KLT Document Sync Log"
+table 80102 "KLT Document Sync Log"
 {
     Caption = 'Document Sync Log';
     DataClassification = CustomerContent;
@@ -214,5 +214,62 @@ table 50101 "KLT Document Sync Log"
         "Last Retry DateTime" := CurrentDateTime();
         Status := Status::Retrying;
         Modify(true);
+    end;
+
+    /// <summary>
+    /// Show the source document
+    /// </summary>
+    procedure ShowSourceDocument()
+    var
+        SalesInvHeader: Record "Sales Invoice Header";
+        SalesCrMemoHeader: Record "Sales Cr.Memo Header";
+        PurchInvHeader: Record "Purch. Inv. Header";
+        PurchCrMemoHeader: Record "Purch. Cr. Memo Hdr.";
+    begin
+        if "Source Document No." = '' then
+            exit;
+
+        case "Document Type" of
+            "Document Type"::"Sales Invoice":
+                begin
+                    if SalesInvHeader.Get("Source Document No.") then
+                        Page.Run(Page::"Posted Sales Invoice", SalesInvHeader);
+                end;
+            "Document Type"::"Sales Credit Memo":
+                begin
+                    if SalesCrMemoHeader.Get("Source Document No.") then
+                        Page.Run(Page::"Posted Sales Credit Memo", SalesCrMemoHeader);
+                end;
+            "Document Type"::"Purchase Invoice":
+                begin
+                    if PurchInvHeader.Get("Source Document No.") then
+                        Page.Run(Page::"Posted Purchase Invoice", PurchInvHeader);
+                end;
+            "Document Type"::"Purchase Credit Memo":
+                begin
+                    if PurchCrMemoHeader.Get("Source Document No.") then
+                        Page.Run(Page::"Posted Purchase Credit Memo", PurchCrMemoHeader);
+                end;
+        end;
+    end;
+
+    /// <summary>
+    /// Show the target document
+    /// </summary>
+    procedure ShowTargetDocument()
+    var
+        APIHelper: Codeunit "KLT API Helper";
+        DocumentUrl: Text;
+        TargetDocNotCreatedMsg: Label 'Target document has not been created yet.';
+        TargetDocInfoMsg: Label 'Target Document No.: %1\\Target System ID: %2';
+    begin
+        if "Target Document No." = '' then begin
+            Message(TargetDocNotCreatedMsg);
+            exit;
+        end;
+
+        // For now, just show a message with the target document number
+        // In a full implementation, this could open the target system or show more details
+        Message(TargetDocInfoMsg, "Target Document No.", "Target System ID");
     end;
 }

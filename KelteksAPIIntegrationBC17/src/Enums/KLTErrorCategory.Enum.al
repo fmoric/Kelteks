@@ -1,7 +1,7 @@
 /// <summary>
 /// Error categories for API integration failures
 /// </summary>
-enum 50102 "KLT Error Category"
+enum 80103 "KLT Error Category"
 {
     Extensible = true;
 

@@ -2,13 +2,13 @@
 /// Page KLT Document Sync Log BC27 (ID 50151).
 /// List page showing sync history for BC27.
 /// </summary>
-page 50102 "KLT Document Sync Log"
+page 80102 "KLT Document Sync Log"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "KLT Document Sync Log";
-    Caption = 'Document Sync Log (BC27)';
+    Caption = 'Document Sync Log';
     Editable = false;
     InsertAllowed = false;
     DeleteAllowed = true;
@@ -51,15 +51,10 @@ page 50102 "KLT Document Sync Log"
                     ToolTip = 'Specifies the current status of the synchronization';
                     StyleExpr = StatusStyle;
                 }
-                field("Start DateTime"; Rec."Start DateTime")
+                field("Start DateTime"; Rec."Started DateTime")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies when the synchronization started';
-                }
-                field("End DateTime"; Rec."End DateTime")
-                {
-                    ApplicationArea = All;
-                    ToolTip = 'Specifies when the synchronization completed';
                 }
                 field("Duration (ms)"; Rec."Duration (ms)")
                 {
@@ -80,7 +75,7 @@ page 50102 "KLT Document Sync Log"
         }
         area(FactBoxes)
         {
-            part(SyncStats; "KLT Sync Log FactBox BC27")
+            part(SyncStats; "KLT Sync Log FactBox")
             {
                 ApplicationArea = All;
             }
@@ -142,7 +137,7 @@ page 50102 "KLT Document Sync Log"
                     if not Confirm('Delete logs older than %1 days?', false, 365) then
                         exit;
 
-                    SyncLog.SetFilter("Start DateTime", '<%1', CreateDateTime(CalcDate('<-365D>', Today()), 0T));
+                    SyncLog.SetFilter("Started DateTime", '<%1', CreateDateTime(CalcDate('<-365D>', Today()), 0T));
                     SyncLog.DeleteAll(true);
                     Message('Old logs deleted successfully.');
                 end;

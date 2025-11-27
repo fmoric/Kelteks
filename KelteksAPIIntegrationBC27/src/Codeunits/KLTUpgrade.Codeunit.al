@@ -2,7 +2,7 @@
 /// Upgrade codeunit for migrating from v1.0 (BC17) to v2.0 (BC27)
 /// Handles data migration and schema synchronization
 /// </summary>
-codeunit 50106 "KLT Upgrade"
+codeunit 80106 "KLT Upgrade"
 {
     Subtype = Upgrade;
 
@@ -25,7 +25,7 @@ codeunit 50106 "KLT Upgrade"
         // Configuration data will be preserved automatically during upgrade
         // The "Purchase No. Series" field exists in both versions (with ObsoleteState in v2.0)
         // so no manual migration needed
-        
+
         if APIConfig.Get('') then begin
             // Ensure default values for new version
             if APIConfig."Enable Sync" then begin
@@ -41,9 +41,9 @@ codeunit 50106 "KLT Upgrade"
     begin
         // Sync log data will be preserved automatically
         // Table structure is identical between v1.0 and v2.0
-        
+
         // Optional: Clean up old logs if needed
-        SyncLog.SetFilter("Created DateTime", '<%1', CalcDate('<-1Y>', Today()));
+        SyncLog.SetFilter("Created DateTime", '<%1', CreateDateTime(CalcDate('<-1Y>', Today()), 000000T));
         if not SyncLog.IsEmpty() then begin
             // Option to archive or delete old logs
             // For now, we keep all logs for historical reference

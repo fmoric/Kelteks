@@ -260,6 +260,27 @@ page 80100 "KLT API Configuration"
                     Message('See QUICKSTART-ONPREMISE.md in the extension folder for the fastest setup guide using Basic Authentication.');
                 end;
             }
+            action(RunSyncNow)
+            {
+                ApplicationArea = All;
+                Caption = 'Run Sync Now';
+                Image = Refresh;
+                ToolTip = 'Manually triggers synchronization immediately';
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+
+                trigger OnAction()
+                var
+                    SyncEngine: Codeunit "KLT Sync Engine";
+                begin
+                    if not Confirm('Do you want to run synchronization now?', false) then
+                        exit;
+
+                    SyncEngine.RunScheduledSync();
+                    Message('Synchronization completed. Check sync logs for details.');
+                end;
+            }
         }
     }
 

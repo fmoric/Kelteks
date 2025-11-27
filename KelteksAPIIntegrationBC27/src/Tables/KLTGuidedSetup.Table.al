@@ -2,7 +2,7 @@
 /// Table KLT Guided Setup (ID 50103).
 /// Stores wizard state and configuration during guided setup process.
 /// </summary>
-table 50103 "KLT Guided Setup"
+table 80103 "KLT Guided Setup"
 {
     Caption = 'Guided Setup';
     DataClassification = SystemMetadata;

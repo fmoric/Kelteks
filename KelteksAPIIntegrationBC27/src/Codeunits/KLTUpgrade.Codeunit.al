@@ -2,7 +2,7 @@
 /// Upgrade codeunit for migrating from v1.0 (BC17) to v2.0 (BC27)
 /// Handles data migration and schema synchronization
 /// </summary>
-codeunit 80106 "KLT Upgrade"
+codeunit 80107 "KLT Upgrade"
 {
     Subtype = Upgrade;
 

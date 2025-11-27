@@ -3,7 +3,7 @@
 /// Step-by-step wizard for quick and easy multi-application setup.
 /// Automates environment detection and provides sensible defaults.
 /// </summary>
-page 50103 "KLT Guided Setup Wizard"
+page 80103 "KLT Guided Setup Wizard"
 {
     PageType = NavigatePage;
     ApplicationArea = All;

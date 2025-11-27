@@ -2,7 +2,7 @@
 /// Codeunit KLT Setup Automation (ID 50106).
 /// Provides automated environment detection and setup helpers for the guided wizard.
 /// </summary>
-codeunit 50106 "KLT Setup Automation"
+codeunit 80105 "KLT Setup Automation"
 {
     procedure DetectEnvironment(var GuidedSetup: Record "KLT Guided Setup")
     var

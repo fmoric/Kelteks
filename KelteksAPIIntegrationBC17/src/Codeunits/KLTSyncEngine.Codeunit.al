@@ -2,7 +2,7 @@
 /// Sync Engine for BC17
 /// Orchestrates document synchronization with job queue, retry logic, and batch processing
 /// </summary>
-codeunit 80105 "KLT Sync Engine"
+codeunit 80106 "KLT Sync Engine"
 {
     var
         SalesDocSync: Codeunit "KLT Sales Doc Sync";

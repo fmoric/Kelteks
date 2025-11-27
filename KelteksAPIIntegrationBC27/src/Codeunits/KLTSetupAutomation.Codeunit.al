@@ -2,7 +2,7 @@
 /// Codeunit KLT Setup Automation (ID 50106).
 /// Provides automated environment detection and setup helpers for the guided wizard.
 /// </summary>
-codeunit 50106 "KLT Setup Automation"
+codeunit 80105 "KLT Setup Automation"
 {
     procedure DetectEnvironment(var GuidedSetup: Record "KLT Guided Setup")
     var
@@ -12,7 +12,7 @@ codeunit 50106 "KLT Setup Automation"
         // Note: CompanyInfo.Id is the GUID used in BC API v2.0 endpoints (/api/v2.0/companies({id})/...)
         // Get() retrieves the single record in Company Information table
         if CompanyInfo.Get() then
-            GuidedSetup."Auto-Detected Company ID" := CompanyInfo.Id;
+            GuidedSetup."Auto-Detected Company ID" := CompanyInfo.SystemId;
 
         // Detect deployment type based on environment
         // Note: Simplified logic - treats non-SaaS as on-premise (covers containers, local deployments)

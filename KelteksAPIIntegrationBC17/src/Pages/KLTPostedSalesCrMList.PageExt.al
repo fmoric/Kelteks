@@ -21,8 +21,9 @@ pageextension 80100 "KLT Posted Sales Cr.M List" extends "Posted Sales Credit Me
                 trigger OnAction()
                 var
                     SalesCrMemoHeader: Record "Sales Cr.Memo Header";
-                    SalesDocSync: Codeunit "KLT Sales Doc Sync";
+                    SyncEngine: Codeunit "KLT Sync Engine";
                     SelectedCount: Integer;
+                    QueuedCount: Integer;
                 begin
                     CurrPage.SetSelectionFilter(SalesCrMemoHeader);
                     SelectedCount := SalesCrMemoHeader.Count();
@@ -30,11 +31,19 @@ pageextension 80100 "KLT Posted Sales Cr.M List" extends "Posted Sales Credit Me
                     if SelectedCount = 0 then
                         Error('Please select at least one credit memo to sync.');
 
-                    if not Confirm('Sync %1 credit memo(s) to target?', false, SelectedCount) then
+                    if not Confirm('Queue %1 credit memo(s) for synchronization?', false, SelectedCount) then
                         exit;
 
-                    SalesDocSync.SyncSalesCreditMemos(SalesCrMemoHeader);
-                    Message('%1 credit memo(s) queued for synchronization.', SelectedCount);
+                    // Queue each selected credit memo
+                    QueuedCount := 0;
+                    if SalesCrMemoHeader.FindSet() then begin
+                        repeat
+                            SyncEngine.QueueSalesCreditMemo(SalesCrMemoHeader."No.");
+                            QueuedCount += 1;
+                        until SalesCrMemoHeader.Next() = 0;
+                    end;
+
+                    Message('%1 credit memo(s) queued for synchronization.', QueuedCount);
                 end;
             }
             action(ViewSyncLog)

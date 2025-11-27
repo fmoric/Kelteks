@@ -293,11 +293,17 @@ page 80100 "KLT API Configuration"
     var
         JobQueueEntry: Record "Job Queue Entry";
         SyncIntervalMinutes: Integer;
+        MaxRetryAttempts: Integer;
     begin
         // Get sync interval from configuration
         SyncIntervalMinutes := Rec."Sync Interval (Minutes)";
         if SyncIntervalMinutes = 0 then
             SyncIntervalMinutes := 15; // Default to 15 minutes
+
+        // Get max retry attempts from configuration
+        MaxRetryAttempts := Rec."Max Retry Attempts";
+        if MaxRetryAttempts = 0 then
+            MaxRetryAttempts := 3; // Default to 3 attempts
 
         // Check if job queue entry already exists
         JobQueueEntry.SetRange("Object Type to Run", JobQueueEntry."Object Type to Run"::Codeunit);
@@ -306,6 +312,7 @@ page 80100 "KLT API Configuration"
             // Update existing entry
             JobQueueEntry.Validate(Status, JobQueueEntry.Status::"On Hold");
             JobQueueEntry.Validate("No. of Minutes between Runs", SyncIntervalMinutes);
+            JobQueueEntry.Validate("Maximum No. of Attempts to Run", MaxRetryAttempts);
             JobQueueEntry.Validate("Run on Mondays", true);
             JobQueueEntry.Validate("Run on Tuesdays", true);
             JobQueueEntry.Validate("Run on Wednesdays", true);
@@ -333,7 +340,7 @@ page 80100 "KLT API Configuration"
             JobQueueEntry.Validate("Run on Sundays", true);
             JobQueueEntry.Validate("Starting Time", 000000T);
             JobQueueEntry.Validate("Ending Time", 235959T);
-            JobQueueEntry.Validate("Maximum No. of Attempts to Run", 3);
+            JobQueueEntry.Validate("Maximum No. of Attempts to Run", MaxRetryAttempts);
             JobQueueEntry.Validate("Rerun Delay (sec.)", 60);
             JobQueueEntry.Insert(true);
             JobQueueEntry.Validate(Status, JobQueueEntry.Status::Ready);

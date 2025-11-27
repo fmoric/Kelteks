@@ -1,7 +1,7 @@
 # Documentation Summary - Kelteks API Integration
 
 **Generated**: 2025-11-26  
-**Total Documentation**: ~5,000 lines across 15 markdown files  
+**Total Documentation**: ~5,200 lines across 16 markdown files  
 **Organization**: Grouped in `/docs` for easy navigation
 
 ---
@@ -9,7 +9,8 @@
 ## Quick Reference Card
 
 ### 🚀 **Want to get started?**
-→ [README.md](../README.md) then [Quick Start Guide](guides/QUICKSTART-ONPREMISE.md) (15-20 min setup)
+→ [README.md](../README.md) then **NEW**: [Guided Setup Wizard](guides/GUIDED-SETUP-WIZARD.md) (5-10 min automated setup)  
+→ Alternative: [Quick Start Guide](guides/QUICKSTART-ONPREMISE.md) (15-20 min manual setup)
 
 ### 🏗️ **Need to understand the architecture?**
 → [Architecture Overview](technical/ARCHITECTURE.md) + [Complete Summary](technical/SUMMARY.md)
@@ -45,18 +46,20 @@
 - ✅ Production Ready: YES
 - ✅ No Breaking Changes: Confirmed
 
-### 📁 `/docs/guides/` - User & Setup Guides (4 files, ~1,238 lines)
+### 📁 `/docs/guides/` - User & Setup Guides (5 files, ~1,481 lines)
 
 **Purpose**: Practical guides for users, administrators, and developers
 
 | Document | Lines | Purpose |
 |----------|-------|---------|
-| **QUICKSTART-ONPREMISE.md** | 399 | Fastest setup path (15-20 minutes) using Basic Auth |
+| **GUIDED-SETUP-WIZARD.md** ⭐ NEW | 243 | Automated 5-10 minute setup wizard for both environments |
+| **QUICKSTART-ONPREMISE.md** | 399 | Fastest manual setup path (15-20 minutes) using Basic Auth |
 | **UPGRADE-GUIDE.md** | 360 | Step-by-step upgrade from BC17 to BC27 |
 | **FINAL-REVIEW-CHECKLIST.md** | 249 | Pre-deployment checklist and known issues |
 | **COPILOT-GUIDE.md** | 230 | Developer guide with AL coding patterns |
 
 **Target Audience**:
+- **Guided Setup Wizard** → All users, fastest path (NEW!)
 - Quick Start → End users, first-time setup
 - Upgrade Guide → System administrators
 - Checklist → Project managers, deployment teams

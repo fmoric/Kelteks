@@ -1,7 +1,7 @@
 # Documentation Index - Kelteks API Integration
 
 **Last Updated**: 2025-11-26  
-**Total Documents**: 13 (repository root) + 10 (extensions) = 23 files  
+**Total Documents**: 14 (repository root) + 10 (extensions) = 24 files  
 **Organization**: Grouped in `/docs` folder for easier navigation
 
 ---
@@ -10,7 +10,8 @@
 
 ### 🚀 Getting Started (Start Here)
 - **[README.md](README.md)** - Project overview and quick start
-- **[docs/guides/QUICKSTART-ONPREMISE.md](docs/guides/QUICKSTART-ONPREMISE.md)** - 15-20 minute setup guide
+- **[docs/guides/GUIDED-SETUP-WIZARD.md](docs/guides/GUIDED-SETUP-WIZARD.md)** - ⭐ **NEW** 5-10 minute automated setup wizard
+- **[docs/guides/QUICKSTART-ONPREMISE.md](docs/guides/QUICKSTART-ONPREMISE.md)** - 15-20 minute manual setup guide
 
 ### 📖 Core Documentation
 
@@ -35,6 +36,7 @@
 - **[UPGRADE-TECHNICAL-ANALYSIS.md](docs/technical/UPGRADE-TECHNICAL-ANALYSIS.md)** - Technical analysis of upgrade path
 
 #### Developer Resources (in `docs/guides/`)
+- **[GUIDED-SETUP-WIZARD.md](docs/guides/GUIDED-SETUP-WIZARD.md)** - ⭐ **NEW** Automated setup wizard guide
 - **[COPILOT-GUIDE.md](docs/guides/COPILOT-GUIDE.md)** - Developer guide and coding patterns
 - **[FINAL-REVIEW-CHECKLIST.md](docs/guides/FINAL-REVIEW-CHECKLIST.md)** - Pre-deployment checklist and TODO items
 
@@ -74,6 +76,7 @@ Kelteks/
 │   │   ├── CONSOLIDATION-SUMMARY.md
 │   │   └── FINAL-ANALYSIS.md
 │   ├── guides/            (Setup & user guides)
+│   │   ├── GUIDED-SETUP-WIZARD.md ⭐ NEW
 │   │   ├── QUICKSTART-ONPREMISE.md
 │   │   ├── UPGRADE-GUIDE.md
 │   │   ├── COPILOT-GUIDE.md
@@ -93,9 +96,10 @@ Kelteks/
 
 ### For End Users
 1. Start with [README.md](README.md) for project overview
-2. Use [QUICKSTART-ONPREMISE.md](QUICKSTART-ONPREMISE.md) for fastest setup
-3. Refer to extension-specific [BC17/README.md](KelteksAPIIntegrationBC17/README.md) or [BC27/README.md](KelteksAPIIntegrationBC27/README.md)
-4. Choose authentication setup guide from extension folders
+2. **Recommended**: Use [GUIDED-SETUP-WIZARD.md](docs/guides/GUIDED-SETUP-WIZARD.md) for fastest automated setup (5-10 minutes)
+3. **Alternative**: Use [QUICKSTART-ONPREMISE.md](docs/guides/QUICKSTART-ONPREMISE.md) for manual setup
+4. Refer to extension-specific [BC17/README.md](KelteksAPIIntegrationBC17/README.md) or [BC27/README.md](KelteksAPIIntegrationBC27/README.md)
+5. Choose authentication setup guide from extension folders
 
 ### For System Administrators
 1. Review [ARCHITECTURE.md](ARCHITECTURE.md) to understand design

@@ -1,5 +1,5 @@
 /// <summary>
-/// Custom API Page for Purchase Credit Memo Lines - BC27
+/// Custom API Page for Unposted Purchase Credit Memo Lines - BC27
 /// Exposes only the fields needed for sync to BC17
 /// </summary>
 page 80123 "KLT Purchase Cr. Memo Line API"

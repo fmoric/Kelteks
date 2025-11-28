@@ -1,5 +1,5 @@
 /// <summary>
-/// Custom API Page for Purchase Invoices - BC27
+/// Custom API Page for Unposted Purchase Invoices - BC27
 /// Exposes only the fields needed for sync to BC17
 /// </summary>
 page 80120 "KLT Purchase Invoice API"

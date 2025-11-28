@@ -1,16 +1,16 @@
 /// <summary>
-/// Custom API Page for Unposted Purchase Invoices - BC27
+/// Custom API Page for Unposted Sales Invoices - BC27
 /// Exposes only the fields needed for sync to BC17
 /// </summary>
-page 80120 "KLT Purchase Invoice API"
+page 80120 "KLT Sales Invoice API"
 {
     PageType = API;
     APIPublisher = 'kelteks';
     APIGroup = 'api';
     APIVersion = 'v2.0';
-    EntityName = 'purchaseInvoice';
-    EntitySetName = 'purchaseInvoices';
-    SourceTable = "Purchase Header";
+    EntityName = 'salesInvoice';
+    EntitySetName = 'salesInvoices';
+    SourceTable = "Sales Header";
     DelayedInsert = true;
     ODataKeyFields = SystemId;
     SourceTableView = where("Document Type" = const(Invoice));
@@ -26,11 +26,11 @@ page 80120 "KLT Purchase Invoice API"
                     Caption = 'Id';
                     Editable = false;
                 }
-                field(vendorNumber; Rec."Buy-from Vendor No.")
+                field(customerNumber; Rec."Sell-to Customer No.")
                 {
-                    Caption = 'Vendor Number';
+                    Caption = 'Customer Number';
                 }
-                field(externalDocumentNumber; Rec."Vendor Invoice No.")
+                field(externalDocumentNumber; Rec."External Document No.")
                 {
                     Caption = 'External Document Number';
                 }
@@ -46,41 +46,41 @@ page 80120 "KLT Purchase Invoice API"
                 {
                     Caption = 'Due Date';
                 }
-                field(vendorName; Rec."Buy-from Vendor Name")
+                field(customerName; Rec."Sell-to Customer Name")
                 {
-                    Caption = 'Vendor Name';
+                    Caption = 'Customer Name';
                 }
-                field(payToName; Rec."Pay-to Name")
+                field(billToName; Rec."Bill-to Name")
                 {
-                    Caption = 'Pay-to Name';
+                    Caption = 'Bill-to Name';
                 }
-                field(payToVendorNumber; Rec."Pay-to Vendor No.")
+                field(billToCustomerNumber; Rec."Bill-to Customer No.")
                 {
-                    Caption = 'Pay-to Vendor Number';
+                    Caption = 'Bill-to Customer Number';
                 }
-                field(buyingAddress; Rec."Buy-from Address")
+                field(sellingAddress; Rec."Sell-to Address")
                 {
-                    Caption = 'Buying Address';
+                    Caption = 'Selling Address';
                 }
-                field(buyingAddress2; Rec."Buy-from Address 2")
+                field(sellingAddress2; Rec."Sell-to Address 2")
                 {
-                    Caption = 'Buying Address 2';
+                    Caption = 'Selling Address 2';
                 }
-                field(buyingCity; Rec."Buy-from City")
+                field(sellingCity; Rec."Sell-to City")
                 {
-                    Caption = 'Buying City';
+                    Caption = 'Selling City';
                 }
-                field(buyingPostCode; Rec."Buy-from Post Code")
+                field(sellingPostCode; Rec."Sell-to Post Code")
                 {
-                    Caption = 'Buying Post Code';
+                    Caption = 'Selling Post Code';
                 }
-                field(buyingState; Rec."Buy-from County")
+                field(sellingState; Rec."Sell-to County")
                 {
-                    Caption = 'Buying State';
+                    Caption = 'Selling State';
                 }
-                field(buyingCountryCode; Rec."Buy-from Country/Region Code")
+                field(sellingCountryCode; Rec."Sell-to Country/Region Code")
                 {
-                    Caption = 'Buying Country Code';
+                    Caption = 'Selling Country Code';
                 }
                 field(currencyCode; Rec."Currency Code")
                 {
@@ -90,11 +90,11 @@ page 80120 "KLT Purchase Invoice API"
                 {
                     Caption = 'Payment Terms Code';
                 }
-                part(purchaseInvoiceLines; "KLT Purchase Invoice Line API")
+                part(salesInvoiceLines; "KLT Sales Invoice Line API")
                 {
-                    Caption = 'Purchase Invoice Lines';
-                    EntityName = 'purchaseInvoiceLine';
-                    EntitySetName = 'purchaseInvoiceLines';
+                    Caption = 'Sales Invoice Lines';
+                    EntityName = 'salesInvoiceLine';
+                    EntitySetName = 'salesInvoiceLines';
                     SubPageLink = "Document Type" = field("Document Type"), "Document No." = field("No.");
                 }
             }

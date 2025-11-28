@@ -1,19 +1,19 @@
 /// <summary>
-/// Custom API Page for Unposted Purchase Invoice Lines - BC27
-/// Exposes only the fields needed for sync to BC17
+/// Custom API Page for Unposted Purchase Credit Memo Lines - BC17
+/// Exposes only the fields needed for sync from BC27
 /// </summary>
-page 80121 "KLT Purchase Invoice Line API"
+page 80127 "KLT Purchase Cr. Memo Line API"
 {
     PageType = API;
     APIPublisher = 'kelteks';
     APIGroup = 'api';
     APIVersion = 'v2.0';
-    EntityName = 'purchaseInvoiceLine';
-    EntitySetName = 'purchaseInvoiceLines';
+    EntityName = 'purchaseCreditMemoLine';
+    EntitySetName = 'purchaseCreditMemoLines';
     SourceTable = "Purchase Line";
     DelayedInsert = true;
     ODataKeyFields = SystemId;
-    SourceTableView = where("Document Type" = const(Invoice));
+    SourceTableView = where("Document Type" = const("Credit Memo"));
 
     layout
     {

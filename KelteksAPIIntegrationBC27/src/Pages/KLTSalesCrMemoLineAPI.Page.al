@@ -1,16 +1,16 @@
 /// <summary>
-/// Custom API Page for Unposted Purchase Credit Memo Lines - BC27
+/// Custom API Page for Unposted Sales Credit Memo Lines - BC27
 /// Exposes only the fields needed for sync to BC17
 /// </summary>
-page 80123 "KLT Purchase Cr. Memo Line API"
+page 80123 "KLT Sales Cr. Memo Line API"
 {
     PageType = API;
     APIPublisher = 'kelteks';
     APIGroup = 'api';
     APIVersion = 'v2.0';
-    EntityName = 'purchaseCreditMemoLine';
-    EntitySetName = 'purchaseCreditMemoLines';
-    SourceTable = "Purchase Line";
+    EntityName = 'salesCreditMemoLine';
+    EntitySetName = 'salesCreditMemoLines';
+    SourceTable = "Sales Line";
     DelayedInsert = true;
     ODataKeyFields = SystemId;
     SourceTableView = where("Document Type" = const("Credit Memo"));
@@ -30,9 +30,9 @@ page 80123 "KLT Purchase Cr. Memo Line API"
                 {
                     Caption = 'Line Type';
                 }
-                field(number; Rec."No.")
+                field(lineObjectNumber; Rec."No.")
                 {
-                    Caption = 'Number';
+                    Caption = 'Line Object Number';
                 }
                 field(description; Rec.Description)
                 {
@@ -50,9 +50,9 @@ page 80123 "KLT Purchase Cr. Memo Line API"
                 {
                     Caption = 'Unit of Measure Code';
                 }
-                field(unitCost; Rec."Direct Unit Cost")
+                field(unitPrice; Rec."Unit Price")
                 {
-                    Caption = 'Unit Cost';
+                    Caption = 'Unit Price';
                 }
                 field(lineDiscount; Rec."Line Discount %")
                 {

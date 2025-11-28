@@ -6,7 +6,7 @@ page 80122 "KLT Purchase Cr. Memo API"
 {
     PageType = API;
     APIPublisher = 'kelteks';
-    APIGroup = 'fiskalizacija';
+    APIGroup = 'api';
     APIVersion = 'v2.0';
     EntityName = 'purchaseCreditMemo';
     EntitySetName = 'purchaseCreditMemos';

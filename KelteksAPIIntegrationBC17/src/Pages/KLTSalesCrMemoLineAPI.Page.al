@@ -6,7 +6,7 @@ page 80123 "KLT Sales Cr. Memo Line API"
 {
     PageType = API;
     APIPublisher = 'kelteks';
-    APIGroup = 'fiskalizacija';
+    APIGroup = 'api';
     APIVersion = 'v2.0';
     EntityName = 'salesCreditMemoLine';
     EntitySetName = 'salesCreditMemoLines';

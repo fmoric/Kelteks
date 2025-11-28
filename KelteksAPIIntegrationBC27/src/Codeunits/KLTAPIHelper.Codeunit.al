@@ -13,10 +13,10 @@ codeunit 80101 "KLT API Helper"
         HTTPPostFailedStatusErr: Label 'HTTP POST failed with status %1: %2';
         HTTPPatchFailedConnErr: Label 'HTTP PATCH request failed: Connection error';
         HTTPPatchFailedStatusErr: Label 'HTTP PATCH failed with status %1: %2';
-        SalesInvoicesEndpointTxt: Label '/api/kelteks/fiskalizacija/v2.0/companies(%1)/salesInvoices', Locked = true;
-        SalesCreditMemosEndpointTxt: Label '/api/kelteks/fiskalizacija/v2.0/companies(%1)/salesCreditMemos', Locked = true;
-        PurchaseInvoicesEndpointTxt: Label '/api/kelteks/fiskalizacija/v2.0/companies(%1)/purchaseInvoices', Locked = true;
-        PurchaseCreditMemosEndpointTxt: Label '/api/kelteks/fiskalizacija/v2.0/companies(%1)/purchaseCreditMemos', Locked = true;
+        SalesInvoicesEndpointTxt: Label '/api/kelteks/v2.0/companies(%1)/salesInvoices', Locked = true;
+        SalesCreditMemosEndpointTxt: Label '/api/kelteks/v2.0/companies(%1)/salesCreditMemos', Locked = true;
+        PurchaseInvoicesEndpointTxt: Label '/api/kelteks/v2.0/companies(%1)/purchaseInvoices', Locked = true;
+        PurchaseCreditMemosEndpointTxt: Label '/api/kelteks/v2.0/companies(%1)/purchaseCreditMemos', Locked = true;
         CompaniesEndpointTxt: Label '/api/v2.0/companies', Locked = true;
         ErrorContextTxt: Label '%1 - Context: %2', Locked = true;
 
@@ -210,42 +210,33 @@ codeunit 80101 "KLT API Helper"
     /// <summary>
     /// Builds Sales Invoice API endpoint
     /// </summary>
-    procedure GetSalesInvoiceEndpoint(CompanyId: Guid): Text
+    procedure GetSalesInvoiceEndpoint(CompanyName: Text): Text
     begin
-        exit(StrSubstNo(SalesInvoicesEndpointTxt, GetGuidText(CompanyId)));
+        exit(StrSubstNo(SalesInvoicesEndpointTxt, Uri.EscapeDataString(CompanyName)));
     end;
 
     /// <summary>
     /// Builds Sales Credit Memo API endpoint
     /// </summary>
-    procedure GetSalesCreditMemoEndpoint(CompanyId: Guid): Text
+    procedure GetSalesCreditMemoEndpoint(CompanyName: Text): Text
     begin
-        exit(StrSubstNo(SalesCreditMemosEndpointTxt, GetGuidText(CompanyId)));
+        exit(StrSubstNo(SalesCreditMemosEndpointTxt, Uri.EscapeDataString(CompanyName)));
     end;
 
     /// <summary>
     /// Builds Purchase Invoice API endpoint
     /// </summary>
-    procedure GetPurchaseInvoiceEndpoint(CompanyId: Guid): Text
+    procedure GetPurchaseInvoiceEndpoint(CompanyName: Text): Text
     begin
-        exit(StrSubstNo(PurchaseInvoicesEndpointTxt, GetGuidText(CompanyId)));
+        exit(StrSubstNo(PurchaseInvoicesEndpointTxt, Uri.EscapeDataString(CompanyName)));
     end;
 
     /// <summary>
     /// Builds Purchase Credit Memo API endpoint
     /// </summary>
-    procedure GetPurchaseCreditMemoEndpoint(CompanyId: Guid): Text
+    procedure GetPurchaseCreditMemoEndpoint(CompanyName: Text): Text
     begin
-        exit(StrSubstNo(PurchaseCreditMemosEndpointTxt, GetGuidText(CompanyId)));
-    end;
-
-    local procedure GetGuidText(GuidValue: Guid): Text
-    var
-        GuidText: Text;
-    begin
-        GuidText := Format(GuidValue);
-        GuidText := DelChr(GuidText, '=', '{}'); // Remove curly braces
-        exit(GuidText);
+        exit(StrSubstNo(PurchaseCreditMemosEndpointTxt, Uri.EscapeDataString(CompanyName)));
     end;
 
     /// <summary>

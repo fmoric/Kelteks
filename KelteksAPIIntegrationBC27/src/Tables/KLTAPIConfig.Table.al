@@ -32,9 +32,9 @@ table 80100 "KLT API Config"
             DataClassification = CustomerContent;
             ExtendedDatatype = URL;
         }
-        field(11; "Target Company ID"; Guid)
+        field(11; "Target Company Name"; Text[50])
         {
-            Caption = 'Company ID';
+            Caption = 'Company Name';
             DataClassification = CustomerContent;
         }
         field(12; "Target Client ID"; Text[250])

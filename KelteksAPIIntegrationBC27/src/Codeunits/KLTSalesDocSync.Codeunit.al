@@ -64,7 +64,7 @@ codeunit 80104 "KLT Sales Doc Sync"
         DocumentsCreated := 0;
 
         // Get sales invoices from target
-        Endpoint := APIHelper.GetSalesInvoiceEndpoint(APIConfig."Target Company ID");
+        Endpoint := APIHelper.GetSalesInvoiceEndpoint(APIConfig."Target Company Name");
         if not APIHelper.SendGetRequest(Endpoint, ResponseJson) then
             exit(0);
 
@@ -98,7 +98,7 @@ codeunit 80104 "KLT Sales Doc Sync"
         DocumentsCreated := 0;
 
         // Get sales credit memos from target
-        Endpoint := APIHelper.GetSalesCreditMemoEndpoint(APIConfig."Target Company ID");
+        Endpoint := APIHelper.GetSalesCreditMemoEndpoint(APIConfig."Target Company Name");
         if not APIHelper.SendGetRequest(Endpoint, ResponseJson) then
             exit(0);
 
@@ -505,7 +505,7 @@ codeunit 80104 "KLT Sales Doc Sync"
         end;
 
         // Send to target
-        Endpoint := APIHelper.GetSalesInvoiceEndpoint(APIConfig."Target Company ID");
+        Endpoint := APIHelper.GetSalesInvoiceEndpoint(APIConfig."Target Company Name");
         if not APIHelper.SendPostRequest(Endpoint, RequestJson, ResponseJson) then begin
             UpdateSyncLogError(SyncLogEntryNo, APIRequestFailedErr, "KLT Error Category"::"API Communication");
             exit(false);
@@ -548,7 +548,7 @@ codeunit 80104 "KLT Sales Doc Sync"
         end;
 
         // Send to target
-        Endpoint := APIHelper.GetSalesCreditMemoEndpoint(APIConfig."Target Company ID");
+        Endpoint := APIHelper.GetSalesCreditMemoEndpoint(APIConfig."Target Company Name");
         if not APIHelper.SendPostRequest(Endpoint, RequestJson, ResponseJson) then begin
             UpdateSyncLogError(SyncLogEntryNo, APIRequestFailedErr, "KLT Error Category"::"API Communication");
             exit(false);

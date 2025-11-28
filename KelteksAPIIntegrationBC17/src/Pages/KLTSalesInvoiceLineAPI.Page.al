@@ -6,7 +6,7 @@ page 80121 "KLT Sales Invoice Line API"
 {
     PageType = API;
     APIPublisher = 'kelteks';
-    APIGroup = 'fiskalizacija';
+    APIGroup = 'api';
     APIVersion = 'v2.0';
     EntityName = 'salesInvoiceLine';
     EntitySetName = 'salesInvoiceLines';

@@ -13,10 +13,10 @@ codeunit 80101 "KLT API Helper"
         HTTPPostFailedStatusErr: Label 'HTTP POST failed with status %1: %2';
         HTTPPatchFailedConnErr: Label 'HTTP PATCH request failed: Connection error';
         HTTPPatchFailedStatusErr: Label 'HTTP PATCH failed with status %1: %2';
-        SalesInvoicesEndpointTxt: Label '/api/v2.0/companies(%1)/salesInvoices', Locked = true;
-        SalesCreditMemosEndpointTxt: Label '/api/v2.0/companies(%1)/salesCreditMemos', Locked = true;
-        PurchaseInvoicesEndpointTxt: Label '/api/v2.0/companies(%1)/purchaseInvoices', Locked = true;
-        PurchaseCreditMemosEndpointTxt: Label '/api/v2.0/companies(%1)/purchaseCreditMemos', Locked = true;
+        SalesInvoicesEndpointTxt: Label '/api/kelteks/v2.0/companies(%1)/salesInvoices', Locked = true;
+        SalesCreditMemosEndpointTxt: Label '/api/kelteks/v2.0/companies(%1)/salesCreditMemos', Locked = true;
+        PurchaseInvoicesEndpointTxt: Label '/api/kelteks/v2.0/companies(%1)/purchaseInvoices', Locked = true;
+        PurchaseCreditMemosEndpointTxt: Label '/api/kelteks/v2.0/companies(%1)/purchaseCreditMemos', Locked = true;
         CompaniesEndpointTxt: Label '/api/v2.0/companies', Locked = true;
         ErrorContextTxt: Label '%1 - Context: %2', Locked = true;
 
@@ -209,43 +209,53 @@ codeunit 80101 "KLT API Helper"
 
     /// <summary>
     /// Builds Sales Invoice API endpoint
+    /// Uses company name for user-friendly URLs
+    /// BC API v2.0 format: /api/{publisher}/{group}/{version}/companies({identifier})/{entity}
     /// </summary>
-    procedure GetSalesInvoiceEndpoint(CompanyId: Guid): Text
+    procedure GetSalesInvoiceEndpoint(CompanyName: Text): Text
     begin
-        exit(StrSubstNo(SalesInvoicesEndpointTxt, GetGuidText(CompanyId)));
+        exit(StrSubstNo(SalesInvoicesEndpointTxt, Uri.EscapeDataString(CompanyName)));
     end;
 
     /// <summary>
     /// Builds Sales Credit Memo API endpoint
+    /// Uses company name for user-friendly URLs
     /// </summary>
-    procedure GetSalesCreditMemoEndpoint(CompanyId: Guid): Text
+    procedure GetSalesCreditMemoEndpoint(CompanyName: Text): Text
     begin
-        exit(StrSubstNo(SalesCreditMemosEndpointTxt, GetGuidText(CompanyId)));
+        exit(StrSubstNo(SalesCreditMemosEndpointTxt, Uri.EscapeDataString(CompanyName)));
     end;
 
     /// <summary>
     /// Builds Purchase Invoice API endpoint
+    /// Uses company name for user-friendly URLs
     /// </summary>
-    procedure GetPurchaseInvoiceEndpoint(CompanyId: Guid): Text
+    procedure GetPurchaseInvoiceEndpoint(CompanyName: Text): Text
     begin
-        exit(StrSubstNo(PurchaseInvoicesEndpointTxt, GetGuidText(CompanyId)));
+        exit(StrSubstNo(PurchaseInvoicesEndpointTxt, Uri.EscapeDataString(CompanyName)));
     end;
 
     /// <summary>
     /// Builds Purchase Credit Memo API endpoint
+    /// Uses company name for user-friendly URLs
     /// </summary>
-    procedure GetPurchaseCreditMemoEndpoint(CompanyId: Guid): Text
+    procedure GetPurchaseCreditMemoEndpoint(CompanyName: Text): Text
     begin
-        exit(StrSubstNo(PurchaseCreditMemosEndpointTxt, GetGuidText(CompanyId)));
+        exit(StrSubstNo(PurchaseCreditMemosEndpointTxt, Uri.EscapeDataString(CompanyName)));
     end;
 
-    local procedure GetGuidText(GuidValue: Guid): Text
+    /// <summary>
+    /// Gets company SystemId from company name (for GUID-based endpoints if needed)
+    /// This is a helper for maximum BC compatibility
+    /// </summary>
+    procedure GetCompanySystemId(CompanyName: Text): Guid
     var
-        GuidText: Text;
+        Company: Record Company;
     begin
-        GuidText := Format(GuidValue);
-        GuidText := DelChr(GuidText, '=', '{}'); // Remove curly braces
-        exit(GuidText);
+        Company.SetRange(Name, CompanyName);
+        if Company.FindFirst() then
+            exit(Company.SystemId);
+        exit(CreateGuid()); // Return empty GUID if not found
     end;
 
     /// <summary>

@@ -30,7 +30,7 @@ codeunit 80103 "KLT Purchase Doc Sync"
         DocumentsCreated := 0;
 
         // Get purchase invoices from target
-        Endpoint := APIHelper.GetPurchaseInvoiceEndpoint(APIConfig."Target Company ID");
+        Endpoint := APIHelper.GetPurchaseInvoiceEndpoint(APIConfig."Target Company Name");
         if not APIHelper.SendGetRequest(Endpoint, ResponseJson) then
             exit(0);
 
@@ -64,7 +64,7 @@ codeunit 80103 "KLT Purchase Doc Sync"
         DocumentsCreated := 0;
 
         // Get purchase credit memos from target
-        Endpoint := APIHelper.GetPurchaseCreditMemoEndpoint(APIConfig."Target Company ID");
+        Endpoint := APIHelper.GetPurchaseCreditMemoEndpoint(APIConfig."Target Company Name");
         if not APIHelper.SendGetRequest(Endpoint, ResponseJson) then
             exit(0);
 

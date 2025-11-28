@@ -7,6 +7,7 @@ codeunit 80104 "KLT Sales Doc Sync"
     var
         APIHelper: Codeunit "KLT API Helper";
         Validator: Codeunit "KLT Document Validator";
+        BaseSyncHelper: Codeunit "KLT Base Sync Helper";
         FailedBuildJSONErr: Label 'Failed to build JSON request';
         APIRequestFailedErr: Label 'API request failed';
         SyncedInvoicesMsgLbl: Label 'Synced %1 of %2 sales invoices.';
@@ -80,7 +81,7 @@ codeunit 80104 "KLT Sales Doc Sync"
         end;
 
         // Send to target
-        Endpoint := APIHelper.GetSalesInvoiceEndpoint(APIConfig."Target Company ID");
+        Endpoint := APIHelper.GetSalesInvoiceEndpoint(APIConfig."Target Company Name");
         if not APIHelper.SendPostRequest(Endpoint, RequestJson, ResponseJson) then begin
             UpdateSyncLogError(SyncLogEntryNo, APIRequestFailedErr, "KLT Error Category"::"API Communication");
             exit(false);
@@ -123,7 +124,7 @@ codeunit 80104 "KLT Sales Doc Sync"
         end;
 
         // Send to target
-        Endpoint := APIHelper.GetSalesCreditMemoEndpoint(APIConfig."Target Company ID");
+        Endpoint := APIHelper.GetSalesCreditMemoEndpoint(APIConfig."Target Company Name");
         if not APIHelper.SendPostRequest(Endpoint, RequestJson, ResponseJson) then begin
             UpdateSyncLogError(SyncLogEntryNo, APIRequestFailedErr, "KLT Error Category"::"API Communication");
             exit(false);
@@ -417,7 +418,7 @@ codeunit 80104 "KLT Sales Doc Sync"
         DocumentsCreated := 0;
 
         // Get sales invoices from target
-        Endpoint := APIHelper.GetSalesInvoiceEndpoint(APIConfig."Target Company ID");
+        Endpoint := APIHelper.GetSalesInvoiceEndpoint(APIConfig."Target Company Name");
         if not APIHelper.SendGetRequest(Endpoint, ResponseJson) then
             exit(0);
 
@@ -451,7 +452,7 @@ codeunit 80104 "KLT Sales Doc Sync"
         DocumentsCreated := 0;
 
         // Get sales credit memos from target
-        Endpoint := APIHelper.GetSalesCreditMemoEndpoint(APIConfig."Target Company ID");
+        Endpoint := APIHelper.GetSalesCreditMemoEndpoint(APIConfig."Target Company Name");
         if not APIHelper.SendGetRequest(Endpoint, ResponseJson) then
             exit(0);
 

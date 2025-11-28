@@ -15,8 +15,8 @@ codeunit 80101 "KLT API Helper"
         HTTPPatchFailedStatusErr: Label 'HTTP PATCH failed with status %1: %2';
         SalesInvoicesEndpointTxt: Label '/api/kelteks/v2.0/companies(%1)/salesInvoices', Locked = true;
         SalesCreditMemosEndpointTxt: Label '/api/kelteks/v2.0/companies(%1)/salesCreditMemos', Locked = true;
-        PurchaseInvoicesEndpointTxt: Label '/api/kelteks/v2.0/companies(%1)/purchaseInvoices', Locked = true;
-        PurchaseCreditMemosEndpointTxt: Label '/api/kelteks/v2.0/companies(%1)/purchaseCreditMemos', Locked = true;
+        PurchaseInvoicesEndpointTxt: Label '/api/v2.0/companies(%1)/purchaseInvoices', Locked = true;
+        PurchaseCreditMemosEndpointTxt: Label '/api/v2.0/companies(%1)/purchaseCreditMemos', Locked = true;
         CompaniesEndpointTxt: Label '/api/v2.0/companies', Locked = true;
         ErrorContextTxt: Label '%1 - Context: %2', Locked = true;
 

@@ -246,6 +246,42 @@ page 80100 "KLT API Configuration"
                     Message('Job queue entry created successfully for %1-minute interval.', Rec."Sync Interval (Minutes)");
                 end;
             }
+            action(PublishWebServices)
+            {
+                ApplicationArea = All;
+                Caption = 'Publish API Web Services';
+                Image = Web;
+                ToolTip = 'Publishes the KLT API pages as web services for receiving data from BC27';
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+
+                trigger OnAction()
+                var
+                    WebServiceSetup: Codeunit "KLT Web Service Setup";
+                begin
+                    WebServiceSetup.PublishAllAPIWebServices();
+                end;
+            }
+            action(VerifyWebServices)
+            {
+                ApplicationArea = All;
+                Caption = 'Verify Web Services';
+                Image = CheckList;
+                ToolTip = 'Verifies that all required API web services are published and accessible';
+                Promoted = true;
+                PromotedCategory = Process;
+
+                trigger OnAction()
+                var
+                    WebServiceSetup: Codeunit "KLT Web Service Setup";
+                begin
+                    if WebServiceSetup.VerifyWebServicesPublished() then
+                        Message('All API web services are published and ready.')
+                    else
+                        Message('Some API web services are not published. Use "Publish API Web Services" action to publish them.');
+                end;
+            }
             action(QuickSetupGuide)
             {
                 ApplicationArea = All;

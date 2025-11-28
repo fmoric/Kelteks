@@ -209,6 +209,8 @@ codeunit 80101 "KLT API Helper"
 
     /// <summary>
     /// Builds Sales Invoice API endpoint
+    /// Uses company name for user-friendly URLs
+    /// BC API v2.0 format: /api/{publisher}/{group}/{version}/companies({identifier})/{entity}
     /// </summary>
     procedure GetSalesInvoiceEndpoint(CompanyName: Text): Text
     begin
@@ -217,6 +219,7 @@ codeunit 80101 "KLT API Helper"
 
     /// <summary>
     /// Builds Sales Credit Memo API endpoint
+    /// Uses company name for user-friendly URLs
     /// </summary>
     procedure GetSalesCreditMemoEndpoint(CompanyName: Text): Text
     begin
@@ -225,6 +228,7 @@ codeunit 80101 "KLT API Helper"
 
     /// <summary>
     /// Builds Purchase Invoice API endpoint
+    /// Uses company name for user-friendly URLs
     /// </summary>
     procedure GetPurchaseInvoiceEndpoint(CompanyName: Text): Text
     begin
@@ -233,10 +237,25 @@ codeunit 80101 "KLT API Helper"
 
     /// <summary>
     /// Builds Purchase Credit Memo API endpoint
+    /// Uses company name for user-friendly URLs
     /// </summary>
     procedure GetPurchaseCreditMemoEndpoint(CompanyName: Text): Text
     begin
         exit(StrSubstNo(PurchaseCreditMemosEndpointTxt, Uri.EscapeDataString(CompanyName)));
+    end;
+
+    /// <summary>
+    /// Gets company SystemId from company name (for GUID-based endpoints if needed)
+    /// This is a helper for maximum BC compatibility
+    /// </summary>
+    procedure GetCompanySystemId(CompanyName: Text): Guid
+    var
+        Company: Record Company;
+    begin
+        Company.SetRange(Name, CompanyName);
+        if Company.FindFirst() then
+            exit(Company.SystemId);
+        exit(CreateGuid()); // Return empty GUID if not found
     end;
 
     /// <summary>
